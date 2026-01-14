@@ -29,8 +29,9 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Google Sans Flex', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 8.5pt;
+  font-weight: 300;
   line-height: 1.3;
   color: var(--text-color);
   background: var(--bg-color);
@@ -49,48 +50,76 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: flex-end;
+  /* Align icons to the right */
+  width: auto;
+  max-width: 250px;
+}
+
+/* Font Options Removed */
+
+.export-btn,
+.reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  min-width: 44px;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 22px;
+  /* Circular by default */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .export-btn {
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  transition: all 0.3s ease;
-}
-
-.export-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-}
-
-.export-btn:active {
-  transform: translateY(0);
 }
 
 .reset-btn {
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
   background: #e53e3e;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4);
-  transition: all 0.3s ease;
+}
+
+.btn-text {
+  max-width: 0;
+  opacity: 0;
+  margin-left: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.export-btn:hover,
+.reset-btn:hover {
+  padding: 12px 24px;
+  border-radius: 8px;
+  /* Expand to rectangle */
+  transform: translateY(-2px);
+}
+
+.export-btn:hover .btn-text,
+.reset-btn:hover .btn-text {
+  max-width: 150px;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+.export-btn:hover {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
 .reset-btn:hover {
-  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(229, 62, 62, 0.5);
 }
 
+.export-btn:active,
 .reset-btn:active {
   transform: translateY(0);
 }
@@ -119,51 +148,42 @@ body {
 }
 
 .name {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 24pt;
   /* Reduced from 32pt */
-  font-weight: 300;
+  font-weight: 600;
+  /* Increased weight for better display in Space Grotesk */
   color: var(--primary-color);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.5px;
+  /* Tighter letter spacing for Space Grotesk */
   line-height: 1;
 }
 
 .header-right {
-  text-align: right;
-  font-size: 7.5pt;
-  color: var(--text-light);
-  padding-top: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 1px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 7.5pt;
+  color: var(--text-light);
 }
 
-/* Make contact items more compact, potentially 2 items per line if needed, 
-   but strictly standard resume is usually stacked or single line. 
-   Let's keep stacked but very tight, or move to grid. 
-   User asked to "avoid bottom overflowing", so saving vertical space is key.
-*/
-.contact-info-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+.contact-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  /* Two columns for phone/location and email/linkedin */
+  column-gap: 12px;
+  row-gap: 1px;
+  justify-items: end;
 }
 
 .contact-item {
-  display: inline-flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 3px;
-  margin-bottom: 0;
   line-height: 1.1;
 }
 
-.contact-item .icon {
-  font-size: 9px;
-}
-
 .start-date {
-  margin-top: 1px;
+  margin-top: 2px;
   font-weight: 500;
   color: var(--text-color);
 }
@@ -182,8 +202,10 @@ body {
 }
 
 .section-title {
-  font-size: 10.5pt;
-  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11pt;
+  /* Slightly increased */
+  font-weight: 700;
   color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -191,6 +213,11 @@ body {
   margin-bottom: 3px;
   padding-bottom: 2px;
   border-bottom: 1px solid var(--border-color);
+}
+
+/* Common Utility Class */
+.text-medium {
+  font-weight: 500;
 }
 
 /* Education */
@@ -209,7 +236,6 @@ body {
 }
 
 .degree {
-  font-weight: 700;
   font-size: 9.5pt;
   color: var(--text-color);
 }
@@ -223,13 +249,11 @@ body {
 .school {
   font-size: 9pt;
   color: var(--text-color);
-  font-weight: 400;
 }
 
 .gpa {
   font-size: 9pt;
   color: var(--accent-color);
-  font-weight: 600;
   margin-left: 6px;
 }
 
@@ -240,7 +264,6 @@ body {
 }
 
 .skill-label {
-  font-weight: 600;
   color: var(--primary-color);
 }
 
@@ -279,7 +302,7 @@ body {
   position: relative;
   padding-left: 12px;
   margin-bottom: 1px;
-  font-size: 7.5pt;
+  font-size: 8pt;
   color: var(--text-light);
 }
 
@@ -288,7 +311,7 @@ body {
   position: absolute;
   left: 2px;
   color: var(--text-color);
-  font-size: 7pt;
+  font-size: 8pt;
 }
 
 /* Experience */
@@ -303,7 +326,6 @@ body {
 }
 
 .job-title {
-  font-weight: 700;
   font-size: 9.5pt;
   color: var(--text-color);
 }
@@ -324,7 +346,6 @@ body {
   font-size: 8pt;
   color: var(--text-light);
   margin-bottom: 1px;
-  font-weight: 600;
 }
 
 .tech-stack {
@@ -340,7 +361,6 @@ body {
 }
 
 .project-title {
-  font-weight: 700;
   font-size: 9pt;
   color: var(--text-color);
 }
@@ -378,13 +398,10 @@ body {
   color: var(--text-light);
 }
 
-.leadership-content p strong {
-  color: var(--text-color);
-}
-
-.leadership-content .compact-list {
-  margin-left: 10px;
-  margin-bottom: 2px;
+.leadership-content p strong,
+.compact-list li strong {
+  font-weight: 400;
+  color: var(--primary-color);
 }
 
 /* Contenteditable Styles */
