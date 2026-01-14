@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   exportBtn.addEventListener('click', function () {
     // Add exporting state
     exportBtn.disabled = true;
-    exportBtn.textContent = '⏳ Generating PDF...';
+    exportBtn.innerHTML = '⏳ <span class="btn-text">Generating PDF...</span>';
 
     // Temporarily hide contenteditable visual cues
     const editables = document.querySelectorAll('[contenteditable="true"]');
@@ -53,12 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(() => {
         // Reset button
         exportBtn.disabled = false;
-        exportBtn.textContent = '📄 Export PDF';
+        exportBtn.innerHTML = '📄 <span class="btn-text">Export PDF</span>';
       })
       .catch((error) => {
         console.error('PDF Export Error:', error);
         exportBtn.disabled = false;
-        exportBtn.textContent = '📄 Export PDF';
+        exportBtn.innerHTML = '📄 <span class="btn-text">Export PDF</span>';
         alert('Error generating PDF. Please try again.');
       });
   });
@@ -81,44 +81,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Load saved content on page load
   loadContent();
-});
 
-/**
- * Save all editable content to localStorage
- */
-function saveContent() {
-  const editables = document.querySelectorAll('[contenteditable="true"]');
-  const content = {};
 
-  editables.forEach((el, index) => {
-    content[`editable_${index}`] = el.innerHTML;
-  });
 
-  localStorage.setItem('resumeContent', JSON.stringify(content));
-}
-
-/**
- * Load saved content from localStorage
- */
-function loadContent() {
-  const saved = localStorage.getItem('resumeContent');
-
-  if (saved) {
-    const content = JSON.parse(saved);
+  /**
+   * Save all editable content to localStorage
+   */
+  function saveContent() {
     const editables = document.querySelectorAll('[contenteditable="true"]');
+    const content = {};
 
     editables.forEach((el, index) => {
-      if (content[`editable_${index}`]) {
-        el.innerHTML = content[`editable_${index}`];
-      }
+      content[`editable_${index}`] = el.innerHTML;
     });
-  }
-}
 
-/**
- * Clear saved content (optional utility)
- */
-function clearSavedContent() {
-  localStorage.removeItem('resumeContent');
-  location.reload();
-}
+    localStorage.setItem('resumeContent', JSON.stringify(content));
+  }
+
+  /**
+   * Load saved content from localStorage
+   */
+  function loadContent() {
+    const saved = localStorage.getItem('resumeContent');
+
+    if (saved) {
+      const content = JSON.parse(saved);
+      const editables = document.querySelectorAll('[contenteditable="true"]');
+
+      editables.forEach((el, index) => {
+        if (content[`editable_${index}`]) {
+          el.innerHTML = content[`editable_${index}`];
+        }
+      });
+    }
+  }
+
+  /**
+   * Clear saved content (optional utility)
+   */
+  function clearSavedContent() {
+    localStorage.removeItem('resumeContent');
+    location.reload();
+  }
+});

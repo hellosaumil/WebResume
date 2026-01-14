@@ -9,14 +9,16 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
   <div class="controls no-print">
-    <button id="exportPdf" class="export-btn">📄 Export PDF</button>
-    <button id="resetContent" class="reset-btn" style="background: #e53e3e;">🔄 Reset
-      Content</button>
+    <button id="exportPdf" class="export-btn">📄 <span class="btn-text">Export PDF</span></button>
+    <button id="resetContent" class="reset-btn" style="background: #e53e3e;">🔄 <span class="btn-text">Reset
+        Content</span></button>
   </div>
 
   <div class="resume-page" id="resume">
@@ -26,29 +28,13 @@
         <h1 class="name" contenteditable="true">Saumil Shah</h1>
       </div>
       <div class="header-right">
-        <div class="contact-info-row">
-          <div class="contact-item">
-            <span class="icon">📞</span>
-            <span contenteditable="true">(123)-456-7890</span>
-          </div>
-          <div class="contact-item" style="margin-left: 12px;">
-            <span class="icon">📍</span>
-            <span contenteditable="true">San Diego, CA</span>
-          </div>
+        <div class="contact-grid">
+          <div class="contact-item" contenteditable="true">(858)-324-4496</div>
+          <div class="contact-item" contenteditable="true">ssh.saumil@gmail.com</div>
+          <div class="contact-item" contenteditable="true">San Diego, CA</div>
+          <div class="contact-item" contenteditable="true">linkedin.com/in/hellosaumil</div>
         </div>
-        <div class="contact-info-row">
-          <div class="contact-item">
-            <span class="icon">✉️</span>
-            <span contenteditable="true">helloabcdefg@gmail.com</span>
-          </div>
-          <div class="contact-item" style="margin-left: 12px;">
-            <span class="icon">🔗</span>
-            <span contenteditable="true">linkedin.com/in/helloabcdefg</span>
-          </div>
-        </div>
-        <div class="contact-item start-date">
-          <span contenteditable="true">Start Date: Immediate (willing to relocate)</span>
-        </div>
+        <div class="start-date" contenteditable="true">Start Date: Immediate (willing to relocate)</div>
       </div>
     </header>
 
@@ -58,21 +44,22 @@
       <!-- Education -->
       <section class="section">
         <h2 class="section-title">
-          <span class="section-icon">🎓</span> Education
+          Education
         </h2>
         <div class="education-item">
           <div class="edu-header">
-            <span class="degree" contenteditable="true">Master of Science, Computer Science</span>
+            <span class="degree text-medium" contenteditable="true">Master of Science, Computer Science</span>
             <span class="edu-date" contenteditable="true">Aug 2020</span>
           </div>
           <div class="edu-details">
             <span class="school" contenteditable="true">San Diego State University</span>
-            <span class="gpa" contenteditable="true">GPA 3.8</span>
+            <span class="gpa text-medium" contenteditable="true">GPA 3.8</span>
           </div>
         </div>
         <div class="education-item">
           <div class="edu-header">
-            <span class="degree" contenteditable="true">Bachelor of Technology, Information and Communication
+            <span class="degree text-medium" contenteditable="true">Bachelor of Technology, Information and
+              Communication
               Technology</span>
             <span class="edu-date" contenteditable="true">May 2017</span>
           </div>
@@ -85,15 +72,15 @@
       <!-- Skills -->
       <section class="section">
         <h2 class="section-title">
-          <span class="section-icon">💻</span> Skills
+          Technical Skills
         </h2>
         <div class="skills-item">
-          <span class="skill-label">Programming:</span>
+          <span class="skill-label text-medium">Programming:</span>
           <span class="skill-value" contenteditable="true">Python, C, Java, Shell Script (Bash), HTML/CSS, Swift, C++,
             C#</span>
         </div>
         <div class="skills-item">
-          <span class="skill-label">APIs & Frameworks:</span>
+          <span class="skill-label text-medium">APIs & Frameworks:</span>
           <span class="skill-value" contenteditable="true">Redis, RabbitMQ, FastAPI, Flask, TensorFlow, PyTorch, Keras,
             Scikit-Learn, Pandas, Apache Spark, PySpark, AWS (EMR, EC2, S3), GCP (GKE), Xcode, MATLAB</span>
         </div>
@@ -102,7 +89,7 @@
       <!-- Publications & Awards -->
       <section class="section">
         <h2 class="section-title">
-          <span class="section-icon">🏆</span> Publications & Awards
+          Publications & Awards
         </h2>
         <ul class="compact-list">
           <li contenteditable="true"><strong>Publication:</strong> "Real-time Face Recognition in HD Videos" doi:
@@ -117,13 +104,13 @@
       <!-- Experience -->
       <section class="section">
         <h2 class="section-title">
-          <span class="section-icon">💼</span> Experience
+          Experience
         </h2>
 
         <!-- Qualcomm -->
         <div class="experience-item">
           <div class="exp-header">
-            <span class="job-title" contenteditable="true">Senior GPU Software Engineer</span>
+            <span class="job-title text-medium" contenteditable="true">Senior GPU Software Engineer</span>
             <span class="exp-date" contenteditable="true">Sep 2021 - Present</span>
           </div>
           <div class="company" contenteditable="true">Qualcomm — San Diego, CA</div>
@@ -150,7 +137,7 @@
         <!-- KORE Wireless -->
         <div class="experience-item">
           <div class="exp-header">
-            <span class="job-title" contenteditable="true">Data Science Developer</span>
+            <span class="job-title text-medium" contenteditable="true">Data Science Developer</span>
             <span class="exp-date" contenteditable="true">Jan 2021 - Sep 2021</span>
           </div>
           <div class="company" contenteditable="true">KORE Wireless — Blue Ash, Cincinnati, OH</div>
@@ -171,12 +158,13 @@
           <!-- MBARCO -->
           <div class="experience-item">
             <div class="exp-header">
-              <span class="job-title" contenteditable="true">Associate Researcher</span>
+              <span class="job-title text-medium" contenteditable="true">Associate Researcher</span>
               <span class="exp-date" contenteditable="true">July 2020 - Oct 2020</span>
             </div>
             <div class="company" contenteditable="true">MBARCO at SDSU & Scripps Institution of Oceanography, UCSD — San
               Diego, CA</div>
-            <div class="thesis" contenteditable="true">Master's Thesis: "Learning to Detect Odontocete Whistles from
+            <div class="thesis text-medium" contenteditable="true">Master's Thesis: "Learning to Detect Odontocete
+              Whistles from
               Generative Synthetic Samples"</div>
             <div class="tech-stack" contenteditable="true">Deep Learning, Bio-Acoustics, CycleGAN, WGAN, CNN, UNet,
               ResNets, PatchGAN; Python, PyTorch, CUDA, MATLAB</div>
@@ -193,7 +181,7 @@
           <!-- HireValley -->
           <div class="experience-item">
             <div class="exp-header">
-              <span class="job-title" contenteditable="true">Research Engineering Intern</span>
+              <span class="job-title text-medium" contenteditable="true">Research Engineering Intern</span>
               <span class="exp-date" contenteditable="true">Nov 2016 - Apr 2017</span>
             </div>
             <div class="company" contenteditable="true">HireValley Inc — Ahmedabad, India</div>
@@ -213,12 +201,13 @@
       <!-- Projects -->
       <section class="section">
         <h2 class="section-title">
-          <span class="section-icon">🚀</span> Projects
+          Projects
         </h2>
 
         <!-- Satellite -->
         <div class="project-item">
-          <div class="project-title" contenteditable="true">PySpark for Image Classification on Satellite Imagery of
+          <div class="project-title text-medium" contenteditable="true">PySpark for Image Classification on Satellite
+            Imagery of
             Agricultural Terrains</div>
           <div class="tech-stack" contenteditable="true">Big Data, ML Pipeline, Image Classification, Satellite Images,
             PCA, Random Forests; Python, PySpark, AWS EMR, S3</div>
@@ -236,7 +225,8 @@
 
         <!-- QpiC -->
         <div class="project-item">
-          <div class="project-title" contenteditable="true">QpiC: Querying Platform with VM Integration on Cloud</div>
+          <div class="project-title text-medium" contenteditable="true">QpiC: Querying Platform with VM Integration on
+            Cloud</div>
           <div class="tech-stack" contenteditable="true">Cloud Computing, Micro-services, VM, Multi-tenancy; Python,
             Heroku, OWL, Sparql, WebPy, Flask, Xen Server</div>
           <ul class="bullet-list">
@@ -251,7 +241,8 @@
 
         <!-- Phoneme -->
         <div class="project-item">
-          <div class="project-title" contenteditable="true">Phoneme Recognition & Digits ID — Deep Speech Recognition
+          <div class="project-title text-medium" contenteditable="true">Phoneme Recognition & Digits ID — Deep Speech
+            Recognition
           </div>
           <div class="tech-stack" contenteditable="true">Deep Learning, Speech Processing, LSTM, RNN, PCA, GMM; Python,
             TensorFlow, Keras</div>
@@ -278,7 +269,7 @@
         <!-- Leadership -->
         <section class="section half-section">
           <h2 class="section-title">
-            <span class="section-icon">👥</span> Leadership
+            Leadership
           </h2>
           <ul class="compact-list">
             <li contenteditable="true">Instructional Student Assistant — SDSU (CV, OS)</li>
@@ -291,7 +282,7 @@
         <!-- Certificates -->
         <section class="section half-section">
           <h2 class="section-title">
-            <span class="section-icon">📜</span> Certificates
+            Certificates
           </h2>
           <ul class="compact-list">
             <li contenteditable="true">TensorFlow for AI, ML & Deep Learning — Google</li>
