@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Saumil Shah - Data Science Developer, Machine Learning Engineer Resume">
+  <title>Saumil Shah - Resume</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="controls no-print">
+    <button id="exportPdf" class="export-btn">📄 Export PDF</button>
+    <button id="resetContent" class="reset-btn" style="background: #e53e3e;">🔄 Reset
+      Content</button>
+  </div>
+
+  <div class="resume-page" id="resume">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="name" contenteditable="true">Saumil Shah</h1>
+      </div>
+      <div class="header-right">
+        <div class="contact-info-row">
+          <div class="contact-item">
+            <span class="icon">📞</span>
+            <span contenteditable="true">(123)-456-7890</span>
+          </div>
+          <div class="contact-item" style="margin-left: 12px;">
+            <span class="icon">📍</span>
+            <span contenteditable="true">San Diego, CA</span>
+          </div>
+        </div>
+        <div class="contact-info-row">
+          <div class="contact-item">
+            <span class="icon">✉️</span>
+            <span contenteditable="true">helloabcdefg@gmail.com</span>
+          </div>
+          <div class="contact-item" style="margin-left: 12px;">
+            <span class="icon">🔗</span>
+            <span contenteditable="true">linkedin.com/in/helloabcdefg</span>
+          </div>
+        </div>
+        <div class="contact-item start-date">
+          <span contenteditable="true">Start Date: Immediate (willing to relocate)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <!-- Education -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-icon">🎓</span> Education
+        </h2>
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="degree" contenteditable="true">Master of Science, Computer Science</span>
+            <span class="edu-date" contenteditable="true">Aug 2020</span>
+          </div>
+          <div class="edu-details">
+            <span class="school" contenteditable="true">San Diego State University</span>
+            <span class="gpa" contenteditable="true">GPA 3.8</span>
+          </div>
+        </div>
+        <div class="education-item">
+          <div class="edu-header">
+            <span class="degree" contenteditable="true">Bachelor of Technology, Information and Communication
+              Technology</span>
+            <span class="edu-date" contenteditable="true">May 2017</span>
+          </div>
+          <div class="edu-details">
+            <span class="school" contenteditable="true">Ahmedabad University</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-icon">💻</span> Skills
+        </h2>
+        <div class="skills-item">
+          <span class="skill-label">Programming:</span>
+          <span class="skill-value" contenteditable="true">Python, C, Java, Shell Script (Bash), HTML/CSS, Swift, C++,
+            C#</span>
+        </div>
+        <div class="skills-item">
+          <span class="skill-label">APIs & Frameworks:</span>
+          <span class="skill-value" contenteditable="true">Redis, RabbitMQ, FastAPI, Flask, TensorFlow, PyTorch, Keras,
+            Scikit-Learn, Pandas, Apache Spark, PySpark, AWS (EMR, EC2, S3), GCP (GKE), Xcode, MATLAB</span>
+        </div>
+      </section>
+
+      <!-- Publications & Awards -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-icon">🏆</span> Publications & Awards
+        </h2>
+        <ul class="compact-list">
+          <li contenteditable="true"><strong>Publication:</strong> "Real-time Face Recognition in HD Videos" doi:
+            10.1109/SYSCON.2018.8369529</li>
+          <li contenteditable="true"><strong>Publication:</strong> "Automated Human Capital Management System" doi:
+            10.1109/SYSCON.2018.8369531</li>
+          <li contenteditable="true"><strong>Award:</strong> NVIDIA GPU Quadro P5000 Academic Seeding Grant Recipient
+            (Sep 2017)</li>
+        </ul>
+      </section>
+
+      <!-- Experience -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-icon">💼</span> Experience
+        </h2>
+
+        <!-- Qualcomm -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="job-title" contenteditable="true">Senior GPU Software Engineer</span>
+            <span class="exp-date" contenteditable="true">Sep 2021 - Present</span>
+          </div>
+          <div class="company" contenteditable="true">Qualcomm — San Diego, CA</div>
+          <div class="tech-stack" contenteditable="true">GPU Architecture, Graphics Drivers, Performance Profiling; C++,
+            Python, Perforce, Embedded Systems</div>
+          <ul class="bullet-list">
+            <li contenteditable="true">Designed a large-scale automation framework for automating pre-silicon testing
+              efforts for upcoming Snapdragon GPUs.</li>
+            <li contenteditable="true">Developed an in-house test execution framework from the ground up to run various
+              test suites on new GPU drivers, including Vulkan, OpenCL, and OpenGL Conformance Tests.</li>
+            <li contenteditable="true">Devised various utility functions for dispatching jobs and reporting results
+              using Python, RabbitMQ messaging queues, and Redis Database.</li>
+            <li contenteditable="true">Developed continuous integration/delivery pipelines (CI/CD) to dispatch jobs on
+              high-performance servers using Jenkins.</li>
+            <li contenteditable="true">Utilized containerization technologies such as Docker and Google Kubernetes
+              Engine (GKE) to deploy services on Google Cloud Platform.</li>
+            <li contenteditable="true">Created a utility to resolve frequent build blockages by terminating hung
+              processes and filesystem locks, significantly increasing the productivity and development speed of
+              hundreds
+              of graphics software engineers.</li>
+          </ul>
+        </div>
+
+        <!-- KORE Wireless -->
+        <div class="experience-item">
+          <div class="exp-header">
+            <span class="job-title" contenteditable="true">Data Science Developer</span>
+            <span class="exp-date" contenteditable="true">Jan 2021 - Sep 2021</span>
+          </div>
+          <div class="company" contenteditable="true">KORE Wireless — Blue Ash, Cincinnati, OH</div>
+          <div class="tech-stack" contenteditable="true">Machine Learning, Predictive Analytics, Clustering, Anomaly
+            Detection, Web-Services, CICD; SQL, Python, Scikit-Learn, FastAPI, PowerBI, JIRA</div>
+          <ul class="bullet-list">
+            <li contenteditable="true">Working with different business teams to gather conceptual business needs,
+              translate them into ML business use-cases</li>
+            <li contenteditable="true">Rapid prototyping and building PoCs to determine their feasibility and produce
+              meaningful data visualizations</li>
+            <li contenteditable="true">Build end-to-end web-services to integrate with existing KORE platforms for
+              analysis of petabytes of flowing device usage</li>
+            <li contenteditable="true">Present results and gather feedback from senior leadership including, SVPs and
+              CTO, weekly</li>
+            <li contenteditable="true">Applied Deep Learning & Big Data methods to improve SecurityPro offering</li>
+          </ul>
+
+          <!-- MBARCO -->
+          <div class="experience-item">
+            <div class="exp-header">
+              <span class="job-title" contenteditable="true">Associate Researcher</span>
+              <span class="exp-date" contenteditable="true">July 2020 - Oct 2020</span>
+            </div>
+            <div class="company" contenteditable="true">MBARCO at SDSU & Scripps Institution of Oceanography, UCSD — San
+              Diego, CA</div>
+            <div class="thesis" contenteditable="true">Master's Thesis: "Learning to Detect Odontocete Whistles from
+              Generative Synthetic Samples"</div>
+            <div class="tech-stack" contenteditable="true">Deep Learning, Bio-Acoustics, CycleGAN, WGAN, CNN, UNet,
+              ResNets, PatchGAN; Python, PyTorch, CUDA, MATLAB</div>
+            <ul class="bullet-list">
+              <li contenteditable="true">Co-Designed DeepWhistleGAN (WGAN+CycleGAN-based) architecture to synthesize
+                dolphin whistles, oceanic noise spectrogram patches</li>
+              <li contenteditable="true">Achieved significant performance improvements (~52% precision, ~10% recall)
+                compared to baseline results</li>
+              <li contenteditable="true">Published my Master's Thesis Manuscript at the SDSU Montezuma Publishing after
+                successful Thesis Defense</li>
+            </ul>
+          </div>
+
+          <!-- HireValley -->
+          <div class="experience-item">
+            <div class="exp-header">
+              <span class="job-title" contenteditable="true">Research Engineering Intern</span>
+              <span class="exp-date" contenteditable="true">Nov 2016 - Apr 2017</span>
+            </div>
+            <div class="company" contenteditable="true">HireValley Inc — Ahmedabad, India</div>
+            <div class="tech-stack" contenteditable="true">Recommendation System, Machine Learning, Micro-services,
+              Ontology, Multivariate Regression; Python, Flask, OWL, AWS</div>
+            <ul class="bullet-list">
+              <li contenteditable="true">Developed a cloud-based automated recommendation engine to suggest jobs or
+                potential candidates</li>
+              <li contenteditable="true">Created a web interface using Flask connecting different Micro-Services using
+                Python and AWS</li>
+              <li contenteditable="true">Published the architecture and framework for an automated human capital
+                management system in IEEE</li>
+            </ul>
+          </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="section-icon">🚀</span> Projects
+        </h2>
+
+        <!-- Satellite -->
+        <div class="project-item">
+          <div class="project-title" contenteditable="true">PySpark for Image Classification on Satellite Imagery of
+            Agricultural Terrains</div>
+          <div class="tech-stack" contenteditable="true">Big Data, ML Pipeline, Image Classification, Satellite Images,
+            PCA, Random Forests; Python, PySpark, AWS EMR, S3</div>
+          <ul class="bullet-list">
+            <li contenteditable="true">Created an end-to-end pipeline from data ETL to Model Training to Classification
+              on DeepSat Kaggle Dataset</li>
+            <li contenteditable="true">Used PySpark for distributed computing while hosting clusters on AWS Elastic
+              MapReduce (EMR) instances and S3 buckets for storing data and logging outputs</li>
+            <li contenteditable="true">Performed Principal Component Analysis (PCA) on Features from RGB and Infrared IR
+              Channels</li>
+            <li contenteditable="true">Trained Random Forests to classify 6 types of agricultural terrains and performed
+              model evaluation</li>
+          </ul>
+        </div>
+
+        <!-- QpiC -->
+        <div class="project-item">
+          <div class="project-title" contenteditable="true">QpiC: Querying Platform with VM Integration on Cloud</div>
+          <div class="tech-stack" contenteditable="true">Cloud Computing, Micro-services, VM, Multi-tenancy; Python,
+            Heroku, OWL, Sparql, WebPy, Flask, Xen Server</div>
+          <ul class="bullet-list">
+            <li contenteditable="true">A cloud-based platform which is SaaS and IaaS</li>
+            <li contenteditable="true">Users can run complex SPARQL queries on OWLs ontologies using WebPy</li>
+            <li contenteditable="true">Support for Multi-Tenancy and Caching of frequent query results</li>
+            <li contenteditable="true">Perform Instant Query or upload your own ontology and Queries</li>
+            <li contenteditable="true">Automated VM Load prediction using Linear Regressive model and balancing using
+              Xen-API</li>
+          </ul>
+        </div>
+
+        <!-- Phoneme -->
+        <div class="project-item">
+          <div class="project-title" contenteditable="true">Phoneme Recognition & Digits ID — Deep Speech Recognition
+          </div>
+          <div class="tech-stack" contenteditable="true">Deep Learning, Speech Processing, LSTM, RNN, PCA, GMM; Python,
+            TensorFlow, Keras</div>
+          <ul class="bullet-list">
+            <li contenteditable="true">Developed speech recognition system using TensorFlow and Keras on TIMIT and
+              TIDIGITS datasets</li>
+            <li contenteditable="true">Devised code for dynamic mini-batch generation of spectrograms</li>
+            <li contenteditable="true">Performed Fourier Analysis, applied Principal Component Analysis (PCA) on
+              spectrograms for feature extraction</li>
+            <li contenteditable="true">Trained Gaussian Mixture Models (GMM) on PCAs to classify speech from noise using
+              Bayesian Inference</li>
+            <li contenteditable="true">Programmed a system using LSTM (Long Short Term Memory) RNNs for Phoneme
+              Recognition</li>
+            <li contenteditable="true">Used N-Fold Cross Validation and Dropout Regularization for a better feed forward
+              network architecture</li>
+            <li contenteditable="true">Developed framework to dynamically test and compare different deep neural
+              networks on AWS</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Bottom Row: Leadership & Certificates -->
+      <div class="bottom-row">
+        <!-- Leadership -->
+        <section class="section half-section">
+          <h2 class="section-title">
+            <span class="section-icon">👥</span> Leadership
+          </h2>
+          <ul class="compact-list">
+            <li contenteditable="true">Instructional Student Assistant — SDSU (CV, OS)</li>
+            <li contenteditable="true">Student Volunteer — Cal State Tech Conf 2019</li>
+            <li contenteditable="true">Project Manager — SDSU AI Club</li>
+            <li contenteditable="true">Teaching Associate — Ahmedabad University</li>
+          </ul>
+        </section>
+
+        <!-- Certificates -->
+        <section class="section half-section">
+          <h2 class="section-title">
+            <span class="section-icon">📜</span> Certificates
+          </h2>
+          <ul class="compact-list">
+            <li contenteditable="true">TensorFlow for AI, ML & Deep Learning — Google</li>
+            <li contenteditable="true">Launching into Machine Learning — Google Cloud</li>
+            <li contenteditable="true">Deep Learning Explained — Microsoft</li>
+            <li contenteditable="true">Neural Networks and Deep Learning — deeplearning.ai</li>
+          </ul>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
