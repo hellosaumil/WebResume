@@ -149,15 +149,12 @@ document.addEventListener('DOMContentLoaded', function () {
   tooltip.className = 'dev-inspector-tooltip';
   tooltip.innerHTML = `
     <div class="tooltip-row">
-      <span class="tooltip-label">class</span>
       <span class="tooltip-value class-value" id="tooltip-class">—</span>
     </div>
     <div class="tooltip-row">
-      <span class="tooltip-label">size</span>
       <span class="tooltip-value size-value" id="tooltip-size">—</span>
     </div>
     <div class="tooltip-row">
-      <span class="tooltip-label">weight</span>
       <span class="tooltip-value weight-value" id="tooltip-weight">—</span>
     </div>
   `;
@@ -201,8 +198,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Get computed styles
   function getElementStyles(el) {
     const computed = window.getComputedStyle(el);
+    const classList = el.className ? el.className.split(' ').filter(c => c && !c.includes('dev-inspector')) : [];
+    const formattedClasses = classList.length > 0 ? classList.map(c => `.${c}`).join(', ') : '(none)';
+
     return {
-      classes: el.className ? el.className.split(' ').filter(c => c && !c.includes('dev-inspector')).join(', ') : '(none)',
+      classes: formattedClasses,
       fontSize: computed.fontSize,
       fontWeight: computed.fontWeight
     };
@@ -211,15 +211,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // Convert font-weight number to name
   function getFontWeightName(weight) {
     const weightMap = {
-      '100': '100',
-      '200': '200',
-      '300': '300',
-      '400': '400',
-      '500': '500',
-      '600': '600',
-      '700': '700',
-      '800': '800',
-      '900': '900'
+      '100': '100(Thin)',
+      '200': '200(ExtraLight)',
+      '300': '300(Light)',
+      '400': '400(Regular)',
+      '500': '500(Medium)',
+      '600': '600(SemiBold)',
+      '700': '700(Bold)',
+      '800': '800(ExtraBold)',
+      '900': '900(Black)'
     };
     return weightMap[weight] || weight;
   }
@@ -260,6 +260,28 @@ document.addEventListener('DOMContentLoaded', function () {
     tooltip.classList.remove('visible');
   }
 
+  // Get color class for highlight
+  function getHighlightColorClass(el) {
+    // Priority 1: Use Design System classes for color mapping
+    if (el.classList.contains('header-1') || el.classList.contains('header-2')) return 'h-purple';
+    if (el.classList.contains('title-1') || el.classList.contains('title-2')) return 'h-orange';
+    if (el.classList.contains('title-2-accent') || el.classList.contains('title-3-italic')) return 'h-green';
+
+    // Priority 2: Semantic fallbacks
+    const tagName = el.tagName.toLowerCase();
+    if (tagName === 'h1' || tagName === 'h2') return 'h-purple';
+    if (tagName === 'li') return 'h-orange';
+    if (tagName === 'a') return 'h-green';
+
+    return 'h-blue';
+  }
+
+  // Clear all highlight classes
+  function clearHighlight(el) {
+    if (!el) return;
+    el.classList.remove('dev-inspector-highlight', 'h-blue', 'h-purple', 'h-orange', 'h-green');
+  }
+
   // Mouse move handler
   document.addEventListener('mousemove', (e) => {
     if (!devInspectorEnabled) return;
@@ -282,9 +304,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update highlight
     if (currentTarget !== target) {
       if (currentTarget) {
-        currentTarget.classList.remove('dev-inspector-highlight');
+        clearHighlight(currentTarget);
       }
-      target.classList.add('dev-inspector-highlight');
+      const colorClass = getHighlightColorClass(target);
+      target.classList.add('dev-inspector-highlight', colorClass);
       currentTarget = target;
     }
 
@@ -298,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (devInspectorEnabled) {
       hideTooltip();
       if (currentTarget) {
-        currentTarget.classList.remove('dev-inspector-highlight');
+        clearHighlight(currentTarget);
         currentTarget = null;
       }
     }
