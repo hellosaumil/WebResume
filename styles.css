@@ -546,8 +546,7 @@ body.view-mode {
   justify-content: flex-start;
 }
 
-body.view-mode .controls,
-body.view-mode .inspector-tooltip {
+body.view-mode .controls {
   display: none !important;
 }
 
@@ -560,47 +559,119 @@ body.view-mode .resume-page {
 body.view-mode .resume-page::after {
   display: none;
 }
-}
 
 /* ========================================
-   Inspector Tooltip
+   Dev Inspector Tooltip
    ======================================== */
-
-.inspector-tooltip {
+.dev-inspector-tooltip {
   position: fixed;
-  pointer-events: none;
-  background: rgba(26, 26, 26, 0.9);
+  z-index: 9999;
+  background: rgba(20, 20, 20, 0.9);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 10px;
-  font-family: 'Space Grotesk', sans-serif;
-  z-index: 2000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 10.5px;
   line-height: 1.4;
-  white-space: pre;
-}
-
-.inspector-tooltip.visible {
-  opacity: 1;
-}
-
-.inspector-tooltip .label {
-  color: #a0aec0;
-  font-weight: 600;
-  margin-right: 4px;
-}
-
-.inspector-tooltip .value {
-  color: #63b3ed;
-  font-weight: 400;
-}
-
-.no-inspect {
   pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px) scale(0.98);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  max-width: 280px;
+  white-space: nowrap;
+}
+
+.dev-inspector-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dev-inspector-tooltip .tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.dev-inspector-tooltip .tooltip-row:last-child {
+  margin-bottom: 0;
+}
+
+.dev-inspector-tooltip .tooltip-label {
+  color: #aaa;
+  font-weight: 400;
+  min-width: 45px;
+}
+
+.dev-inspector-tooltip .tooltip-value {
+  color: #4fd1c5;
+  font-weight: 500;
+}
+
+.dev-inspector-tooltip .tooltip-value.class-value {
+  color: #f6ad55;
+}
+
+.dev-inspector-tooltip .tooltip-value.size-value {
+  color: #68d391;
+}
+
+.dev-inspector-tooltip .tooltip-value.weight-value {
+  color: #63b3ed;
+}
+
+/* Highlight effect on hovered element */
+.dev-inspector-highlight {
+  outline: 2px dashed rgba(79, 209, 197, 0.6) !important;
+  outline-offset: 2px;
+  background-color: rgba(79, 209, 197, 0.08) !important;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+/* Toggle button for dev inspector */
+.dev-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: transparent;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dev-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.dev-toggle-btn.active {
+  background: rgba(79, 209, 197, 0.3);
+  color: #4fd1c5;
+}
+
+.dev-toggle-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Hide tooltip and highlight in print/view mode */
+@media print {
+
+  .dev-inspector-tooltip,
+  .dev-toggle-btn {
+    display: none !important;
+  }
+}
+
+body.view-mode .dev-inspector-tooltip,
+body.view-mode .dev-toggle-btn {
+  display: none !important;
 }
