@@ -117,50 +117,75 @@ document.addEventListener('DOMContentLoaded', function () {
   // Element Inspector Tooltip
   // ========================================
   const tooltip = document.createElement('div');
-  tooltip.className = 'inspector-tooltip no-print';
+  tooltip.className = 'inspector-tooltip';
   document.body.appendChild(tooltip);
+  tooltip.style.display = 'none';
 
-  function updateTooltip(e) {
-    const target = e.target;
-    // Only inspect elements within the resume and ignore the tooltip itself or controls
-    if (!resumeElement.contains(target) || target === tooltip) {
-      tooltip.classList.remove('visible');
+  document.addEventListener('mousemove', (e) => {
+    // Hide if in Clean Mode or if explicitly told not to inspect
+    if (document.body.classList.contains('clean-mode') || e.target.closest('.no-inspect')) {
+      tooltip.style.display = 'none';
       return;
     }
 
-    const style = window.getComputedStyle(target);
-    const classes = Array.from(target.classList).filter(c => c !== 'visible');
-    const fontSize = style.fontSize;
-    const fontWeight = style.fontWeight;
+    const target = e.target;
+    // Inspect specific resume elements
+    if (target.matches('.name, .degree, .school, .company, .job-title, .project-title, .tech-stack, .skill-label, .thesis, p, li, span')) {
+      const computedStyle = window.getComputedStyle(target);
+      const fontSize = computedStyle.fontSize;
+      const fontWeight = computedStyle.fontWeight;
+      const fontFamily = computedStyle.fontFamily.split(',')[0].replace(/['"]/g, '');
+      const className = target.className ? `.${target.className.split(' ')[0]}` : target.tagName.toLowerCase();
 
-    let content = '';
-    if (classes.length > 0) {
-      content += `<span class="label">Class:</span> <span class="value">.${classes.join(' .')}</span>\n`;
+      // Convert px to rounded pt for display (approximate)
+      const pxValue = parseFloat(fontSize);
+      const ptValue = Math.round(pxValue * 0.75);
+
+      tooltip.innerHTML = `
+        <strong>${className}</strong><br>
+        <span style="opacity:0.8">${fontFamily}</span><br>
+        ${ptValue}pt (${fontWeight})
+      `;
+      tooltip.style.display = 'block';
+
+      // Position tooltip near mouse but keep onscreen
+      const x = e.clientX + 15;
+      const y = e.clientY + 15;
+      tooltip.style.top = y + 'px';
+      tooltip.style.left = x + 'px';
+    } else {
+      tooltip.style.display = 'none';
     }
-    content += `<span class="label">Size:</span> <span class="value">${fontSize}</span>\n`;
-    content += `<span class="label">Weight:</span> <span class="value">${fontWeight}</span>`;
+  });
 
-    tooltip.innerHTML = content;
-    tooltip.classList.add('visible');
+  // ========================================
+  // Fixed Scale Controls (Zoom Resistance)
+  // ========================================
+  const controls = document.querySelector('.controls');
+  if (controls) {
+    const updateScale = () => {
+      // Logic: Calculate zoom level based on window width ratio
+      // This works for standard "Cmd +/-" browser zoom
+      const zoom = window.outerWidth / window.innerWidth;
 
-    // Position tooltip
-    const padding = 15;
-    let x = e.clientX + padding;
-    let y = e.clientY + padding;
+      // We want to counteract the zoom. 
+      // If zoom is 2 (200%), everything is 2x bigger. We scale to 0.5 to look "normal".
+      controls.style.transformOrigin = 'bottom right';
+      controls.style.transform = `scale(${1 / zoom})`;
 
-    // Boundary check
-    const tooltipRect = tooltip.getBoundingClientRect();
-    if (x + tooltipRect.width > window.innerWidth) {
-      x = e.clientX - tooltipRect.width - padding;
-    }
-    if (y + tooltipRect.height > window.innerHeight) {
-      y = e.clientY - tooltipRect.height - padding;
-    }
+      // Also adjust position so the margin doesn't appear to grow
+      // Standard margin is 20px. At 200% zoom, 20px visual is 40px physical.
+      // We want it to look like 20px physical.
+      // CSS pixels * scale = physical pixels.
+      // We want physical margin = 20.
+      // CSS pixels * zoom = 20  =>  CSS pixels = 20 / zoom.
+      controls.style.bottom = `${20 / zoom}px`;
+      controls.style.right = `${20 / zoom}px`;
+    };
 
-    tooltip.style.left = `${x}px`;
-    tooltip.style.top = `${y}px`;
+    window.addEventListener('resize', updateScale);
+    // Initial call
+    updateScale();
   }
-
-  document.addEventListener('mousemove', updateTooltip);
   document.addEventListener('scroll', () => tooltip.classList.remove('visible'));
 });
