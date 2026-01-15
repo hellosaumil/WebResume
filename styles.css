@@ -191,15 +191,47 @@ body {
 
 .name {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 24pt;
-  /* Heading-1 */
-  /* Reduced from 32pt */
-  font-weight: 600;
-  /* Increased weight for better display in Space Grotesk */
   color: var(--primary-color);
   letter-spacing: -0.5px;
-  /* Tighter letter spacing for Space Grotesk */
   line-height: 1;
+}
+
+/* Typography Hierarchy - From DESIGN_SYSTEM.md */
+.header-1 {
+  font-size: 24pt;
+  font-weight: 600;
+}
+
+.header-2 {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+.title-1 {
+  font-size: 9pt;
+  font-weight: 500;
+}
+
+.title-2 {
+  font-size: 8pt;
+  font-weight: 400;
+}
+
+.title-2-accent {
+  font-size: 8pt;
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.title-3-italic {
+  font-size: 8pt;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.body-text {
+  font-size: 8pt;
+  font-weight: 300;
 }
 
 .header-right {
@@ -247,9 +279,6 @@ body {
 
 .section-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 12pt;
-  /* Heading-2 */
-  font-weight: 700;
   color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -259,10 +288,12 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Common Utility Class - Title-1 Level */
-.text-medium {
-  font-size: 9pt;
-  font-weight: 500;
+/* Base components inheriting from hierarchy */
+.degree,
+.job-title,
+.project-title,
+.skill-label {
+  color: var(--text-color);
 }
 
 /* Education */
@@ -281,29 +312,19 @@ body {
 }
 
 .degree {
-  /* Title-1 */
-  font-size: 9pt;
-  font-weight: 500;
   color: var(--text-color);
 }
 
 .edu-date {
-  font-size: 8pt;
   color: var(--text-light);
   text-align: right;
 }
 
 .school {
-  /* Title-2 */
-  font-size: 8pt;
-  font-weight: 400;
   color: var(--text-color);
 }
 
 .gpa {
-  /* Color-Title-2 */
-  font-size: 8pt;
-  font-weight: 400;
   color: var(--accent-color);
   margin-left: 6px;
 }
@@ -311,7 +332,6 @@ body {
 /* Skills */
 .skills-item {
   margin-bottom: 2px;
-  font-size: 8pt;
 }
 
 .skill-label {
@@ -333,7 +353,6 @@ body {
   position: relative;
   padding-left: 12px;
   margin-bottom: 2px;
-  font-size: 8pt;
   color: var(--text-light);
 }
 
@@ -353,7 +372,6 @@ body {
   position: relative;
   padding-left: 12px;
   margin-bottom: 1px;
-  font-size: 8pt;
   color: var(--text-light);
 }
 
@@ -362,7 +380,6 @@ body {
   position: absolute;
   left: 2px;
   color: var(--text-color);
-  font-size: 8pt;
 }
 
 /* Experience */
@@ -377,40 +394,25 @@ body {
 }
 
 .job-title {
-  /* Title-1 */
-  font-size: 9pt;
-  font-weight: 500;
   color: var(--text-color);
 }
 
 .exp-date {
-  font-size: 8pt;
   color: var(--text-light);
 }
 
 .company {
-  /* Color-Title-2 */
-  font-size: 8pt;
   color: var(--accent-color);
-  font-weight: 400;
   margin-bottom: 1px;
 }
 
 .thesis {
-  /* Italic-Title-3 */
-  font-size: 8pt;
-  font-weight: 300;
   color: var(--text-light);
-  font-style: italic;
   margin-bottom: 1px;
 }
 
 .tech-stack {
-  /* Italic-Title-3 */
-  font-size: 8pt;
-  font-weight: 300;
   color: var(--text-light);
-  font-style: italic;
   margin-bottom: 2px;
 }
 
@@ -420,9 +422,6 @@ body {
 }
 
 .project-title {
-  /* Title-1 */
-  font-size: 9pt;
-  font-weight: 500;
   color: var(--text-color);
 }
 
@@ -450,11 +449,10 @@ body {
 }
 
 .half-section .section-title {
-  font-size: 10pt;
+  /* Inherits from .header-2 automatically */
 }
 
 .leadership-content p {
-  font-size: 8pt;
   margin-bottom: 2px;
   color: var(--text-light);
 }
@@ -561,74 +559,84 @@ body.view-mode .resume-page::after {
 }
 
 /* ========================================
-   Dev Inspector Tooltip
+   Dev Inspector Tooltip - Chip Layout
    ======================================== */
 .dev-inspector-tooltip {
   position: fixed;
   z-index: 9999;
-  background: rgba(20, 20, 20, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-  font-size: 10.5px;
-  line-height: 1.4;
+  display: flex;
+  gap: 6px;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(4px) scale(0.98);
+  transform: translateY(4px);
   transition: opacity 0.1s ease, transform 0.1s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  max-width: 280px;
   white-space: nowrap;
 }
 
 .dev-inspector-tooltip.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .dev-inspector-tooltip .tooltip-row {
+  background: #f8f8f8;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 11px;
+  color: #1a1a1a;
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 2px;
-}
-
-.dev-inspector-tooltip .tooltip-row:last-child {
-  margin-bottom: 0;
-}
-
-.dev-inspector-tooltip .tooltip-label {
-  color: #aaa;
-  font-weight: 400;
-  min-width: 45px;
+  justify-content: center;
 }
 
 .dev-inspector-tooltip .tooltip-value {
-  color: #4fd1c5;
   font-weight: 500;
 }
 
+/* Color accents for chips if desired, or keep neutral */
 .dev-inspector-tooltip .tooltip-value.class-value {
-  color: #f6ad55;
+  color: #1a1a1a;
 }
 
 .dev-inspector-tooltip .tooltip-value.size-value {
-  color: #68d391;
+  color: #1a1a1a;
 }
 
 .dev-inspector-tooltip .tooltip-value.weight-value {
-  color: #63b3ed;
+  color: #1a1a1a;
 }
 
-/* Highlight effect on hovered element */
+/* Highlight effects on hovered elements - Multi-color variants */
 .dev-inspector-highlight {
-  outline: 2px dashed rgba(79, 209, 197, 0.6) !important;
   outline-offset: 2px;
-  background-color: rgba(79, 209, 197, 0.08) !important;
   transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+/* Default / Blue-Teal (General elements) */
+.dev-inspector-highlight.h-blue {
+  outline: 2px dashed rgba(79, 209, 197, 0.7) !important;
+  background-color: rgba(79, 209, 197, 0.1) !important;
+}
+
+/* Purple (Headings h1, h2) */
+.dev-inspector-highlight.h-purple {
+  outline: 2px dashed rgba(159, 122, 234, 0.8) !important;
+  background-color: rgba(159, 122, 234, 0.12) !important;
+}
+
+/* Orange (List items, Skills) */
+.dev-inspector-highlight.h-orange {
+  outline: 2px dashed rgba(246, 173, 85, 0.8) !important;
+  background-color: rgba(246, 173, 85, 0.12) !important;
+}
+
+/* Green (Email, Phone, Links) */
+.dev-inspector-highlight.h-green {
+  outline: 2px dashed rgba(104, 211, 145, 0.8) !important;
+  background-color: rgba(104, 211, 145, 0.12) !important;
 }
 
 /* Toggle button for dev inspector */
