@@ -74,12 +74,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ========================================
-  // Clean Mode (Print Preview)
+  // View Mode (Print Preview)
   // ========================================
-  const cleanModeBtn = document.getElementById('cleanMode');
-  if (cleanModeBtn) {
-    cleanModeBtn.addEventListener('click', () => {
-      document.body.classList.add('clean-mode');
+  const viewModeBtn = document.getElementById('viewMode');
+  if (viewModeBtn) {
+    viewModeBtn.addEventListener('click', () => {
+      document.body.classList.add('view-mode');
 
       // Show temporary instruction (removed automatically or by print dialog)
       const toast = document.createElement('div');
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
       toast.style.fontFamily = 'sans-serif';
       toast.style.fontSize = '14px';
       toast.style.transition = 'opacity 0.5s';
-      toast.textContent = 'Press ESC to exit Clean Mode';
+      toast.textContent = 'Press ESC to exit View Mode';
       document.body.appendChild(toast);
 
       // Remove toast after 3 seconds
@@ -106,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Exit Clean Mode on ESC
+  // Exit View Mode on ESC
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.body.classList.contains('clean-mode')) {
-      document.body.classList.remove('clean-mode');
+    if (e.key === 'Escape' && document.body.classList.contains('view-mode')) {
+      document.body.classList.remove('view-mode');
     }
   });
 
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
   tooltip.style.display = 'none';
 
   document.addEventListener('mousemove', (e) => {
-    // Hide if in Clean Mode or if explicitly told not to inspect
-    if (document.body.classList.contains('clean-mode') || e.target.closest('.no-inspect')) {
+    // Hide if in View Mode or if explicitly told not to inspect
+    if (document.body.classList.contains('view-mode') || e.target.closest('.no-inspect')) {
       tooltip.style.display = 'none';
       return;
     }
@@ -164,26 +164,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const controls = document.querySelector('.controls');
   if (controls) {
     const updateScale = () => {
-      // Logic: Calculate zoom level based on window width ratio
-      // This works for standard "Cmd +/-" browser zoom
-      const zoom = window.outerWidth / window.innerWidth;
+      // Use devicePixelRatio directly for more reliable zoom detection
+      // This works better during resize events than window width ratio
+      const zoom = window.devicePixelRatio || 1;
 
-      // We want to counteract the zoom. 
-      // If zoom is 2 (200%), everything is 2x bigger. We scale to 0.5 to look "normal".
+      // Counteract zoom to keep visual size constant
+      // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
-      controls.style.transform = `scale(${1 / zoom})`;
+      controls.style.transform = `scale(${1 / zoom * 2})`;
 
-      // Also adjust position so the margin doesn't appear to grow
-      // Standard margin is 20px. At 200% zoom, 20px visual is 40px physical.
-      // We want it to look like 20px physical.
-      // CSS pixels * scale = physical pixels.
-      // We want physical margin = 20.
-      // CSS pixels * zoom = 20  =>  CSS pixels = 20 / zoom.
-      controls.style.bottom = `${20 / zoom}px`;
-      controls.style.right = `${20 / zoom}px`;
+      // Adjust position to keep visual margins constant (approx 50px visual)
+      controls.style.bottom = `${50 / zoom}px`;
+      controls.style.right = `${50 / zoom}px`;
     };
 
+    // Listen to resize (triggered by zoom) and also DPI changes if supported
     window.addEventListener('resize', updateScale);
+
     // Initial call
     updateScale();
   }
