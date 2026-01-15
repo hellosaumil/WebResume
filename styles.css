@@ -29,8 +29,8 @@
 }
 
 body {
-  font-family: 'Google Sans Flex', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 8.5pt;
+  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 8pt;
   font-weight: 300;
   line-height: 1.3;
   color: var(--text-color);
@@ -59,6 +59,7 @@ body {
 /* Font Options Removed */
 
 .export-btn,
+.clean-btn,
 .reset-btn {
   display: flex;
   align-items: center;
@@ -88,6 +89,13 @@ body {
   box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4);
 }
 
+.clean-btn {
+  background: #007AFF;
+  /* Finder Blue */
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
+}
+
 .btn-text {
   max-width: 0;
   opacity: 0;
@@ -97,6 +105,7 @@ body {
 }
 
 .export-btn:hover,
+.clean-btn:hover,
 .reset-btn:hover {
   padding: 12px 24px;
   border-radius: 8px;
@@ -105,6 +114,7 @@ body {
 }
 
 .export-btn:hover .btn-text,
+.clean-btn:hover .btn-text,
 .reset-btn:hover .btn-text {
   max-width: 150px;
   opacity: 1;
@@ -119,7 +129,12 @@ body {
   box-shadow: 0 6px 20px rgba(229, 62, 62, 0.5);
 }
 
+.clean-btn:hover {
+  box-shadow: 0 6px 20px rgba(0, 122, 255, 0.5);
+}
+
 .export-btn:active,
+.clean-btn:active,
 .reset-btn:active {
   transform: translateY(0);
 }
@@ -150,6 +165,7 @@ body {
 .name {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 24pt;
+  /* Heading-1 */
   /* Reduced from 32pt */
   font-weight: 600;
   /* Increased weight for better display in Space Grotesk */
@@ -165,7 +181,8 @@ body {
   align-items: flex-end;
   gap: 1px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 7.5pt;
+  font-size: 8pt;
+  /* Body Level */
   color: var(--text-light);
 }
 
@@ -203,8 +220,8 @@ body {
 
 .section-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11pt;
-  /* Slightly increased */
+  font-size: 12pt;
+  /* Heading-2 */
   font-weight: 700;
   color: var(--primary-color);
   display: flex;
@@ -215,8 +232,9 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Common Utility Class */
+/* Common Utility Class - Title-1 Level */
 .text-medium {
+  font-size: 9pt;
   font-weight: 500;
 }
 
@@ -236,23 +254,29 @@ body {
 }
 
 .degree {
-  font-size: 9.5pt;
+  /* Title-1 */
+  font-size: 9pt;
+  font-weight: 500;
   color: var(--text-color);
 }
 
 .edu-date {
-  font-size: 9pt;
+  font-size: 8pt;
   color: var(--text-light);
   text-align: right;
 }
 
 .school {
-  font-size: 9pt;
+  /* Title-2 */
+  font-size: 8pt;
+  font-weight: 400;
   color: var(--text-color);
 }
 
 .gpa {
-  font-size: 9pt;
+  /* Color-Title-2 */
+  font-size: 8pt;
+  font-weight: 400;
   color: var(--accent-color);
   margin-left: 6px;
 }
@@ -260,7 +284,7 @@ body {
 /* Skills */
 .skills-item {
   margin-bottom: 2px;
-  font-size: 8.5pt;
+  font-size: 8pt;
 }
 
 .skill-label {
@@ -326,30 +350,38 @@ body {
 }
 
 .job-title {
-  font-size: 9.5pt;
+  /* Title-1 */
+  font-size: 9pt;
+  font-weight: 500;
   color: var(--text-color);
 }
 
 .exp-date {
-  font-size: 9pt;
+  font-size: 8pt;
   color: var(--text-light);
 }
 
 .company {
-  font-size: 9pt;
+  /* Color-Title-2 */
+  font-size: 8pt;
   color: var(--accent-color);
   font-weight: 400;
   margin-bottom: 1px;
 }
 
 .thesis {
+  /* Italic-Title-3 */
   font-size: 8pt;
+  font-weight: 300;
   color: var(--text-light);
+  font-style: italic;
   margin-bottom: 1px;
 }
 
 .tech-stack {
-  font-size: 7.5pt;
+  /* Italic-Title-3 */
+  font-size: 8pt;
+  font-weight: 300;
   color: var(--text-light);
   font-style: italic;
   margin-bottom: 2px;
@@ -361,7 +393,9 @@ body {
 }
 
 .project-title {
+  /* Title-1 */
   font-size: 9pt;
+  font-weight: 500;
   color: var(--text-color);
 }
 
@@ -464,4 +498,72 @@ body {
     height: auto;
     overflow: visible;
   }
+}
+
+/* ========================================
+   Clean Mode (Browser Print Prep)
+   ======================================== */
+body.clean-mode {
+  background: white;
+  padding: 0;
+  height: auto;
+  overflow: visible;
+  /* Snap to top-left corner */
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+body.clean-mode .controls,
+body.clean-mode .inspector-tooltip {
+  display: none !important;
+}
+
+body.clean-mode .resume-page {
+  box-shadow: none;
+  width: auto;
+  min-height: auto;
+}
+}
+
+/* ========================================
+   Inspector Tooltip
+   ======================================== */
+
+.inspector-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: rgba(26, 26, 26, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  z-index: 2000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  line-height: 1.4;
+  white-space: pre;
+}
+
+.inspector-tooltip.visible {
+  opacity: 1;
+}
+
+.inspector-tooltip .label {
+  color: #a0aec0;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.inspector-tooltip .value {
+  color: #63b3ed;
+  font-weight: 400;
+}
+
+.no-inspect {
+  pointer-events: none;
 }

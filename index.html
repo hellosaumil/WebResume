@@ -10,12 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@100;200;300;400;500;600;700;800;900&family=Google+Sans+Flex:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
 </head>
 
 <body>
   <div class="controls no-print">
+    <button id="cleanMode" class="clean-btn">🖨️ <span class="btn-text">Clean
+        Mode</span></button>
     <button id="exportPdf" class="export-btn">📄 <span class="btn-text">Export PDF</span></button>
     <button id="resetContent" class="reset-btn" style="background: #e53e3e;">🔄 <span class="btn-text">Reset
         Content</span></button>
@@ -25,16 +27,17 @@
     <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <h1 class="name" contenteditable="true">Saumil Shah</h1>
+        <h1 class="name" id="field-name" contenteditable="true">Saumil Shah</h1>
       </div>
       <div class="header-right">
         <div class="contact-grid">
-          <div class="contact-item" contenteditable="true">(858)-324-4496</div>
-          <div class="contact-item" contenteditable="true">ssh.saumil@gmail.com</div>
-          <div class="contact-item" contenteditable="true">San Diego, CA</div>
-          <div class="contact-item" contenteditable="true">linkedin.com/in/hellosaumil</div>
+          <div class="contact-item" id="field-phone" contenteditable="true">(858)-324-4496</div>
+          <div class="contact-item" id="field-email" contenteditable="true">ssh.saumil@gmail.com</div>
+          <div class="contact-item" id="field-location" contenteditable="true">San Diego, CA</div>
+          <div class="contact-item" id="field-linkedin" contenteditable="true">linkedin.com/in/hellosaumil</div>
         </div>
-        <div class="start-date" contenteditable="true">Start Date: Immediate (willing to relocate)</div>
+        <div class="start-date" id="field-startdate" contenteditable="true">Start Date: Immediate (willing to relocate)
+        </div>
       </div>
     </header>
 
@@ -48,12 +51,13 @@
         </h2>
         <div class="education-item">
           <div class="edu-header">
-            <span class="degree text-medium" contenteditable="true">Master of Science, Computer Science</span>
-            <span class="edu-date" contenteditable="true">Aug 2020</span>
+            <span class="degree text-medium" id="edu-degree-1" contenteditable="true">Master of Science, Computer
+              Science</span>
+            <span class="edu-date" id="edu-date-1" contenteditable="true">Aug 2020</span>
           </div>
           <div class="edu-details">
-            <span class="school" contenteditable="true">San Diego State University</span>
-            <span class="gpa text-medium" contenteditable="true">GPA 3.8</span>
+            <span class="school" id="edu-school-1" contenteditable="true">San Diego State University</span>
+            <span class="gpa text-medium" id="edu-gpa-1" contenteditable="true">GPA 3.8</span>
           </div>
         </div>
         <div class="education-item">
@@ -110,12 +114,14 @@
         <!-- Qualcomm -->
         <div class="experience-item">
           <div class="exp-header">
-            <span class="job-title text-medium" contenteditable="true">Senior GPU Software Engineer</span>
-            <span class="exp-date" contenteditable="true">Sep 2021 - Present</span>
+            <span class="job-title text-medium" id="exp-job-1" contenteditable="true">Senior GPU Software
+              Engineer</span>
+            <span class="exp-date" id="exp-date-1" contenteditable="true">Sep 2021 - Present</span>
           </div>
-          <div class="company" contenteditable="true">Qualcomm — San Diego, CA</div>
-          <div class="tech-stack" contenteditable="true">GPU Architecture, Graphics Drivers, Performance Profiling; C++,
-            Python, Perforce, Embedded Systems</div>
+          <div class="company" id="exp-company-1" contenteditable="true">Qualcomm — San Diego, CA</div>
+          <div class="tech-stack" id="exp-tech-1" contenteditable="true">Infrastructure, Automation, Sandbox,
+            Orchestration, Distributed
+            Systems, Reporting; Python, Shell, FastAPI, Redis, RabbitMQ, Artifactory, LSF</div>
           <ul class="bullet-list">
             <li contenteditable="true">Designed a large-scale automation framework for automating pre-silicon testing
               efforts for upcoming Snapdragon GPUs.</li>
@@ -141,8 +147,10 @@
             <span class="exp-date" contenteditable="true">Jan 2021 - Sep 2021</span>
           </div>
           <div class="company" contenteditable="true">KORE Wireless — Blue Ash, Cincinnati, OH</div>
-          <div class="tech-stack" contenteditable="true">Machine Learning, Predictive Analytics, Clustering, Anomaly
-            Detection, Web-Services, CICD; SQL, Python, Scikit-Learn, FastAPI, PowerBI, JIRA</div>
+          <div class="tech-stack" contenteditable="true">R&D, Applied Machine Learning, Predictive Analytics,
+            Clustering,
+            Anomaly
+            Detection, Web-Services, CI/CD; SQL, Python, Scikit-Learn, FastAPI, PowerBI, JIRA</div>
           <ul class="bullet-list">
             <li contenteditable="true">Working with different business teams to gather conceptual business needs,
               translate them into ML business use-cases</li>
