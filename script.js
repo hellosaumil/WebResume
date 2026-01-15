@@ -114,51 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ========================================
-  // Element Inspector Tooltip
-  // ========================================
-  const tooltip = document.createElement('div');
-  tooltip.className = 'inspector-tooltip';
-  document.body.appendChild(tooltip);
-  tooltip.style.display = 'none';
-
-  document.addEventListener('mousemove', (e) => {
-    // Hide if in View Mode or if explicitly told not to inspect
-    if (document.body.classList.contains('view-mode') || e.target.closest('.no-inspect')) {
-      tooltip.style.display = 'none';
-      return;
-    }
-
-    const target = e.target;
-    // Inspect specific resume elements
-    if (target.matches('.name, .degree, .school, .company, .job-title, .project-title, .tech-stack, .skill-label, .thesis, p, li, span')) {
-      const computedStyle = window.getComputedStyle(target);
-      const fontSize = computedStyle.fontSize;
-      const fontWeight = computedStyle.fontWeight;
-      const fontFamily = computedStyle.fontFamily.split(',')[0].replace(/['"]/g, '');
-      const className = target.className ? `.${target.className.split(' ')[0]}` : target.tagName.toLowerCase();
-
-      // Convert px to rounded pt for display (approximate)
-      const pxValue = parseFloat(fontSize);
-      const ptValue = Math.round(pxValue * 0.75);
-
-      tooltip.innerHTML = `
-        <strong>${className}</strong><br>
-        <span style="opacity:0.8">${fontFamily}</span><br>
-        ${ptValue}pt (${fontWeight})
-      `;
-      tooltip.style.display = 'block';
-
-      // Position tooltip near mouse but keep onscreen
-      const x = e.clientX + 15;
-      const y = e.clientY + 15;
-      tooltip.style.top = y + 'px';
-      tooltip.style.left = x + 'px';
-    } else {
-      tooltip.style.display = 'none';
-    }
-  });
-
-  // ========================================
   // Fixed Scale Controls (Zoom Resistance)
   // ========================================
   const controls = document.querySelector('.controls');
@@ -171,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Counteract zoom to keep visual size constant
       // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
-      controls.style.transform = `scale(${1 / zoom * 2})`;
+      controls.style.transform = `scale(${2 / zoom})`;
 
       // Adjust position to keep visual margins constant (approx 50px visual)
       controls.style.bottom = `${50 / zoom}px`;
@@ -184,5 +139,168 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial call
     updateScale();
   }
-  document.addEventListener('scroll', () => tooltip.classList.remove('visible'));
+
+  // ========================================
+  // Dev Inspector (CSS Info on Hover)
+  // ========================================
+
+  // Create tooltip element
+  const tooltip = document.createElement('div');
+  tooltip.className = 'dev-inspector-tooltip';
+  tooltip.innerHTML = `
+    <div class="tooltip-row">
+      <span class="tooltip-label">class</span>
+      <span class="tooltip-value class-value" id="tooltip-class">—</span>
+    </div>
+    <div class="tooltip-row">
+      <span class="tooltip-label">size</span>
+      <span class="tooltip-value size-value" id="tooltip-size">—</span>
+    </div>
+    <div class="tooltip-row">
+      <span class="tooltip-label">weight</span>
+      <span class="tooltip-value weight-value" id="tooltip-weight">—</span>
+    </div>
+  `;
+  document.body.appendChild(tooltip);
+
+  // Create toggle button
+  const devToggleBtn = document.createElement('button');
+  devToggleBtn.className = 'dev-toggle-btn';
+  devToggleBtn.title = 'CSS Inspector';
+  devToggleBtn.innerHTML = `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+
+  // Add toggle button to controls
+  const controlsEl = document.querySelector('.controls');
+  if (controlsEl) {
+    controlsEl.insertBefore(devToggleBtn, controlsEl.firstChild);
+  }
+
+  // State
+  let devInspectorEnabled = true;
+  devToggleBtn.classList.add('active');
+  let currentTarget = null;
+
+  // Toggle handler
+  devToggleBtn.addEventListener('click', () => {
+    devInspectorEnabled = !devInspectorEnabled;
+    devToggleBtn.classList.toggle('active', devInspectorEnabled);
+
+    if (!devInspectorEnabled) {
+      hideTooltip();
+      if (currentTarget) {
+        currentTarget.classList.remove('dev-inspector-highlight');
+        currentTarget = null;
+      }
+    }
+  });
+
+  // Get computed styles
+  function getElementStyles(el) {
+    const computed = window.getComputedStyle(el);
+    return {
+      classes: el.className ? el.className.split(' ').filter(c => c && !c.includes('dev-inspector')).join(', ') : '(none)',
+      fontSize: computed.fontSize,
+      fontWeight: computed.fontWeight
+    };
+  }
+
+  // Convert font-weight number to name
+  function getFontWeightName(weight) {
+    const weightMap = {
+      '100': '100',
+      '200': '200',
+      '300': '300',
+      '400': '400',
+      '500': '500',
+      '600': '600',
+      '700': '700',
+      '800': '800',
+      '900': '900'
+    };
+    return weightMap[weight] || weight;
+  }
+
+  // Show tooltip
+  function showTooltip(e, styles) {
+    const tooltipClass = document.getElementById('tooltip-class');
+    const tooltipSize = document.getElementById('tooltip-size');
+    const tooltipWeight = document.getElementById('tooltip-weight');
+
+    tooltipClass.textContent = styles.classes;
+    tooltipSize.textContent = styles.fontSize;
+    tooltipWeight.textContent = getFontWeightName(styles.fontWeight);
+
+    // Position tooltip
+    const padding = 15;
+    let x = e.clientX + padding;
+    let y = e.clientY + padding;
+
+    // Prevent overflow on right
+    const tooltipRect = tooltip.getBoundingClientRect();
+    if (x + tooltipRect.width > window.innerWidth) {
+      x = e.clientX - tooltipRect.width - padding;
+    }
+
+    // Prevent overflow on bottom
+    if (y + tooltipRect.height > window.innerHeight) {
+      y = e.clientY - tooltipRect.height - padding;
+    }
+
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+    tooltip.classList.add('visible');
+  }
+
+  // Hide tooltip
+  function hideTooltip() {
+    tooltip.classList.remove('visible');
+  }
+
+  // Mouse move handler
+  document.addEventListener('mousemove', (e) => {
+    if (!devInspectorEnabled) return;
+    if (document.body.classList.contains('view-mode')) return;
+
+    const target = e.target;
+
+    // Skip non-element targets and the tooltip itself
+    if (!target || target === tooltip || tooltip.contains(target)) return;
+    // Skip controls area
+    if (target.closest('.controls')) {
+      hideTooltip();
+      if (currentTarget) {
+        currentTarget.classList.remove('dev-inspector-highlight');
+        currentTarget = null;
+      }
+      return;
+    }
+
+    // Update highlight
+    if (currentTarget !== target) {
+      if (currentTarget) {
+        currentTarget.classList.remove('dev-inspector-highlight');
+      }
+      target.classList.add('dev-inspector-highlight');
+      currentTarget = target;
+    }
+
+    // Get and show styles
+    const styles = getElementStyles(target);
+    showTooltip(e, styles);
+  });
+
+  // Mouse leave document
+  document.addEventListener('mouseleave', () => {
+    if (devInspectorEnabled) {
+      hideTooltip();
+      if (currentTarget) {
+        currentTarget.classList.remove('dev-inspector-highlight');
+        currentTarget = null;
+      }
+    }
+  });
 });
