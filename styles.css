@@ -438,6 +438,10 @@ body.show-page-layout .resume-page::after {
   margin-bottom: 1px;
 }
 
+.company a {
+  text-decoration: none !important;
+}
+
 .thesis {
   color: var(--text-light);
   margin-bottom: 1px;
@@ -510,6 +514,33 @@ body.show-page-layout .resume-page::after {
 [contenteditable="true"]:focus {
   background-color: #e6edff;
   box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+/* Link Hover Tooltip - Shows URL */
+a[title] {
+  position: relative;
+}
+
+a[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 400;
+  font-style: normal;
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 1000;
+  pointer-events: none;
+  margin-bottom: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================

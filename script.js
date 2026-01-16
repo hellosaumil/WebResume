@@ -84,6 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
       .map(line => line.replace(/^-\s*/, '').trim());
   }
 
+  // Helper: Convert Markdown links [text](url) to HTML <a> tags
+  function parseMarkdownLinks(text) {
+    return text
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2" style="text-decoration:underline; color:inherit;">$1</a>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  }
 
   // --- Specific Loaders ---
 
@@ -103,7 +109,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (const [key, id] of Object.entries(mapping)) {
       if (data[key]) {
-        document.getElementById(id).textContent = data[key];
+        const el = document.getElementById(id);
+        if (key === 'email') {
+          el.innerHTML = `<a href="mailto:${data[key]}" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+        } else if (key === 'phone') {
+          const cleanPhone = data[key].replace(/[^\d+]/g, '');
+          el.innerHTML = `<a href="tel:${cleanPhone}" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+        } else if (key === 'linkedin') {
+          // Assume data[key] is a URL or handle cases where it isn't? 
+          // If it starts with http, use it. If not, maybe prepend https://?
+          let url = data[key];
+          if (!url.startsWith('http')) url = 'https://' + url;
+          el.innerHTML = `<a href="${url}" target="_blank" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+        } else {
+          el.textContent = data[key];
+        }
       }
     }
   }
@@ -158,11 +178,9 @@ document.addEventListener('DOMContentLoaded', function () {
     ul.className = 'compact-list';
 
     items.forEach(item => {
-      // Handle bold start "**Msg:** val" -> "<strong>Msg:</strong> val"
-      const html = item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       const li = document.createElement('li');
       li.contentEditable = true;
-      li.innerHTML = html;
+      li.innerHTML = parseMarkdownLinks(item);
       ul.appendChild(li);
     });
     container.appendChild(ul);
@@ -179,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (trimmed.startsWith('## ')) data.title = trimmed.replace('## ', '').trim();
         else if (trimmed.startsWith('### ')) {
           const val = trimmed.replace('### ', '').trim();
-          if (val.startsWith('Thesis:')) data.thesis = val;
+          if (val.startsWith("Master's Thesis:")) data.thesis = val;
           else data.company = val;
         }
         else if (trimmed.startsWith('#### ')) data.date = trimmed.replace('#### ', '').trim();
@@ -197,18 +215,18 @@ document.addEventListener('DOMContentLoaded', function () {
       const div = document.createElement('div');
       div.className = 'experience-item';
 
-      // Generate bullets
+      // Generate bullets with link parsing
       const bullets = exp.content
-        .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
+        .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
         .join('');
 
       div.innerHTML = `
         <div class="exp-header">
-          <span class="job-title title-1" contenteditable="true">${exp.title || ''}</span>
+          <span class="job-title title-1" contenteditable="true">${parseMarkdownLinks(exp.title || '')}</span>
           <span class="exp-date body-text" contenteditable="true">${exp.date || ''}</span>
         </div>
-        <div class="company title-2-accent" contenteditable="true">${exp.company || ''}</div>
-        ${exp.thesis ? `<div class="thesis title-3-italic" contenteditable="true">${exp.thesis}</div>` : ''}
+        <div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(exp.company || '')}</div>
+        ${exp.thesis ? `<div class="thesis title-2" contenteditable="true">${parseMarkdownLinks(exp.thesis)}</div>` : ''}
         <div class="tech-stack title-3-italic" contenteditable="true">${exp.tech || ''}</div>
         <ul class="bullet-list">
           ${bullets}
@@ -242,11 +260,11 @@ document.addEventListener('DOMContentLoaded', function () {
       div.className = 'project-item';
 
       const bullets = proj.content
-        .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
+        .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
         .join('');
 
       div.innerHTML = `
-        <div class="project-title title-1" contenteditable="true">${proj.title || ''}</div>
+        <div class="project-title title-1" contenteditable="true">${parseMarkdownLinks(proj.title || '')}</div>
         <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
         <ul class="bullet-list">
           ${bullets}
@@ -265,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
     items.forEach(item => {
       const li = document.createElement('li');
       li.contentEditable = true;
-      li.textContent = item;
+      li.innerHTML = parseMarkdownLinks(item);
       ul.appendChild(li);
     });
     container.appendChild(ul);
@@ -280,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
     items.forEach(item => {
       const li = document.createElement('li');
       li.contentEditable = true;
-      li.textContent = item;
+      li.innerHTML = parseMarkdownLinks(item);
       ul.appendChild(li);
     });
     container.appendChild(ul);
