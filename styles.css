@@ -12,9 +12,9 @@
   --border-color: #cccccc;
   --white: #ffffff;
 
-  /* A4 Dimensions */
-  --page-width: 210mm;
-  --page-height: 297mm;
+  /* US Letter Dimensions */
+  --page-width: 216mm;
+  --page-height: 279mm;
   --margin-top: 6mm;
   --margin-bottom: 6mm;
   --margin-left: 12mm;
@@ -34,12 +34,24 @@ body {
   font-weight: 300;
   line-height: 1.3;
   color: var(--text-color);
-  background: var(--bg-color);
+  background: var(--white);
+  background: var(--white);
   display: flex;
+  /* Kept for flex children if needed, but not forcing center */
   flex-direction: column;
+  /* align-items: center;  <-- REMOVED to allow full width */
+  padding: 0;
+  min-height: 100vh;
+}
+
+body.show-page-layout {
+  background: var(--bg-color);
   align-items: center;
+  /* Restore centering */
   padding: 20px;
 }
+
+
 
 /* Controls - Hidden in Print */
 /* Controls - Floating Pill (Fixed) */
@@ -93,8 +105,9 @@ body {
 
 /* Font Options Removed */
 
-.export-btn,
-.view-btn,
+/* Font Options Removed */
+
+.toggle-layout-btn,
 .reset-btn {
   display: flex;
   align-items: center;
@@ -110,8 +123,7 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.export-btn:hover,
-.view-btn:hover,
+.toggle-layout-btn:hover,
 .reset-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: translateY(0);
@@ -119,21 +131,19 @@ body {
   box-shadow: none;
 }
 
-.view-btn svg,
-.export-btn svg,
+.toggle-layout-btn svg,
 .reset-btn svg {
   width: 32px;
   height: 32px;
 }
 
-.view-btn svg path,
-.export-btn svg path,
+.toggle-layout-btn svg path,
 .reset-btn svg path {
   stroke: currentColor;
 }
 
 /* Specific tweaks for SVGs that use fill */
-.view-btn svg path[fill="white"],
+.toggle-layout-btn svg path[fill="white"],
 .reset-btn svg path[fill="white"] {
   fill: currentColor;
 }
@@ -145,21 +155,39 @@ body {
 
 
 /* Resume Page Container */
+/* Resume Page Container */
 .resume-page {
-  width: var(--page-width);
-  min-height: var(--page-height);
+  width: 100%;
+  /* Default: Fluid */
+  max-width: 100%;
+  /* Allow full width */
+  min-height: auto;
+  /* Default: Height fits content */
   background: var(--white);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+  padding: 20px 40px;
+  /* Comfortable reading padding */
   display: flex;
   flex-direction: column;
   position: relative;
   /* For page break indicator */
 }
 
-/* Page Break Marker for Edit Mode */
+body.show-page-layout .resume-page {
+  width: var(--page-width);
+  /* Strict A4 */
+  min-height: var(--page-height);
+  /* Strict A4 */
+  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+  /* Strict margins */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* Page Break Marker - Hidden by default, shown via toggle */
 .resume-page::after {
-  content: "---------------------- End of Page 1 (A4) ----------------------";
+  display: none;
+  content: "---------------------- End of Page 1 (US Letter) ----------------------";
   position: absolute;
   top: var(--page-height);
   left: 0;
@@ -175,6 +203,10 @@ body {
   pointer-events: none;
   opacity: 0.6;
   z-index: 100;
+}
+
+body.show-page-layout .resume-page::after {
+  display: block;
 }
 
 /* Header */
@@ -485,7 +517,7 @@ body {
    ======================================== */
 
 @page {
-  size: A4;
+  /* margin: 0; Let browser handle defaults or set minimal */
   margin: 0;
 }
 
@@ -494,6 +526,24 @@ body {
     background: white;
     padding: 0;
     margin: 0;
+  }
+
+  /* Prevent page breaks inside items */
+  .header,
+  /* .section - Removed to allow splitting across pages */
+  .experience-item,
+  .project-item,
+  .education-item,
+  .skills-item,
+  .compact-list li,
+  .bullet-list li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .section-title {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 
   .no-print {
@@ -532,31 +582,10 @@ body {
 }
 
 /* ========================================
-   View Mode (Browser Print Prep)
+   View Mode Overrides
    ======================================== */
-body.view-mode {
-  background: white;
-  padding: 0;
-  height: auto;
-  overflow: visible;
-  /* Snap to top-left corner */
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-body.view-mode .controls {
-  display: none !important;
-}
-
-body.view-mode .resume-page {
-  box-shadow: none;
-  width: auto;
-  min-height: auto;
-}
-
-body.view-mode .resume-page::after {
-  display: none;
-}
+/* Previously View Mode styles were here. Now default body is View Mode. */
+/* Using .view-mode class to apply previous default styles (handled above) */
 
 /* ========================================
    Dev Inspector Tooltip - Chip Layout
@@ -677,9 +706,4 @@ body.view-mode .resume-page::after {
   .dev-toggle-btn {
     display: none !important;
   }
-}
-
-body.view-mode .dev-inspector-tooltip,
-body.view-mode .dev-toggle-btn {
-  display: none !important;
 }
