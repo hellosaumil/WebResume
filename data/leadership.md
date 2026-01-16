@@ -1,0 +1,4 @@
+- Instructional Student Assistant — SDSU (CV, OS)
+- Student Volunteer — Cal State Tech Conf 2019
+- Project Manager — SDSU AI Club
+- Teaching Associate — Ahmedabad University

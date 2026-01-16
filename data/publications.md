@@ -1,0 +1,3 @@
+- **Publication:** "Real-time Face Recognition in HD Videos" doi: 10.1109/SYSCON.2018.8369529
+- **Publication:** "Automated Human Capital Management System" doi: 10.1109/SYSCON.2018.8369531
+- **Award:** NVIDIA GPU Quadro P5000 Academic Seeding Grant Recipient (Sep 2017)

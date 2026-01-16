@@ -1,0 +1,4 @@
+- TensorFlow for AI, ML & Deep Learning — Google
+- Launching into Machine Learning — Google Cloud
+- Deep Learning Explained — Microsoft
+- Neural Networks and Deep Learning — deeplearning.ai
