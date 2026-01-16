@@ -170,16 +170,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function loadExperience() {
     const text = await fetchMarkdown('experience.md');
-    const sections = parseSections(text);
+    const sections = text.split('---').map(section => {
+      const lines = section.trim().split('\n');
+      const data = { content: [] };
+
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('## ')) data.title = trimmed.replace('## ', '').trim();
+        else if (trimmed.startsWith('### ')) {
+          const val = trimmed.replace('### ', '').trim();
+          if (val.startsWith('Thesis:')) data.thesis = val;
+          else data.company = val;
+        }
+        else if (trimmed.startsWith('#### ')) data.date = trimmed.replace('#### ', '').trim();
+        else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim(); // Strip outer italics if present
+        else if (trimmed.startsWith('- ')) data.content.push(trimmed);
+      });
+      return data;
+    });
+
     const container = document.getElementById('experience-section');
 
     sections.forEach(exp => {
+      if (!exp.title) return; // Skip empty sections
+
       const div = document.createElement('div');
       div.className = 'experience-item';
 
       // Generate bullets
       const bullets = exp.content
-        .filter(line => line.trim().startsWith('-'))
         .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
         .join('');
 
@@ -201,15 +220,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function loadProjects() {
     const text = await fetchMarkdown('projects.md');
-    const sections = parseSections(text);
+    const sections = text.split('---').map(section => {
+      const lines = section.trim().split('\n');
+      const data = { content: [] };
+
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('### ')) data.title = trimmed.replace('### ', '').trim();
+        else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
+        else if (trimmed.startsWith('- ')) data.content.push(trimmed);
+      });
+      return data;
+    });
+
     const container = document.getElementById('projects-section');
 
     sections.forEach(proj => {
+      if (!proj.title) return;
+
       const div = document.createElement('div');
       div.className = 'project-item';
 
       const bullets = proj.content
-        .filter(line => line.trim().startsWith('-'))
         .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
         .join('');
 
@@ -268,14 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ========================================
-  // View Mode (Print Preview)
-  // ========================================
-  // ========================================
-  // Default is View Mode (Print Ready)
-  // Toggle Switch for Edit Mode
-  // ========================================
-  // ========================================
-  // Toggle Page Layout (Shadow, Padding, Ruler)
+  // Page Layout Toggle
   // ========================================
   const toggleLayoutBtn = document.getElementById('toggleLayout');
 
@@ -308,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Counteract zoom to keep visual size constant
       // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
-      controls.style.transform = `scale(${1 / zoom})`;
+      controls.style.transform = `scale(${2 / zoom})`;
 
       // Adjust position to keep visual margins constant (approx 50px visual)
       controls.style.bottom = `${50 / zoom}px`;
@@ -359,8 +384,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // State
-  let devInspectorEnabled = true;
-  devToggleBtn.classList.add('active');
+  let devInspectorEnabled = false;
+  // devToggleBtn.classList.add('active');
   let currentTarget = null;
 
   // Toggle handler

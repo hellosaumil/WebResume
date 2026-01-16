@@ -416,7 +416,7 @@ body.show-page-layout .resume-page::after {
 
 /* Experience */
 .experience-item {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .exp-header {
@@ -450,7 +450,7 @@ body.show-page-layout .resume-page::after {
 
 /* Projects */
 .project-item {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .project-title {
@@ -516,68 +516,16 @@ body.show-page-layout .resume-page::after {
    Print / PDF Export Styles
    ======================================== */
 
-@page {
-  /* margin: 0; Let browser handle defaults or set minimal */
-  margin: 0;
-}
+/* ========================================
+   Print / PDF Export Styles
+   ======================================== */
 
 @media print {
-  body {
-    background: white;
-    padding: 0;
-    margin: 0;
-  }
 
-  /* Prevent page breaks inside items */
-  .header,
-  /* .section - Removed to allow splitting across pages */
-  .experience-item,
-  .project-item,
-  .education-item,
-  .skills-item,
-  .compact-list li,
-  .bullet-list li {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  .section-title {
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-
-  .no-print {
+  .no-print,
+  .controls,
+  .dev-inspector-tooltip {
     display: none !important;
-  }
-
-  .resume-page {
-    box-shadow: none;
-    width: var(--page-width);
-    min-height: var(--page-height);
-    height: auto;
-    overflow: visible;
-    page-break-after: auto;
-    page-break-before: auto;
-    page-break-after: auto;
-    page-break-before: auto;
-    page-break-inside: auto;
-  }
-
-  .resume-page::after {
-    display: none !important;
-  }
-
-  [contenteditable="true"]:hover,
-  [contenteditable="true"]:focus {
-    background-color: transparent;
-    box-shadow: none;
-  }
-
-  /* Force single page */
-  html,
-  body {
-    height: auto;
-    overflow: visible;
   }
 }
 
@@ -697,13 +645,4 @@ body.show-page-layout .resume-page::after {
 .dev-toggle-btn svg {
   width: 32px;
   height: 32px;
-}
-
-/* Hide tooltip and highlight in print/view mode */
-@media print {
-
-  .dev-inspector-tooltip,
-  .dev-toggle-btn {
-    display: none !important;
-  }
 }
