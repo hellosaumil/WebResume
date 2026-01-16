@@ -1,4 +1,4 @@
-- TensorFlow for AI, ML & Deep Learning — Google
-- Launching into Machine Learning — Google Cloud
-- Deep Learning Explained — Microsoft
-- Neural Networks and Deep Learning — deeplearning.ai
+- [TensorFlow for AI, ML & Deep Learning](https://www.coursera.org/account/accomplishments/certificate/XKVMUR4UEJKP) — Google
+- [Launching into Machine Learning](https://www.coursera.org/account/accomplishments/verify/7DEYMK49VWTM) — Google Cloud
+- [Deep Learning Explained](https://courses.edx.org/certificates/1c65f0e4c3744d538da4967582bdf4d7) — Microsoft
+- [Neural Networks and Deep Learning](http://coursera.org/verify/NDPQD56KBKZT) — deeplearning.ai
