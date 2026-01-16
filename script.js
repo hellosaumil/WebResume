@@ -9,7 +9,255 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  // Add reset functionality
+  // ========================================
+  // Data Loading
+  // ========================================
+
+  async function loadResumeData() {
+    try {
+      await Promise.all([
+        loadHeader(),
+        loadEducation(),
+        loadSkills(),
+        loadPublications(),
+        loadExperience(),
+        loadProjects(),
+        loadLeadership(),
+        loadCertificates()
+      ]);
+      console.log('Resume data loaded successfully');
+    } catch (error) {
+      console.error('Error loading resume data:', error);
+    }
+  }
+
+  // Helper to fetch markdown
+  async function fetchMarkdown(filename) {
+    const response = await fetch(`data/${filename}`);
+    if (!response.ok) throw new Error(`Failed to load ${filename}`);
+    return await response.text();
+  }
+
+  // Helper: Parse Key-Value pairs (e.g., "Name: John")
+  function parseKeyValue(text) {
+    const data = {};
+    text.split('\n').forEach(line => {
+      const match = line.match(/^([^:]+):\s*(.*)$/);
+      if (match) {
+        data[match[1].trim().toLowerCase()] = match[2].trim();
+      }
+    });
+    return data;
+  }
+
+  // Helper: Parse Sections separated by '---'
+  function parseSections(text) {
+    return text.split('---').map(section => {
+      const lines = section.trim().split('\n');
+      const metadata = {};
+      const content = [];
+      let inContent = false;
+
+      lines.forEach(line => {
+        if (line.trim() === '') return;
+
+        if (!inContent) {
+          const match = line.match(/^([^:]+):\s*(.*)$/);
+          if (match) {
+            metadata[match[1].trim().toLowerCase()] = match[2].trim();
+          } else {
+            inContent = true;
+            content.push(line);
+          }
+        } else {
+          content.push(line);
+        }
+      });
+      return { ...metadata, content };
+    });
+  }
+
+  // Helper: Parse Simple List (bullets)
+  function parseList(text) {
+    return text.split('\n')
+      .filter(line => line.trim().startsWith('-'))
+      .map(line => line.replace(/^-\s*/, '').trim());
+  }
+
+
+  // --- Specific Loaders ---
+
+  async function loadHeader() {
+    const text = await fetchMarkdown('header.md');
+    const data = parseKeyValue(text);
+
+    // Map fields
+    const mapping = {
+      'name': 'field-name',
+      'phone': 'field-phone',
+      'email': 'field-email',
+      'location': 'field-location',
+      'linkedin': 'field-linkedin',
+      'startdate': 'field-startdate'
+    };
+
+    for (const [key, id] of Object.entries(mapping)) {
+      if (data[key]) {
+        document.getElementById(id).textContent = data[key];
+      }
+    }
+  }
+
+  async function loadEducation() {
+    const text = await fetchMarkdown('education.md');
+    const sections = parseSections(text);
+    const container = document.getElementById('education-section');
+
+    sections.forEach(edu => {
+      const div = document.createElement('div');
+      div.className = 'education-item';
+      div.innerHTML = `
+        <div class="edu-header">
+          <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
+          <span class="edu-date body-text" contenteditable="true">${edu.date || ''}</span>
+        </div>
+        <div class="edu-details">
+          <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
+          ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true">${edu.gpa}</span>` : ''}
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  async function loadSkills() {
+    const text = await fetchMarkdown('skills.md');
+    const items = parseList(text);
+    const container = document.getElementById('skills-section');
+
+    items.forEach(item => {
+      // Expecting format "**Label:** Value"
+      const match = item.match(/^\*\*(.*?):\*\*\s*(.*)$/);
+      if (match) {
+        const div = document.createElement('div');
+        div.className = 'skills-item';
+        div.innerHTML = `
+          <span class="skill-label title-1">${match[1]}:</span>
+          <span class="skill-value" contenteditable="true">${match[2]}</span>
+        `;
+        container.appendChild(div);
+      }
+    });
+  }
+
+  async function loadPublications() {
+    const text = await fetchMarkdown('publications.md');
+    const items = parseList(text);
+    const container = document.getElementById('publications-section');
+    const ul = document.createElement('ul');
+    ul.className = 'compact-list';
+
+    items.forEach(item => {
+      // Handle bold start "**Msg:** val" -> "<strong>Msg:</strong> val"
+      const html = item.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      const li = document.createElement('li');
+      li.contentEditable = true;
+      li.innerHTML = html;
+      ul.appendChild(li);
+    });
+    container.appendChild(ul);
+  }
+
+  async function loadExperience() {
+    const text = await fetchMarkdown('experience.md');
+    const sections = parseSections(text);
+    const container = document.getElementById('experience-section');
+
+    sections.forEach(exp => {
+      const div = document.createElement('div');
+      div.className = 'experience-item';
+
+      // Generate bullets
+      const bullets = exp.content
+        .filter(line => line.trim().startsWith('-'))
+        .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
+        .join('');
+
+      div.innerHTML = `
+        <div class="exp-header">
+          <span class="job-title title-1" contenteditable="true">${exp.title || ''}</span>
+          <span class="exp-date body-text" contenteditable="true">${exp.date || ''}</span>
+        </div>
+        <div class="company title-2-accent" contenteditable="true">${exp.company || ''}</div>
+        ${exp.thesis ? `<div class="thesis title-3-italic" contenteditable="true">${exp.thesis}</div>` : ''}
+        <div class="tech-stack title-3-italic" contenteditable="true">${exp.tech || ''}</div>
+        <ul class="bullet-list">
+          ${bullets}
+        </ul>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  async function loadProjects() {
+    const text = await fetchMarkdown('projects.md');
+    const sections = parseSections(text);
+    const container = document.getElementById('projects-section');
+
+    sections.forEach(proj => {
+      const div = document.createElement('div');
+      div.className = 'project-item';
+
+      const bullets = proj.content
+        .filter(line => line.trim().startsWith('-'))
+        .map(line => `<li contenteditable="true">${line.replace(/^-\s*/, '')}</li>`)
+        .join('');
+
+      div.innerHTML = `
+        <div class="project-title title-1" contenteditable="true">${proj.title || ''}</div>
+        <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
+        <ul class="bullet-list">
+          ${bullets}
+        </ul>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  async function loadLeadership() {
+    const text = await fetchMarkdown('leadership.md');
+    const items = parseList(text);
+    const container = document.getElementById('leadership-section');
+    const ul = document.createElement('ul');
+    ul.className = 'compact-list';
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.contentEditable = true;
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+    container.appendChild(ul);
+  }
+
+  async function loadCertificates() {
+    const text = await fetchMarkdown('certificates.md');
+    const items = parseList(text);
+    const container = document.getElementById('certificates-section');
+    const ul = document.createElement('ul');
+    ul.className = 'compact-list';
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.contentEditable = true;
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+    container.appendChild(ul);
+  }
+
+
+  // Initialize
+  loadResumeData();
+
   const resetBtn = document.getElementById('resetContent');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
@@ -60,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Counteract zoom to keep visual size constant
       // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
-      controls.style.transform = `scale(${2 / zoom})`;
+      controls.style.transform = `scale(${1 / zoom})`;
 
       // Adjust position to keep visual margins constant (approx 50px visual)
       controls.style.bottom = `${50 / zoom}px`;
