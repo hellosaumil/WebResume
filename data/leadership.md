@@ -1,5 +1,5 @@
 - Instructional Student Assistant — SDSU (CV, OS)
-- Student Volunteer — [Cal State Tech Conf 2019](https://calstate.eventsair.com/cal-state-tech-conference-2019/)
+- Student Volunteer — `[Cal State Tech Conf 2019](https://calstate.eventsair.com/cal-state-tech-conference-2019/)`
 - Project Manager — SDSU AI Club
 - Teaching Associate — Ahmedabad University
-- Outreach — [San Diego Festival of Science and Engineering @ SDSU](https://www.lovestemsd.org/)
+- Outreach — `[San Diego Festival of Science and Engineering @ SDSU](https://www.lovestemsd.org/)`
