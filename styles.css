@@ -374,6 +374,10 @@ body.show-page-layout .resume-page::after {
   color: var(--text-light);
 }
 
+.skill-value code {
+  font-weight: 300;
+}
+
 /* Lists */
 .bullet-list {
   list-style: none;
@@ -411,6 +415,14 @@ body.show-page-layout .resume-page::after {
   content: "•";
   position: absolute;
   left: 2px;
+  color: var(--text-color);
+}
+
+/* Inline Code */
+code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95em;
+  font-weight: 500;
   color: var(--text-color);
 }
 
@@ -516,31 +528,54 @@ body.show-page-layout .resume-page::after {
   box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
 }
 
-/* Link Hover Tooltip - Shows URL */
-a[title] {
-  position: relative;
+/* Link Hover Tooltip - Interactive with button */
+.link-tooltip {
+  position: fixed;
+  background: rgb(75 75 75);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 7pt;
+  font-weight: 500;
+  font-family: "Space Grotesk", sans-serif;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 350px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
 }
 
-a[title]:hover::after {
-  content: attr(title);
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 400;
-  font-style: normal;
+.link-tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.link-tooltip-url {
   white-space: nowrap;
-  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
-  z-index: 1000;
-  pointer-events: none;
-  margin-bottom: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 280px;
+}
+
+.link-tooltip-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-tooltip-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* ========================================
@@ -590,10 +625,10 @@ a[title]:hover::after {
   background: #f8f8f8;
   border: 1px solid #d1d1d1;
   border-radius: 6px;
-  padding: 4px 10px;
+  padding: 3px 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-  font-size: 11px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
   color: #1a1a1a;
   display: flex;
   align-items: center;
