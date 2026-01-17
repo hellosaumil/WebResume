@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function parseMarkdownLinks(text) {
     return text
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2" style="text-decoration:underline; color:inherit;">$1</a>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
   // --- Specific Loaders ---
@@ -114,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
           el.innerHTML = `<a href="mailto:${data[key]}" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
         } else if (key === 'phone') {
           const cleanPhone = data[key].replace(/[^\d+]/g, '');
-          el.innerHTML = `<a href="tel:${cleanPhone}" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+          el.innerHTML = `<a href="tel:${cleanPhone}" class="contact-link" style="text-decoration:none; color:inherit;">${data[key]}</a>`;
         } else if (key === 'linkedin') {
           // Assume data[key] is a URL or handle cases where it isn't? 
           // If it starts with http, use it. If not, maybe prepend https://?
@@ -550,5 +551,82 @@ document.addEventListener('DOMContentLoaded', function () {
         currentTarget = null;
       }
     }
+  });
+
+  // ========================================
+  // Link Tooltip with Open Button
+  // ========================================
+  const linkTooltip = document.createElement('div');
+  linkTooltip.className = 'link-tooltip';
+  linkTooltip.innerHTML = `
+    <button class="link-tooltip-btn"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></button>
+    <span class="link-tooltip-url"></span>
+  `;
+  document.body.appendChild(linkTooltip);
+
+  let currentLinkUrl = '';
+  let linkHoverTimeout = null;
+
+  // Show link tooltip
+  function showLinkTooltip(e, url) {
+    currentLinkUrl = url;
+    const urlSpan = linkTooltip.querySelector('.link-tooltip-url');
+    urlSpan.textContent = url;
+
+    const padding = 10;
+    let x = e.clientX + padding;
+    let y = e.clientY - 35;
+
+    // Prevent overflow on right
+    if (x + 360 > window.innerWidth) {
+      x = e.clientX - 360 - padding;
+    }
+
+    // Prevent overflow on top
+    if (y < 10) {
+      y = e.clientY + 20;
+    }
+
+    linkTooltip.style.left = `${x}px`;
+    linkTooltip.style.top = `${y}px`;
+    linkTooltip.classList.add('visible');
+  }
+
+  // Hide link tooltip
+  function hideLinkTooltip() {
+    linkTooltip.classList.remove('visible');
+    currentLinkUrl = '';
+  }
+
+  // Open button click
+  linkTooltip.querySelector('.link-tooltip-btn').addEventListener('click', () => {
+    if (currentLinkUrl) {
+      window.open(currentLinkUrl, '_blank');
+    }
+  });
+
+  // Link hover handlers
+  document.addEventListener('mouseover', (e) => {
+    const link = e.target.closest('a[href]');
+    if (link && link.href && !link.closest('.controls')) {
+      clearTimeout(linkHoverTimeout);
+      showLinkTooltip(e, link.href);
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const link = e.target.closest('a[href]');
+    if (link) {
+      linkHoverTimeout = setTimeout(() => {
+        if (!linkTooltip.matches(':hover')) {
+          hideLinkTooltip();
+        }
+      }, 100);
+    }
+  });
+
+  // Hide when leaving tooltip
+  linkTooltip.addEventListener('mouseleave', () => {
+    hideLinkTooltip();
   });
 });
