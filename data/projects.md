@@ -34,9 +34,10 @@
 - Automated `VM load forecasting` using `Linear Regression` to drive resource balancing via `Xen-API`.
 
 ---
-### [Face Recognition & Tracking on Real-Time HD  Video](https://drive.google.com/open?id=0B9gQb-9dKj0ubWVWWjFLQWJqRnM)
-##### *Machine Learning, PCA, LDA, K-Means Clustering, Haar Features; Python, OpenCV, PyCUDA*
-- Literature survey and analysis of various face detection and recognition algorithms
-- Implementation of Face Detection, Tracking, and Recognition for input streaming HD video
-- Implemented `PCA-LDA`, `ILDA` for Face-Recognition on GPU using `PyCUDA` and `Sci-Kit CUDA`
-- `[Published](https://ieeexplore.ieee.org/document/8369529/)` researched findings for fast implementation of online face recognition systems in IEEE
+### [GPU-accelerated Face Recognition & Tracking on Real-Time HD  Video](https://drive.google.com/open?id=0B9gQb-9dKj0ubWVWWjFLQWJqRnM)
+##### *Machine Learning, Incremental Learning, IPCA, LDA, K-Means Clustering, Haar Features; Python, OpenCV, PyCUDA*
+- Engineered a `real-time HD` face recognition using incremental `IPCA+LDA` for `continuous updates` to classifier knowledge.
+- Boosted to `94.67% accuracy` by implementing `novel frame-skipping` to allocate resources for incremental learning.
+- Accelerated training pipeline `speed by 24%` on `NVIDIA GPGPUs` using `PyCUDA/Sci-kit CUDA` optimizations.
+- Achieved `34.3% power savings` on low-end `NVIDIA GeForce 525M GPUs` compared to `CPU-only` execution.
+- `Open-sourced` the `SEAS-FR` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings in a `IEEE` conference.
