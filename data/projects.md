@@ -28,14 +28,13 @@
 ---
 ### [QpiC: Querying Platform with VM Integration on Cloud](https://drive.google.com/drive/folders/0B9gQb-9dKj0uUF9iVEM4UXBRaEk?usp=sharing)
 ##### *Cloud Computing, Micro-services, VM, Multi-tenancy; Python, Heroku, OWL, Sparql, WebPy, Flask, Xen Server*
-- A cloud-based platform which is `SaaS` and `IaaS`
-- Users can run complex `SPARQL` queries on `OWLs` ontologies using `WebPy`
-- Support for Multi-Tenancy and Caching of frequent query results
-- Perform Instant Query or upload your own ontology and Queries
-- Automated VM Load prediction using Linear Regressive model and balancing using `Xen-API`
+- Developed a `WebPy` SaaS platform for `SPARQL` queries on `OWL/RDF` ontologies via `RDFLib`.
+- Optimized response times by implementing `LRU caching` with `pickle` serialization to eliminate redundant parsing.
+- Engineered `multi-tenant` isolation with auto-provisioning and strict `filesystem-based` access controls.
+- Automated `VM load forecasting` using `Linear Regression` to drive resource balancing via `Xen-API`.
 
 ---
-### [Face Recognition & Tracking on Real-Time HD Video](https://drive.google.com/open?id=0B9gQb-9dKj0ubWVWWjFLQWJqRnM)
+### [Face Recognition & Tracking on Real-Time HD  Video](https://drive.google.com/open?id=0B9gQb-9dKj0ubWVWWjFLQWJqRnM)
 ##### *Machine Learning, PCA, LDA, K-Means Clustering, Haar Features; Python, OpenCV, PyCUDA*
 - Literature survey and analysis of various face detection and recognition algorithms
 - Implementation of Face Detection, Tracking, and Recognition for input streaming HD video
