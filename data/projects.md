@@ -7,15 +7,24 @@
 - Utilizing open-source 3D `GLTF` formats to render plantery objects
 
 ---
+
+- Built an end-to-end **`LSTM`** phoneme recognition pipeline on **`TIMIT`**, mapping 61→39 phonemes and achieving **~64% accuracy** with a 2-layer (256-unit) architecture
+
+- Scaled training on **`AWS EC2 (t2.xlarge)`**, reducing training time from **2.75 hours to ~45 seconds (>99% speedup)** vs. local execution
+
+- Architected a custom **`PaddedBatchGenerator`** with **`Keras Masking`** layers for variable-length audio sequences and dynamic temporal input handling
+
+- Optimized convergence via **`Batch Normalization`**, **`Dropout (0.25)`**, and **`K-Fold Cross-Validation`** (k=2) with grid search hyperparameter tuning
+
+
+---
 ### [Phoneme Recognition and Digits Identification — Deep Speech Recognition](https://drive.google.com/drive/folders/1C59f-HTYvSWZ5iUEIMvxXTJogwpAaULU?usp=sharing)
-##### *Deep Learning, Speech Processing, LSTM, RNN, PCA, GMM; Python, TensorFlow, Keras, AWS EC2*
-- Developed speech recognition system using `TensorFlow` and `Keras` on `[TIMIT](https://catalog.ldc.upenn.edu/LDC93S10)` and `TIDIGITS` datasets
-- Devised code for dynamic mini-batch generation of spectrograms
-- Performed `Fourier Analysis`, applied `Principal Component Analysis` (PCA) on spectrograms for feature extraction
-- Trained `Gaussian Mixture Models` (GMM) on PCAs to classify speech from noise using Bayesian Inference
-- Programmed a system using `LSTM` (Long Short Term Memory) `RNNs` for Phoneme Recognition
-- Used `N-Fold Cross Validation` and `Dropout Regularization` for a better feed forward network architecture
-- Developed framework to dynamically test and compare different deep neural networks on `AWS EC2 (Elastic Cloud Compute)`
+##### *Deep Learning, Speech Processing, Computer Vision, LSTM, RNNs, Spectrograms; Python, Tensorflow, Keras, AWS EC2*
+- Developed an `end-to-end RNN pipeline` for phoneme recognition on `[TIMIT](https://catalog.ldc.upenn.edu/LDC93S1)` and `[TIDIGITS](https://catalog.ldc.upenn.edu/LDC93S10)` using `Tensorflow` and `Keras`.
+- Scaled on `AWS EC2 (t2.xlarge)`, reducing epoch time from `2.75hrs` to `~45s` `(>99% speedup)` over local execution.
+- Architected a custom `PaddedBatchGenerator` with `Masking layers` to handle variable-length audio without data loss.
+- Conducted a `grid-search` over layer widths, dropout, and L2 rates; optimized to a `2-layer LSTM` with `~64% accuracy`.
+- Validated performance using `Stratified K-Fold Cross-Validation` to ensure generalization on unseen test data.
 
 ---
 ### [GPU-accelerated Face Recognition & Tracking on Real-Time HD  Video](https://drive.google.com/open?id=0B9gQb-9dKj0ubWVWWjFLQWJqRnM)
@@ -27,9 +36,9 @@
 - `Open-sourced` the `SEAS-FR-DB` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings in a `IEEE` conference.
 
 ---
-### [PySpark for Image Classification on Satellite Imagery of Agricultural Terrains](https://github.com/hellosaumil/deepsat-aws-emr-pyspark)
+### [Agricultural Terrains Image Classification on Satellite Imagery](https://github.com/hellosaumil/deepsat-aws-emr-pyspark)
 ##### *Big Data, ML Pipeline, Image Classification, Satellite Images, PCA, Random Forests; Python, PySpark, AWS EMR, S3*
-- Deployed a `distributed ML pipeline` on `AWS ElasticMapReduce (EMR)` using `PySpark` to classify `405k images` from `[DeepSat Kaggle Dataset](https://www.kaggle.com/crawford/deepsat-sat6)`.
+- Deployed a `distributed ML pipeline` on `AWS EMR (Elastic MapReduce)` using `PySpark` to classify `405k images` from `[DeepSat Kaggle](https://www.kaggle.com/crawford/deepsat-sat6)` dataset.
 - Optimized training time by `~85%`, achieving `92%` accuracy using `PCA` for dimensionality reduction across `6` terrain categories.
 - Architected scalable `AWS S3` & `Spark ML pipelines` to process `5.6 GB`, cutting training costs to `<$0.20/run` on `m5.xlarge clusters`.
 - Built `dual-mode framework` for seamless `local-to-cloud` transition, running inference on `81k samples` in `<5 minutes`.
@@ -42,11 +51,10 @@
 - Orchestrated real-time `state sync` between the main app and Home screen `Widgets` using `App Groups`.
 - Migrated legacy `iOS 14` (`SwiftUI 2`) written in 2020 to `iOS 26` (`SwiftUI 5`) using `Google Antigravity` and `Claude Opus 4.5` in 2026.
 
-
 ---
 ### [QpiC: Querying Platform with VM Integration on Cloud](https://drive.google.com/drive/folders/0B9gQb-9dKj0uUF9iVEM4UXBRaEk?usp=sharing)
 ##### *Cloud Computing, Micro-services, VM, Multi-tenancy; Python, Heroku, OWL, Sparql, WebPy, Flask, Xen Server*
 - Developed a `WebPy` SaaS platform for `SPARQL` queries on `OWL/RDF` ontologies via `RDFLib`.
-- Optimized response times by implementing `LRU caching` with `pickle` serialization to eliminate redundant parsing.
+- Optimized response times by implementing `LRU caching` with `pickle serialization` to eliminate redundant parsing.
 - Engineered `multi-tenant` isolation with auto-provisioning and strict `filesystem-based` access controls.
 - Automated `VM load forecasting` using `Linear Regression` to drive resource balancing via `Xen-API`.
