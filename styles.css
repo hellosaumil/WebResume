@@ -222,16 +222,24 @@ body.show-page-layout .resume-page::after {
 }
 
 .name {
-  font-family: 'Space Grotesk', sans-serif;
   color: var(--primary-color);
   letter-spacing: -0.5px;
   line-height: 1;
+  display: flex;
+  gap: 0.3em;
+}
+
+#field-firstname {
+  font-weight: 300;
+}
+
+#field-lastname {
+  font-weight: 100;
 }
 
 /* Typography Hierarchy - From DESIGN_SYSTEM.md */
 .header-1 {
-  font-size: 24pt;
-  font-weight: 600;
+  font-size: 30pt;
 }
 
 .header-2 {
@@ -362,12 +370,20 @@ body.show-page-layout .resume-page::after {
 }
 
 /* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 1px;
+}
+
 .skills-item {
   margin-bottom: 2px;
 }
 
 .skill-label {
   color: var(--primary-color);
+  font-weight: 500;
 }
 
 .skill-value {
@@ -462,6 +478,22 @@ code {
 .tech-stack {
   color: var(--text-light);
   margin-bottom: 2px;
+}
+
+.tech-stack-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
+.tech-concepts {
+  color: var(--text-light);
+}
+
+.tech-tools {
+  color: var(--text-light);
+  text-align: right;
 }
 
 /* Projects */
