@@ -16,7 +16,6 @@
 ### [KORE Wireless](https://www.korewireless.com/) — Blue Ash, OH
 #### 2020 - 2021
 ##### *R&D, Applied ML, Predictive Analytics, Clustering, Anomaly Detection, Web-Services; SQL, Python, Scikit-Learn, FastAPI, PowerBI, Jupyter Notebooks*
-
 - Engineered `APIs` from scratch for `Auto-Thresholds (Burst Detection)` and `Auto-Device Grouping` services to automate `Anomaly Detection`.
 - Developed `ETL pipelines` to process and clean `live usage data` from `NetFlow` and `Radius` sources for downstream ML models.
 - Created `3D Clustering data visualizations` to guide the engineering team's `UI/UX` design strategy to improve `[SecurityPro](https://www.korewireless.com/news/koreone-security-connectivity-analytics-platform-enable-innovative-i/)` network diagnostic product offering.
@@ -25,13 +24,16 @@
 
 ---
 ## Associate Researcher
-### [MBARCO at SDSU](https://roch.sdsu.edu/index.php/research-overview/) & [Scripps Institution of Oceanography, UCSD](http://acoustics.ucsd.edu) — San Diego, CA
+### [Marine Bio-acoustics Research Collaborative (<u>MBARC</u>)](https://acoustics.ucsd.edu) — San Diego, CA
+### [Marine Acoustics Research (<u>MAR</u>) Lab, SDSU](https://roch.sdsu.edu/index.php/research-overview) & [Scripps Institution of Oceanography (<u>SIO</u>), UCSD](https://www.cetus.ucsd.edu)
 #### 2019 - 2020
-### Master's Thesis: "[Learning to Detect Odontocete Whistles from Generative Synthetic Samples](https://csu-sdsu.primo.exlibrisgroup.com/permalink/01CALS_SDL/r45sar/alma991023922865902917)"
-##### *Deep Learning, Bio-Acoustics, CycleGAN, WGAN, CNN, UNet, ResNets, PatchGAN; Python, PyTorch, CUDA, MATLAB*
-- Co-designed the `[DeepWhistleGAN](https://drive.google.com/file/d/1vp1WcMvt0eAPQbaeXxriQ5qnka3edRHn/view?usp=sharing)` (`WGAN`+`CycleGAN`-based) architecture to synthesize dolphin whistles and oceanic noise spectrogram patches.
-- Achieved significant performance improvements (~52% precision, ~10% recall) compared to baseline results.
-- Published a master's thesis manuscript with SDSU Montezuma Publishing following a successful thesis defense.
+### Master's Thesis: `[Learning to Detect Odontocete Whistles from Generative Synthetic Samples](https://csu-sdsu.primo.exlibrisgroup.com/permalink/01CALS_SDL/r45sar/alma991023922865902917)`, Advisor: [Dr. Marie Roch](https://roch.sdsu.edu)
+##### *Deep Learning, Bio-Acoustics, CycleGAN, WGAN, CNN, U-Net, ResNets, PatchGAN; Python, PyTorch, CUDA, MATLAB*
+- Designed `[DeepWhistleGAN](https://drive.google.com/file/d/1vp1WcMvt0eAPQbaeXxriQ5qnka3edRHn/view?usp=sharing)`, a novel `unsupervised learning` architecture to synthesize `dolphin whistles` and `oceanic noise` spectrogram patches
+- Solved `data scarcity` by generating `1000% synthetic samples`, enabling `WGAN`+`CycleGAN` models to train effectively on just `6.25% of annotated data`.
+- Achieved `80.5% F1 Score` with the optimal augmented model, outperforming synthesis baselines (`EdgeGT`, `EdgeCanny`) by `~8%` in noisy environments.
+- Attained `96.6% Precision` & `69.0% Recall`, drastically reducing `false positives` in `PAM` systems compared to SOTA `graph-search` algorithms (`Silbido`).
+- Proposed a scalable `transfer learning pipeline` to adapt `odontocete` detection for `mysticetes (baleen whales)` to aid `marine mammal conservation`.
 
 ---
 ## Research Engineering Intern
