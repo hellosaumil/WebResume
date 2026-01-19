@@ -24,16 +24,15 @@
 - Boosted to `94.67% accuracy` by implementing `novel frame-skipping` to allocate resources for incremental learning.
 - Accelerated training pipeline `speed by 24%` on `NVIDIA GPGPUs` using `PyCUDA/Sci-kit CUDA` optimizations.
 - Achieved `34.3% power savings` on low-end `NVIDIA GeForce 525M GPUs` compared to `CPU-only` execution.
-- `Open-sourced` the `SEAS-FR` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings in a `IEEE` conference.
+- `Open-sourced` the `SEAS-FR-DB` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings in a `IEEE` conference.
 
 ---
 ### [PySpark for Image Classification on Satellite Imagery of Agricultural Terrains](https://github.com/hellosaumil/deepsat-aws-emr-pyspark)
 ##### *Big Data, ML Pipeline, Image Classification, Satellite Images, PCA, Random Forests; Python, PySpark, AWS EMR, S3*
-- Created an end-to-end pipeline from data ETL to Model Training to Classification on `[DeepSat Kaggle Dataset](https://www.kaggle.com/crawford/deepsat-sat6)`
-- Used `PySpark` for distributed computing while hosting clusters on `AWS Elastic MapReduce` (EMR) instances and `S3` buckets for storing data and logging outputs
-- Performed `Principal Component Analysis` (PCA) on Features from RGB and Infrared IR Channels
-- Trained `Random Forests` to classify 6 types of agricultural terrains and performed model evaluation
-
+- Deployed a `distributed ML pipeline` on `AWS ElasticMapReduce (EMR)` using `PySpark` to classify `405k images` from `[DeepSat Kaggle Dataset](https://www.kaggle.com/crawford/deepsat-sat6)`.
+- Optimized training time by `~85%`, achieving `92%` accuracy using `PCA` for dimensionality reduction across `6` terrain categories.
+- Architected scalable `AWS S3` & `Spark ML pipelines` to process `5.6 GB`, cutting training costs to `<$0.20/run` on `m5.xlarge clusters`.
+- Built `dual-mode framework` for seamless `local-to-cloud` transition, running inference on `81k samples` in `<5 minutes`.
 
 ---
 ### [ToDo iOS App - SwiftUI](https://github.com/hellosaumil/ToDo-SwiftUI#)
