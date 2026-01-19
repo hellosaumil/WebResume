@@ -1,4 +1,5 @@
-Name: Saumil Shah
+FirstName: Saumil
+LastName: Shah
 Phone: (619)-606-4971
 Email: hellosaumil@gmail.com
 Location: San Diego, CA

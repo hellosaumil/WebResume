@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Map fields
     const mapping = {
-      'name': 'field-name',
+      'firstname': 'field-firstname',
+      'lastname': 'field-lastname',
       'phone': 'field-phone',
       'email': 'field-email',
       'location': 'field-location',
