@@ -5,7 +5,6 @@ A modern, interactive web-based resume built with dynamic data loading from Mark
 ## 🔗 Links
 
 - **Live Resume**: [http://127.0.0.1:3000/index.html](http://127.0.0.1:3000/index.html)
-- **PDF Version**: [http://127.0.0.1:3000/CV-Comprehensive-US-NIW-Visa.pdf](http://127.0.0.1:3000/CV-Comprehensive-US-NIW-Visa.pdf)
 
 ## Features
 

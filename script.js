@@ -568,29 +568,39 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentLinkUrl = '';
   let linkHoverTimeout = null;
 
-  // Show link tooltip
-  function showLinkTooltip(e, url) {
+  // Show link tooltip relative to element
+  function showLinkTooltip(linkElement) {
+    const url = linkElement.href;
     currentLinkUrl = url;
     const urlSpan = linkTooltip.querySelector('.link-tooltip-url');
     urlSpan.textContent = url;
 
-    const padding = 10;
-    let x = e.clientX + padding;
-    let y = e.clientY - 35;
+    // Show it so we can measure it
+    linkTooltip.classList.add('visible');
+
+    // Get dimensions
+    const tooltipRect = linkTooltip.getBoundingClientRect();
+    const linkRect = linkElement.getBoundingClientRect();
+
+    // Position: Centered above the link
+    let x = linkRect.left + (linkRect.width / 2) - (tooltipRect.width / 2);
+    let y = linkRect.top - tooltipRect.height - 8; // 8px gap
 
     // Prevent overflow on right
-    if (x + 360 > window.innerWidth) {
-      x = e.clientX - 360 - padding;
+    if (x + tooltipRect.width > window.innerWidth - 10) {
+      x = window.innerWidth - tooltipRect.width - 10;
     }
 
-    // Prevent overflow on top
+    // Prevent overflow on left
+    if (x < 10) x = 10;
+
+    // Prevent overflow on top (show below link instead)
     if (y < 10) {
-      y = e.clientY + 20;
+      y = linkRect.bottom + 8;
     }
 
     linkTooltip.style.left = `${x}px`;
     linkTooltip.style.top = `${y}px`;
-    linkTooltip.classList.add('visible');
   }
 
   // Hide link tooltip
@@ -611,9 +621,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const link = e.target.closest('a[href]');
     if (link && link.href && !link.closest('.controls')) {
       clearTimeout(linkHoverTimeout);
-      showLinkTooltip(e, link.href);
+      showLinkTooltip(link);
     }
   });
+
+  // Remove the mousemove handler that was causing the 'chasing' issue
+  // The tooltip is now anchored to the element for stability.
 
   document.addEventListener('mouseout', (e) => {
     const link = e.target.closest('a[href]');
