@@ -19,6 +19,43 @@
   --margin-bottom: 6mm;
   --margin-left: 12mm;
   --margin-right: 12mm;
+
+  /* Controls Design System */
+  --control-bg: rgba(255, 255, 255, 0.75);
+  --control-border: rgba(0, 0, 0, 0.1);
+  --control-icon: rgba(0, 0, 0, 0.7);
+  --control-hover-bg: rgba(0, 0, 0, 0.05);
+  --control-active-bg: rgba(0, 0, 0, 0.1);
+  --control-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --tooltip-bg: rgba(0, 0, 0, 0.85);
+  --tooltip-text: #ffffff;
+}
+
+body.dark-mode {
+  --primary-color: #ffffff;
+  /* Pure white for headers in dark mode */
+  --accent-color: #60a5fa;
+  /* Brighter blue for accent */
+  --text-color: #e5e7eb;
+  /* Light gray for body text */
+  --text-light: #9ca3af;
+  /* Muted gray for secondary text */
+  --bg-color: #0a0a0a;
+  /* Deep black for outer background */
+  --border-color: #374151;
+  /* Dark gray for borders */
+  --white: #111111;
+  /* Very dark gray for page background */
+
+  /* Controls Design System - Dark */
+  --control-bg: rgba(30, 30, 30, 0.8);
+  --control-border: rgba(255, 255, 255, 0.1);
+  --control-icon: rgba(255, 255, 255, 0.82);
+  --control-hover-bg: rgba(255, 255, 255, 0.1);
+  --control-active-bg: rgba(255, 255, 255, 0.15);
+  --control-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --tooltip-bg: rgba(255, 255, 255, 0.95);
+  --tooltip-text: #1a1a1a;
 }
 
 /* Reset & Base */
@@ -34,7 +71,6 @@ body {
   font-weight: 300;
   line-height: 1.3;
   color: var(--text-color);
-  background: var(--white);
   background: var(--white);
   display: flex;
   /* Kept for flex children if needed, but not forcing center */
@@ -62,15 +98,21 @@ body.show-page-layout {
   z-index: 1000;
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  gap: 6px;
   align-items: center;
-  background: rgba(30, 30, 30, 0.85);
+  background: var(--control-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 10px;
+  padding: 6px;
   border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--control-border);
+  box-shadow: var(--control-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls:hover {
+  border-color: rgba(66, 153, 225, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 /* Custom Tooltips */
@@ -81,19 +123,22 @@ body.show-page-layout {
 .controls button:hover::after {
   content: attr(title);
   position: absolute;
-  bottom: 100%;
+  bottom: 115%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 11px;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
   white-space: nowrap;
-  margin-bottom: 8px;
   pointer-events: none;
   opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.2s forwards;
+  z-index: 2000;
 }
 
 @keyframes fadeIn {
@@ -107,46 +152,89 @@ body.show-page-layout {
 
 /* Font Options Removed */
 
+.toggle-layout-btn svg,
+.reset-btn svg,
+.theme-toggle-btn svg,
+.dev-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.reset-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
 .toggle-layout-btn,
-.reset-btn {
+.reset-btn,
+.theme-toggle-btn,
+.dev-toggle-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border: none;
+  padding: 0;
   background: transparent;
-  border-radius: 28px;
+  border-radius: 22px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--control-icon);
 }
 
 .toggle-layout-btn:hover,
-.reset-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(0);
-  color: white;
-  box-shadow: none;
+.reset-btn:hover,
+.theme-toggle-btn:hover,
+.dev-toggle-btn:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
 }
 
-.toggle-layout-btn svg,
-.reset-btn svg {
-  width: 32px;
-  height: 32px;
+.toggle-layout-btn.active,
+.theme-toggle-btn.active,
+.dev-toggle-btn.active {
+  background: var(--control-active-bg);
+  color: var(--accent-color);
 }
 
 .toggle-layout-btn svg path,
-.reset-btn svg path {
+.reset-btn svg path,
+.theme-toggle-btn svg path,
+.dev-toggle-btn svg path {
   stroke: currentColor;
 }
 
 /* Specific tweaks for SVGs that use fill */
 .toggle-layout-btn svg path[fill="white"],
-.reset-btn svg path[fill="white"] {
+.reset-btn svg path[fill="white"],
+.theme-toggle-btn svg path[fill="white"] {
   fill: currentColor;
 }
+
+/* Theme Toggle Transitions */
+.theme-toggle-btn .sun-icon {
+  display: none;
+}
+
+.theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+body.dark-mode .theme-toggle-btn .sun-icon {
+  display: block;
+}
+
+body.dark-mode .theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+.theme-toggle-btn.active {
+  color: #ff9f43;
+  /* Warm sun color */
+}
+
 
 .btn-text {
   display: none;
@@ -552,13 +640,23 @@ code {
 }
 
 [contenteditable="true"]:hover {
-  background-color: #f0f4ff;
+  background-color: rgba(66, 153, 225, 0.1);
 }
 
 [contenteditable="true"]:focus {
-  background-color: #e6edff;
-  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+  background-color: rgba(66, 153, 225, 0.2);
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.4);
 }
+
+body.dark-mode [contenteditable="true"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode [contenteditable="true"]:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
 
 /* Link Hover Tooltip - Interactive with button */
 .link-tooltip {
@@ -654,18 +752,25 @@ code {
 }
 
 .dev-inspector-tooltip .tooltip-row {
-  background: #f8f8f8;
-  border: 1px solid #d1d1d1;
+  background: var(--white);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 3px 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-family: 'Space Grotesk', sans-serif;
   font-size: 9px;
-  color: #1a1a1a;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+body.dark-mode .dev-inspector-tooltip .tooltip-row {
+  background: #1e1e1e;
+  border-color: #444;
+  color: #fff;
+}
+
 
 .dev-inspector-tooltip .tooltip-value {
   font-weight: 500;
@@ -673,15 +778,15 @@ code {
 
 /* Color accents for chips if desired, or keep neutral */
 .dev-inspector-tooltip .tooltip-value.class-value {
-  color: #1a1a1a;
+  color: inherit;
 }
 
 .dev-inspector-tooltip .tooltip-value.size-value {
-  color: #1a1a1a;
+  color: inherit;
 }
 
 .dev-inspector-tooltip .tooltip-value.weight-value {
-  color: #1a1a1a;
+  color: inherit;
 }
 
 /* Highlight effects on hovered elements - Multi-color variants */
@@ -714,33 +819,8 @@ code {
   background-color: rgba(104, 211, 145, 0.12) !important;
 }
 
-/* Toggle button for dev inspector */
-.dev-toggle-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  width: 50px;
-  height: 50px;
-  border: none;
-  background: transparent;
-  border-radius: 28px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.dev-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-}
-
+/* CSS Inspector specific active state */
 .dev-toggle-btn.active {
-  background: rgba(79, 209, 197, 0.3);
+  background: rgba(79, 209, 197, 0.2);
   color: #4fd1c5;
-}
-
-.dev-toggle-btn svg {
-  width: 32px;
-  height: 32px;
 }
