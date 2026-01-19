@@ -155,7 +155,17 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadSkills() {
     const text = await fetchMarkdown('skills.md');
     const items = parseList(text);
-    const container = document.getElementById('skills-section');
+    const section = document.getElementById('skills-section');
+
+    // Create or find a wrapper for grid layout
+    let container = section.querySelector('.skills-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'skills-grid';
+      section.appendChild(container);
+    } else {
+      container.innerHTML = ''; // Clear if exists
+    }
 
     items.forEach(item => {
       // Expecting format "**Label:** Value"
