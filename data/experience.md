@@ -37,7 +37,10 @@
 ## Research Engineering Intern
 ### HireValley Inc — Ahmedabad, India
 #### 2016 - 2017
-##### *Recommendation System, Machine Learning, Microservices, Ontology, Multivariate Regression; Python, Flask, OWL, AWS*
-- Developed a cloud-based automated recommendation engine to suggest jobs or potential candidates.
-- Created a web interface using `Flask` connecting different microservices using `Python` and `AWS`.
-- `[Published](https://ieeexplore.ieee.org/document/8369531/)` the architecture and framework for an automated human capital management system at an `IEEE` conference.
+##### *Recommendation System, System Architecture, NLP, Microservices, Ontology, Machine Learning; Python, Flask, SPARQL, RDFLib, NLTK*
+
+- Architected a cloud-based `microservices` for an `Automated HCM System` platform to enable scalable talent acquisition on `AWS`.
+- Designed a `web interface` in `Flask` and implemented `NLP pipelines` using `NLTK` to extract features from `unstructured` resume data.
+- Developed a `Knowledge Inference` module using `SPARQL`, `RDFLib` to query `semantic relationships` leveraging an `Ontology` designed in `Protégé`.
+- Engineered a `recommendation engine` utilizing `K-Nearest Neighbors (KNN)` and `Jaccard Similarity` to match candidates to job profiles.
+- `[Published](https://ieeexplore.ieee.org/document/8369531/)` the system architecture and algorithms in a research paper at the `IEEE SysCon 2018` conference.
