@@ -1,21 +1,12 @@
-### PocketOrreyXR - Solar System on AndroidXR
+### [PocketOrreryXR — Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
+
 ##### *Mixed Reality, Vitual Reailty, 3D, GLTF, Hand Gestures; Kotlin, Android XR, Android Studio, Google Antigravity, LLMs*
-- Developed an AndroidXR app to simulate the solar system 
-- Vibecoded 100% app from the scratch using Google Antigravity IDE and Gemini/Claude LLMs
-- Supports Hand Gestures, Pinch and Select to Move Solar System in the surrounding Real World
-- Immerese yourself with a 3D world environment into Virtual Reality (VR)
-- Utilizing open-source 3D `GLTF` formats to render plantery objects
 
----
-
-- Built an end-to-end **`LSTM`** phoneme recognition pipeline on **`TIMIT`**, mapping 61→39 phonemes and achieving **~64% accuracy** with a 2-layer (256-unit) architecture
-
-- Scaled training on **`AWS EC2 (t2.xlarge)`**, reducing training time from **2.75 hours to ~45 seconds (>99% speedup)** vs. local execution
-
-- Architected a custom **`PaddedBatchGenerator`** with **`Keras Masking`** layers for variable-length audio sequences and dynamic temporal input handling
-
-- Optimized convergence via **`Batch Normalization`**, **`Dropout (0.25)`**, and **`K-Fold Cross-Validation`** (k=2) with grid search hyperparameter tuning
-
+- Designed an `immersive 3D` app for solar system on `Android XR` using `Jetpack Compose` and `SceneCore` spatial APIs.
+- Implemented `spatial gestures` with pinch-to-select or by dragging to move the Solar system in `3D` space.
+- Developed `planetary mechanics` with `axial` rotation and `orbit` simulation in `Kotlin` via `iterative AI prompting`.
+- Integrated latest `androidx.xr alpha SDK` for `Full Space mode` to enable seamless transitions between `VR/AR` environments.
+- `Vibecoded 100%` of the app from scratch using `Google Antigravity`, `Gemini 3 Pro`, and `Claude Sonnet 4.5` LLMs.
 
 ---
 ### [Phoneme Recognition and Digits Identification — Deep Speech Recognition](https://drive.google.com/drive/folders/1C59f-HTYvSWZ5iUEIMvxXTJogwpAaULU?usp=sharing)
