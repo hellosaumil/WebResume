@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('experience.md');
     const sections = text.split('---').map(section => {
       const lines = section.trim().split('\n');
-      const data = { content: [] };
+      const data = { content: [], companies: [] };
 
       lines.forEach(line => {
         const trimmed = line.trim();
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (trimmed.startsWith('### ')) {
           const val = trimmed.replace('### ', '').trim();
           if (val.startsWith("Master's Thesis:")) data.thesis = val;
-          else data.company = val;
+          else data.companies.push(val);
         }
         else if (trimmed.startsWith('#### ')) data.date = trimmed.replace('#### ', '').trim();
         else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim(); // Strip outer italics if present
@@ -232,12 +232,17 @@ document.addEventListener('DOMContentLoaded', function () {
         .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
         .join('');
 
+      // Generate company rows
+      const companyRows = exp.companies
+        .map(co => `<div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(co)}</div>`)
+        .join('');
+
       div.innerHTML = `
         <div class="exp-header">
           <span class="job-title title-1" contenteditable="true">${parseMarkdownLinks(exp.title || '')}</span>
           <span class="exp-date body-text" contenteditable="true">${exp.date || ''}</span>
         </div>
-        <div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(exp.company || '')}</div>
+        ${companyRows}
         ${exp.thesis ? `<div class="thesis title-2" contenteditable="true">${parseMarkdownLinks(exp.thesis)}</div>` : ''}
         <div class="tech-stack title-3-italic" contenteditable="true">${exp.tech || ''}</div>
         <ul class="bullet-list">
