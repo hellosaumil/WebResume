@@ -36,7 +36,7 @@
 
 ---
 ### [ToDo iOS App - SwiftUI](https://github.com/hellosaumil/ToDo-SwiftUI#)
-##### *iOS App Dev, SwiftUI, Xcode, User Interface (UI/UX), WidgetKit, AppGroups, Biometric Authentication, MVVM*
+##### *Mobile App Dev, MVVM, User Interface (UI/UX); iOS, Swift, SwiftUI, Xcode, WidgetKit, AppGroups*
 - Designed a `playful minimal iOS app` for `visual progress tracking` using fun shapes, colors, animations, and `user interactions`.
 - Secured sensitive tasks with `FaceID Biometric Authentication`, adding `Favorites` and `Search` functionality for easy discovery.
 - Orchestrated real-time `state sync` between the main app and Home screen `Widgets` using `App Groups`.
