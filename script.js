@@ -330,25 +330,43 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ========================================
+  // Settings Management (LocalStorage)
+  // ========================================
+  const SETTINGS_KEY = 'resume-settings';
+  const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
+    pageLayout: false,
+    cssInspector: false
+  };
+
+  function saveSettings() {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  }
+
+  // ========================================
   // Page Layout Toggle
   // ========================================
   const toggleLayoutBtn = document.getElementById('toggleLayout');
 
+  function updateLayoutUI(isVisible) {
+    document.body.classList.toggle('show-page-layout', isVisible);
+    if (toggleLayoutBtn) {
+      toggleLayoutBtn.title = isVisible ? 'Hide Page Layout' : 'Show Page Layout';
+      toggleLayoutBtn.style.color = isVisible ? 'white' : 'rgba(255, 255, 255, 0.8)';
+      toggleLayoutBtn.style.background = isVisible ? 'rgba(255, 255, 255, 0.15)' : 'transparent';
+    }
+    settings.pageLayout = isVisible;
+    saveSettings();
+  }
+
   if (toggleLayoutBtn) {
     toggleLayoutBtn.addEventListener('click', () => {
-      document.body.classList.toggle('show-page-layout');
-      const isLayoutVisible = document.body.classList.contains('show-page-layout');
-
-      toggleLayoutBtn.title = isLayoutVisible ? 'Hide Page Layout' : 'Show Page Layout';
-
-      // Update button visual state if needed
-      toggleLayoutBtn.style.color = isLayoutVisible ? 'white' : 'rgba(255, 255, 255, 0.8)';
-      toggleLayoutBtn.style.background = isLayoutVisible ? 'rgba(255, 255, 255, 0.15)' : 'transparent';
+      const isVisible = !document.body.classList.contains('show-page-layout');
+      updateLayoutUI(isVisible);
     });
   }
 
-  // Exit Edit Mode on ESC
-
+  // Initialize Layout
+  updateLayoutUI(settings.pageLayout);
 
   // ========================================
   // Fixed Scale Controls (Zoom Resistance)
@@ -356,24 +374,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const controls = document.querySelector('.controls');
   if (controls) {
     const updateScale = () => {
-      // Use devicePixelRatio directly for more reliable zoom detection
-      // This works better during resize events than window width ratio
       const zoom = window.devicePixelRatio || 1;
-
-      // Counteract zoom to keep visual size constant
-      // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
       controls.style.transform = `scale(${2 / zoom})`;
-
-      // Adjust position to keep visual margins constant (approx 50px visual)
       controls.style.bottom = `${50 / zoom}px`;
       controls.style.right = `${50 / zoom}px`;
     };
-
-    // Listen to resize (triggered by zoom) and also DPI changes if supported
     window.addEventListener('resize', updateScale);
-
-    // Initial call
     updateScale();
   }
 
@@ -414,23 +421,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // State
-  let devInspectorEnabled = false;
-  // devToggleBtn.classList.add('active');
+  let devInspectorEnabled = settings.cssInspector;
   let currentTarget = null;
 
-  // Toggle handler
-  devToggleBtn.addEventListener('click', () => {
-    devInspectorEnabled = !devInspectorEnabled;
-    devToggleBtn.classList.toggle('active', devInspectorEnabled);
+  function updateInspectorUI(enabled) {
+    devInspectorEnabled = enabled;
+    devToggleBtn.classList.toggle('active', enabled);
+    settings.cssInspector = enabled;
+    saveSettings();
 
-    if (!devInspectorEnabled) {
+    if (!enabled) {
       hideTooltip();
       if (currentTarget) {
         currentTarget.classList.remove('dev-inspector-highlight');
         currentTarget = null;
       }
     }
+  }
+
+  // Toggle handler
+  devToggleBtn.addEventListener('click', () => {
+    updateInspectorUI(!devInspectorEnabled);
   });
+
+  // Initialize Inspector
+  updateInspectorUI(settings.cssInspector);
 
   // Get computed styles
   function getElementStyles(el) {
