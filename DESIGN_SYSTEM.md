@@ -6,7 +6,7 @@ Enforce a strict, simplified typography hierarchy across the resume to ensure co
 ## Typography Rules
 | Level | Font Size | Weight | Style | Usage Examples |
 | :--- | :--- | :--- | :--- | :--- |
-| **Heading-1** | `24pt` | `600` | Normal | Main Name (Header) |
+| **Heading-1** | `30pt` | `300`/`100` | Normal | Main Name (Header: First/Last) |
 | **Heading-2** | `12pt` | `700` | Normal | Section Titles (Education, Projects) |
 | **Title-1** | `9pt` | `500` | Normal | Degree, Skill Label, Job Title, Project Title |
 | **Title-2** | `8pt` | `400` | Normal | School Name, Headers inside items |

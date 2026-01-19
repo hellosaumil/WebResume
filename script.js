@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Map fields
     const mapping = {
-      'name': 'field-name',
+      'firstname': 'field-firstname',
+      'lastname': 'field-lastname',
       'phone': 'field-phone',
       'email': 'field-email',
       'location': 'field-location',
@@ -154,7 +155,17 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadSkills() {
     const text = await fetchMarkdown('skills.md');
     const items = parseList(text);
-    const container = document.getElementById('skills-section');
+    const section = document.getElementById('skills-section');
+
+    // Create or find a wrapper for grid layout
+    let container = section.querySelector('.skills-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'skills-grid';
+      section.appendChild(container);
+    } else {
+      container.innerHTML = ''; // Clear if exists
+    }
 
     items.forEach(item => {
       // Expecting format "**Label:** Value"
@@ -319,25 +330,43 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ========================================
+  // Settings Management (LocalStorage)
+  // ========================================
+  const SETTINGS_KEY = 'resume-settings';
+  const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
+    pageLayout: false,
+    cssInspector: false
+  };
+
+  function saveSettings() {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  }
+
+  // ========================================
   // Page Layout Toggle
   // ========================================
   const toggleLayoutBtn = document.getElementById('toggleLayout');
 
+  function updateLayoutUI(isVisible) {
+    document.body.classList.toggle('show-page-layout', isVisible);
+    if (toggleLayoutBtn) {
+      toggleLayoutBtn.title = isVisible ? 'Hide Page Layout' : 'Show Page Layout';
+      toggleLayoutBtn.style.color = isVisible ? 'white' : 'rgba(255, 255, 255, 0.8)';
+      toggleLayoutBtn.style.background = isVisible ? 'rgba(255, 255, 255, 0.15)' : 'transparent';
+    }
+    settings.pageLayout = isVisible;
+    saveSettings();
+  }
+
   if (toggleLayoutBtn) {
     toggleLayoutBtn.addEventListener('click', () => {
-      document.body.classList.toggle('show-page-layout');
-      const isLayoutVisible = document.body.classList.contains('show-page-layout');
-
-      toggleLayoutBtn.title = isLayoutVisible ? 'Hide Page Layout' : 'Show Page Layout';
-
-      // Update button visual state if needed
-      toggleLayoutBtn.style.color = isLayoutVisible ? 'white' : 'rgba(255, 255, 255, 0.8)';
-      toggleLayoutBtn.style.background = isLayoutVisible ? 'rgba(255, 255, 255, 0.15)' : 'transparent';
+      const isVisible = !document.body.classList.contains('show-page-layout');
+      updateLayoutUI(isVisible);
     });
   }
 
-  // Exit Edit Mode on ESC
-
+  // Initialize Layout
+  updateLayoutUI(settings.pageLayout);
 
   // ========================================
   // Fixed Scale Controls (Zoom Resistance)
@@ -345,24 +374,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const controls = document.querySelector('.controls');
   if (controls) {
     const updateScale = () => {
-      // Use devicePixelRatio directly for more reliable zoom detection
-      // This works better during resize events than window width ratio
       const zoom = window.devicePixelRatio || 1;
-
-      // Counteract zoom to keep visual size constant
-      // This prevents buttons from becoming "massive" at 150% zoom
       controls.style.transformOrigin = 'bottom right';
       controls.style.transform = `scale(${2 / zoom})`;
-
-      // Adjust position to keep visual margins constant (approx 50px visual)
       controls.style.bottom = `${50 / zoom}px`;
       controls.style.right = `${50 / zoom}px`;
     };
-
-    // Listen to resize (triggered by zoom) and also DPI changes if supported
     window.addEventListener('resize', updateScale);
-
-    // Initial call
     updateScale();
   }
 
@@ -403,23 +421,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // State
-  let devInspectorEnabled = false;
-  // devToggleBtn.classList.add('active');
+  let devInspectorEnabled = settings.cssInspector;
   let currentTarget = null;
 
-  // Toggle handler
-  devToggleBtn.addEventListener('click', () => {
-    devInspectorEnabled = !devInspectorEnabled;
-    devToggleBtn.classList.toggle('active', devInspectorEnabled);
+  function updateInspectorUI(enabled) {
+    devInspectorEnabled = enabled;
+    devToggleBtn.classList.toggle('active', enabled);
+    settings.cssInspector = enabled;
+    saveSettings();
 
-    if (!devInspectorEnabled) {
+    if (!enabled) {
       hideTooltip();
       if (currentTarget) {
         currentTarget.classList.remove('dev-inspector-highlight');
         currentTarget = null;
       }
     }
+  }
+
+  // Toggle handler
+  devToggleBtn.addEventListener('click', () => {
+    updateInspectorUI(!devInspectorEnabled);
   });
+
+  // Initialize Inspector
+  updateInspectorUI(settings.cssInspector);
 
   // Get computed styles
   function getElementStyles(el) {
@@ -567,29 +593,39 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentLinkUrl = '';
   let linkHoverTimeout = null;
 
-  // Show link tooltip
-  function showLinkTooltip(e, url) {
+  // Show link tooltip relative to element
+  function showLinkTooltip(linkElement) {
+    const url = linkElement.href;
     currentLinkUrl = url;
     const urlSpan = linkTooltip.querySelector('.link-tooltip-url');
     urlSpan.textContent = url;
 
-    const padding = 10;
-    let x = e.clientX + padding;
-    let y = e.clientY - 35;
+    // Show it so we can measure it
+    linkTooltip.classList.add('visible');
+
+    // Get dimensions
+    const tooltipRect = linkTooltip.getBoundingClientRect();
+    const linkRect = linkElement.getBoundingClientRect();
+
+    // Position: Centered above the link
+    let x = linkRect.left + (linkRect.width / 2) - (tooltipRect.width / 2);
+    let y = linkRect.top - tooltipRect.height - 8; // 8px gap
 
     // Prevent overflow on right
-    if (x + 360 > window.innerWidth) {
-      x = e.clientX - 360 - padding;
+    if (x + tooltipRect.width > window.innerWidth - 10) {
+      x = window.innerWidth - tooltipRect.width - 10;
     }
 
-    // Prevent overflow on top
+    // Prevent overflow on left
+    if (x < 10) x = 10;
+
+    // Prevent overflow on top (show below link instead)
     if (y < 10) {
-      y = e.clientY + 20;
+      y = linkRect.bottom + 8;
     }
 
     linkTooltip.style.left = `${x}px`;
     linkTooltip.style.top = `${y}px`;
-    linkTooltip.classList.add('visible');
   }
 
   // Hide link tooltip
@@ -610,9 +646,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const link = e.target.closest('a[href]');
     if (link && link.href && !link.closest('.controls')) {
       clearTimeout(linkHoverTimeout);
-      showLinkTooltip(e, link.href);
+      showLinkTooltip(link);
     }
   });
+
+  // Remove the mousemove handler that was causing the 'chasing' issue
+  // The tooltip is now anchored to the element for stability.
 
   document.addEventListener('mouseout', (e) => {
     const link = e.target.closest('a[href]');

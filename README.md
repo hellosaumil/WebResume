@@ -4,8 +4,7 @@ A modern, interactive web-based resume built with dynamic data loading from Mark
 
 ## 🔗 Links
 
-- **Live Resume**: [http://127.0.0.1:3000/index.html](http://127.0.0.1:3000/index.html)
-- **PDF Version**: [http://127.0.0.1:3000/CV-Comprehensive-US-NIW-Visa.pdf](http://127.0.0.1:3000/CV-Comprehensive-US-NIW-Visa.pdf)
+- **Live Resume**: [http://127.0.0.1:3000/resume.html](http://127.0.0.1:3000/resume.html)
 
 ## Features
 
@@ -20,7 +19,7 @@ A modern, interactive web-based resume built with dynamic data loading from Mark
 
 ```
 WebResume/
-├── index.html          # Main HTML structure
+├── resume.html         # Main HTML structure
 ├── styles.css          # Styling and print layout
 ├── script.js           # Dynamic data loading and interactions
 └── data/               # Resume content in Markdown
@@ -42,7 +41,7 @@ WebResume/
    ```
 
 2. **Open in browser**:
-   Navigate to [http://127.0.0.1:3000/index.html](http://127.0.0.1:3000/index.html)
+   Navigate to [http://127.0.0.1:3000/resume.html](http://127.0.0.1:3000/resume.html)
 
 3. **Edit content**:
    - Modify any `.md` file in the `data/` directory
