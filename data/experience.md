@@ -15,13 +15,13 @@
 ## Data Science Developer
 ### [KORE Wireless](https://www.korewireless.com/) — Blue Ash, OH
 #### 2020 - 2021
-##### *R&D, Applied Machine Learning, Predictive Analytics, Clustering, Anomaly Detection, Web-Services, CI/CD; SQL, Python, Scikit-Learn, FastAPI, PowerBI, JIRA*
-- Collaborated with various business teams to gather conceptual needs and translate them into machine learning use cases.
-- Developed rapid prototypes and built PoCs to determine feasibility and produce meaningful data visualizations.
-- Built end-to-end web services to integrate with existing `[KORE](https://www.korewireless.com/)` platforms for the analysis of petabytes of device usage data.
-- Presented results and gathered weekly feedback from senior leadership, including SVPs and the CTO.
-- Applied deep learning and big data methods to improve the `SecurityPro` offering.
-- Transitioned to a full-time role in Jan 2021 following the successful completion of a winter internship in 2020.
+##### *R&D, Applied ML, Predictive Analytics, Clustering, Anomaly Detection, Web-Services; SQL, Python, Scikit-Learn, FastAPI, PowerBI, Jupyter Notebooks*
+
+- Engineered `APIs` from scratch for `Auto-Thresholds (Burst Detection)` and `Auto-Device Grouping` services to automate `Anomaly Detection`.
+- Developed `ETL pipelines` to process and clean `live usage data` from `NetFlow` and `Radius` sources for downstream ML models.
+- Created `3D Clustering data visualizations` to guide the engineering team's `UI/UX` design strategy to improve `[SecurityPro](https://www.korewireless.com/news/koreone-security-connectivity-analytics-platform-enable-innovative-i/)` network diagnostic product offering.
+- Managed the full `ML lifecycle` from conceptualization to deployment `(0-to-1)`; `Presented weekly` progress reports to `C-suite leadership (CTO & SVPs)`.
+- Transitioned to a full-time role in `Jan 2021` following the successful completion of a winter internship in `Winter 2020`.
 
 ---
 ## Associate Researcher
