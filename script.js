@@ -335,7 +335,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const SETTINGS_KEY = 'resume-settings';
   const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
     pageLayout: false,
-    cssInspector: false
+    cssInspector: false,
+    darkMode: false
   };
 
   function saveSettings() {
@@ -350,9 +351,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateLayoutUI(isVisible) {
     document.body.classList.toggle('show-page-layout', isVisible);
     if (toggleLayoutBtn) {
+      toggleLayoutBtn.classList.toggle('active', isVisible);
       toggleLayoutBtn.title = isVisible ? 'Hide Page Layout' : 'Show Page Layout';
-      toggleLayoutBtn.style.color = isVisible ? 'white' : 'rgba(255, 255, 255, 0.8)';
-      toggleLayoutBtn.style.background = isVisible ? 'rgba(255, 255, 255, 0.15)' : 'transparent';
     }
     settings.pageLayout = isVisible;
     saveSettings();
@@ -367,6 +367,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize Layout
   updateLayoutUI(settings.pageLayout);
+
+  // ========================================
+  // Theme Toggle (Dark Mode)
+  // ========================================
+  const themeToggleBtn = document.getElementById('themeToggle');
+
+  function updateThemeUI(isDark) {
+    document.body.classList.toggle('dark-mode', isDark);
+    if (themeToggleBtn) {
+      themeToggleBtn.classList.toggle('active', isDark);
+      const moonIcon = themeToggleBtn.querySelector('.moon-icon');
+      const sunIcon = themeToggleBtn.querySelector('.sun-icon');
+      if (isDark) {
+        themeToggleBtn.title = 'Switch to Light Mode';
+      } else {
+        themeToggleBtn.title = 'Switch to Dark Mode';
+      }
+    }
+    settings.darkMode = isDark;
+    saveSettings();
+  }
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = !document.body.classList.contains('dark-mode');
+      updateThemeUI(isDark);
+    });
+  }
+
+  // Initialize Theme
+  updateThemeUI(settings.darkMode);
 
   // ========================================
   // Fixed Scale Controls (Zoom Resistance)
