@@ -1,4 +1,2 @@
-- **Programming:** Python, Shell/Bash, HTML/CSS/JS, Swift, Java, C 
-- **APIs:** FastAPI, Pika, Pandas, TensorFlow, PyTorch, Keras, Scikit-Learn
-- **Tools:** Redis, RabbitMQ, Jfrog Artifactory, Docker, Kubernetes, MongoDB, PostgresSQL, PySpark, GCP (GKE), AWS (EMR , EC2, S3), Jenkins, Git/Gerrit
-- **IDEs:** PyCharm, VSCode, Google Antigravity, Cline
+- **Programming:** Python (FastAPI, Pika, Pandas, TensorFlow, PyTorch, Keras, Pandas, Scikit-Learn, PySpark), Shell (Bash), HTML/CSS/JS, Swift, Java, C
+- **Tools & Frameworks:** Redis, RabbitMQ, Artifactory, Docker, Kubernetes, MongoDB, PostgresSQL, GCP (GKE), AWS (EMR, EC2, S3), Jenkins, Git/Gerrit

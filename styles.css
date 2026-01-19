@@ -460,8 +460,7 @@ body.show-page-layout .resume-page::after {
 /* Skills */
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 15px;
+  grid-template-columns: 1fr;
   row-gap: 1px;
 }
 
