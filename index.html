@@ -16,65 +16,79 @@
 
 <body>
   <div class="controls no-print">
-    <button id="themeToggle" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
-      <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
-      </svg>
-      <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></circle>
-        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-      </svg>
-    </button>
+    <div class="controls-buttons">
+      <button id="themeToggle" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
+        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></circle>
+          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+        </svg>
+      </button>
 
-    <button id="toggleLayout" class="toggle-layout-btn" title="Show Page Layout">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
-        <polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
-      </svg>
-    </button>
+      <button id="toggleLayout" class="toggle-layout-btn" title="Show Page Layout">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+          <polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
+        </svg>
+      </button>
 
-    <button id="resetContent" class="reset-btn" title="Reset Content">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-        <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
-      </svg>
-    </button>
-  </div>
+      <button id="resetContent" class="reset-btn" title="Reset Content">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"></line>
+        </svg>
+      </button>
+    </div>
 
-  <!-- Attribution Overlay -->
-  <div class="attribution no-print">
-    <span>Vibe-coded using</span>
-    <a href="https://deepmind.google/technologies/gemini/antigravity/" target="_blank" class="antigravity-link">
-      <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg"
-        alt="Google Antigravity" class="antigravity-logo">
-      Google Antigravity
-    </a>
-    <span>using</span>
-    <code>Gemini 3 Pro</code>
-    <span>&</span>
-    <code>Claude Opus 4.5</code>
-    <span>models in 2026</span>
+    <!-- Attribution inside controls container -->
+    <div class="attribution">
+      <span>Vibe-coded using</span>
+      <a href="https://antigravity.google/" target="_blank" class="tech-link">
+        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg"
+          alt="Google Antigravity" class="tech-logo">
+        <span class="tech-name">Google Antigravity</span>
+      </a>
+      <span>using</span>
+      <a href="https://gemini.google.com/" target="_blank" class="tech-link">
+        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="Gemini"
+          class="tech-logo">
+        <code>Gemini 3 Pro</code>
+      </a>
+      <span>&</span>
+      <a href="https://www.anthropic.com/claude" target="_blank" class="tech-link">
+        <svg class="tech-logo claude-logo" viewBox="0 0 100 100" width="14" height="14" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="60" height="60" rx="8" fill="#CC785C" />
+          <path d="M35 35 L50 60 L65 35" stroke="white" stroke-width="6" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <code>Claude Opus 4.5</code>
+      </a>
+      <span>in 2026</span>
+    </div>
   </div>
 
   <div class="resume-page" id="resume">

@@ -97,6 +97,14 @@ body.show-page-layout {
   right: 40px;
   z-index: 1000;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls-buttons {
+  display: flex;
   flex-direction: row;
   gap: 6px;
   align-items: center;
@@ -110,7 +118,7 @@ body.show-page-layout {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.controls:hover {
+.controls-buttons:hover {
   border-color: rgba(66, 153, 225, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
@@ -717,27 +725,23 @@ body.dark-mode [contenteditable="true"]:focus {
    Attribution Overlay
    ======================================== */
 .attribution {
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
-  z-index: 1000;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-  max-width: 300px;
+  max-width: 320px;
   background: var(--control-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 16px;
   border: 1px solid var(--control-border);
   box-shadow: var(--control-shadow);
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text-color);
-  line-height: 1.4;
+  line-height: 1.5;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -746,7 +750,7 @@ body.dark-mode [contenteditable="true"]:focus {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-.antigravity-link {
+.tech-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -756,22 +760,36 @@ body.dark-mode [contenteditable="true"]:focus {
   transition: color 0.2s ease;
 }
 
-.antigravity-link:hover {
+.tech-link:hover {
   text-decoration: underline;
 }
 
-.antigravity-logo {
+.tech-link code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-color);
+  background: transparent;
+  padding: 0;
+}
+
+.tech-logo {
   width: 14px;
   height: 14px;
+  flex-shrink: 0;
+}
+
+.tech-name {
+  font-weight: 500;
 }
 
 .attribution code {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--primary-color);
   background: rgba(0, 0, 0, 0.05);
-  padding: 2px 4px;
+  padding: 2px 5px;
   border-radius: 3px;
 }
 
