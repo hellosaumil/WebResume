@@ -704,4 +704,167 @@ document.addEventListener('DOMContentLoaded', function () {
   linkTooltip.addEventListener('mouseleave', () => {
     hideLinkTooltip();
   });
+
+  // ========================================
+  // Section Drag & Drop Reordering
+  // ========================================
+
+  const mainContent = document.querySelector('.main-content');
+  const bottomRow = mainContent.querySelector('.bottom-row');
+  const sections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+  const SECTION_ORDER_KEY = 'resume-section-order';
+
+  let draggedSection = null;
+  let draggedOverSection = null;
+
+  // Load saved order
+  function loadSectionOrder() {
+    const savedOrder = localStorage.getItem(SECTION_ORDER_KEY);
+    if (savedOrder) {
+      try {
+        const orderArray = JSON.parse(savedOrder);
+        orderArray.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && section.parentElement === mainContent) {
+            // Insert before bottom-row if it exists
+            if (bottomRow) {
+              mainContent.insertBefore(section, bottomRow);
+            } else {
+              mainContent.appendChild(section);
+            }
+          }
+        });
+        // Ensure bottom-row is always last
+        if (bottomRow) {
+          mainContent.appendChild(bottomRow);
+        }
+      } catch (e) {
+        console.error('Failed to load section order:', e);
+      }
+    }
+  }
+
+  // Save current order
+  function saveSectionOrder() {
+    const currentSections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+    const orderArray = currentSections.map(s => s.id).filter(id => id);
+    localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(orderArray));
+  }
+
+  // Make section titles draggable
+  sections.forEach(section => {
+    const sectionTitle = section.querySelector('.section-title');
+    if (!sectionTitle) return;
+
+    sectionTitle.draggable = true;
+    sectionTitle.style.cursor = 'move';
+
+    // Add drag icon indicator
+    sectionTitle.style.position = 'relative';
+    sectionTitle.title = 'Drag to reorder section';
+
+    // Hover effect on section title
+    sectionTitle.addEventListener('mouseenter', () => {
+      if (!draggedSection) {
+        section.classList.add('section-drag-target');
+      }
+    });
+
+    sectionTitle.addEventListener('mouseleave', () => {
+      if (!draggedSection) {
+        section.classList.remove('section-drag-target');
+      }
+    });
+
+    sectionTitle.addEventListener('dragstart', (e) => {
+      draggedSection = section;
+      section.classList.add('section-dragging');
+      section.classList.remove('section-drag-target');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', section.innerHTML);
+    });
+
+    sectionTitle.addEventListener('dragend', (e) => {
+      section.classList.remove('section-dragging');
+      sections.forEach(s => {
+        s.classList.remove('section-drag-target');
+        s.style.borderTop = '';
+        s.style.borderBottom = '';
+      });
+      draggedSection = null;
+      draggedOverSection = null;
+    });
+
+    section.addEventListener('dragover', (e) => {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+
+      if (draggedSection && section !== draggedSection) {
+        draggedOverSection = section;
+
+        const rect = section.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+
+        // Visual feedback
+        sections.forEach(s => {
+          if (s !== draggedSection) {
+            s.classList.remove('section-drag-target');
+          }
+          s.style.borderTop = '';
+          s.style.borderBottom = '';
+        });
+
+        section.classList.add('section-drag-target');
+
+        if (e.clientY < midpoint) {
+          section.style.borderTop = '3px solid var(--accent-color)';
+        } else {
+          section.style.borderBottom = '3px solid var(--accent-color)';
+        }
+      }
+
+      return false;
+    });
+
+    section.addEventListener('dragleave', (e) => {
+      section.classList.remove('section-drag-target');
+      section.style.borderTop = '';
+      section.style.borderBottom = '';
+    });
+
+    section.addEventListener('drop', (e) => {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+
+      section.classList.remove('section-drag-target');
+      section.style.borderTop = '';
+      section.style.borderBottom = '';
+
+      if (draggedSection && section !== draggedSection) {
+        const rect = section.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+
+        if (e.clientY < midpoint) {
+          mainContent.insertBefore(draggedSection, section);
+        } else {
+          mainContent.insertBefore(draggedSection, section.nextSibling);
+        }
+
+        // Ensure bottom-row stays at the end
+        if (bottomRow) {
+          mainContent.appendChild(bottomRow);
+        }
+
+        saveSectionOrder();
+      }
+
+      return false;
+    });
+  });
+
+  // Load saved order after all content is loaded
+  setTimeout(() => loadSectionOrder(), 100);
 });
