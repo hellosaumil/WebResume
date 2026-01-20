@@ -723,10 +723,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (savedOrder) {
       try {
         const orderArray = JSON.parse(savedOrder);
+        const currentSections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+        const sectionIds = new Set(orderArray);
+
+        // First, reorder known sections according to saved order
         orderArray.forEach(sectionId => {
           const section = document.getElementById(sectionId);
           if (section && section.parentElement === mainContent) {
-            // Insert before bottom-row if it exists
             if (bottomRow) {
               mainContent.insertBefore(section, bottomRow);
             } else {
@@ -734,6 +737,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
         });
+
+        // Then, append any NEW sections (not in saved order) at the end
+        currentSections.forEach(section => {
+          if (section.id && !sectionIds.has(section.id)) {
+            if (bottomRow) {
+              mainContent.insertBefore(section, bottomRow);
+            } else {
+              mainContent.appendChild(section);
+            }
+          }
+        });
+
         // Ensure bottom-row is always last
         if (bottomRow) {
           mainContent.appendChild(bottomRow);

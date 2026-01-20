@@ -594,8 +594,8 @@ code {
 
 /* Publications & Awards - Visual Divider */
 #publications-section {
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--border-color);
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
 }
 
 /* Bottom Row - Leadership & Certificates */
