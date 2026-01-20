@@ -162,7 +162,8 @@ body.show-page-layout {
 
 .toggle-layout-btn svg,
 .reset-btn svg,
-.theme-toggle-btn svg {
+.theme-toggle-btn svg,
+.dev-toggle-btn svg {
   width: 24px;
   height: 24px;
   display: block;
@@ -175,7 +176,8 @@ body.show-page-layout {
 
 .toggle-layout-btn,
 .reset-btn,
-.theme-toggle-btn {
+.theme-toggle-btn,
+.dev-toggle-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,20 +194,23 @@ body.show-page-layout {
 
 .toggle-layout-btn:hover,
 .reset-btn:hover,
-.theme-toggle-btn:hover {
+.theme-toggle-btn:hover,
+.dev-toggle-btn:hover {
   background: var(--control-hover-bg);
   color: var(--primary-color);
 }
 
 .toggle-layout-btn.active,
-.theme-toggle-btn.active {
+.theme-toggle-btn.active,
+.dev-toggle-btn.active {
   background: var(--control-active-bg);
   color: var(--accent-color);
 }
 
 .toggle-layout-btn svg path,
 .reset-btn svg path,
-.theme-toggle-btn svg path {
+.theme-toggle-btn svg path,
+.dev-toggle-btn svg path {
   stroke: currentColor;
 }
 
@@ -904,7 +909,11 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   background-color: rgba(104, 211, 145, 0.12) !important;
 }
 
-
+/* CSS Inspector specific active state */
+.dev-toggle-btn.active {
+  background: rgba(79, 209, 197, 0.2);
+  color: #4fd1c5;
+}
 
 /* Section Drag & Drop Highlight */
 .section-dragging {
