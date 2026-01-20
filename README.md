@@ -1,10 +1,9 @@
-# Web Resume
+# WebResume 🌐 💻 📄
 
 A modern, interactive web-based resume with dynamic content loading, dark mode, and customizable layout.
 
-## 🔗 Live Site
-
-**[https://hellosaumil.github.io/WebResume](https://hellosaumil.github.io/WebResume)**
+- 🔗 Live Site - **[https://hellosaumil.github.io/WebResume](https://hellosaumil.github.io/WebResume)**
+- 💻 Local Site - **[http://localhost:3000/index.html](http://localhost:3000/index.html)**
 
 ## ✨ Features
 
@@ -100,7 +99,7 @@ StartDate: Available Date
 Degree: Master of Science, Computer Science
 School: University Name
 Date: 2020
-GPA: GPA 3.8
+GPA: GPA 4.0
 ---
 Degree: Bachelor of Technology...
 ...
