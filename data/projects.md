@@ -1,4 +1,4 @@
-### [PocketOrreryXR — Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
+### [PocketOrreryXR — 3D Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
 
 ##### *Mixed Reality, Virtual Reality, 3D, glTF, Hand Gestures; Kotlin, Android XR, Android Studio; Google Antigravity, LLMs*
 
@@ -24,7 +24,7 @@
 - Boosted to `94.67% accuracy` by implementing `novel frame-skipping` to allocate resources for incremental learning.
 - Accelerated training pipeline `speed by 24%` on `NVIDIA GPGPUs` using `PyCUDA/Sci-kit CUDA` optimizations.
 - Achieved `34.3% power savings` on low-end `NVIDIA GeForce 525M GPUs` compared to `CPU-only` execution.
-- `Open-sourced` the `SEAS-FR-DB` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings at an `IEEE` conference.
+- `Open-sourced` the `SEAS-FR-DB` benchmark dataset `(1080p, 30fps)`; `[Published](https://ieeexplore.ieee.org/document/8369529/)` research findings at an `IEEE SysCon 2018 Conference`.
 
 ---
 ### [Agricultural Terrains Image Classification on Satellite Imagery](https://github.com/hellosaumil/deepsat-aws-emr-pyspark)

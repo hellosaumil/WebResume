@@ -314,7 +314,7 @@ body.show-page-layout .resume-page::after {
   letter-spacing: -0.5px;
   line-height: 1;
   display: flex;
-  gap: 0.3em;
+  gap: 0.5rem;
 }
 
 #field-firstname {
@@ -327,7 +327,7 @@ body.show-page-layout .resume-page::after {
 
 /* Typography Hierarchy - From DESIGN_SYSTEM.md */
 .header-1 {
-  font-size: 30pt;
+  font-size: 40pt;
 }
 
 .header-2 {
@@ -460,8 +460,7 @@ body.show-page-layout .resume-page::after {
 /* Skills */
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 15px;
+  grid-template-columns: 1fr;
   row-gap: 1px;
 }
 
@@ -591,6 +590,12 @@ code {
 
 .project-title {
   color: var(--text-color);
+}
+
+/* Publications & Awards - Visual Divider */
+#publications-section {
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
 }
 
 /* Bottom Row - Leadership & Certificates */
@@ -823,4 +828,19 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 .dev-toggle-btn.active {
   background: rgba(79, 209, 197, 0.2);
   color: #4fd1c5;
+}
+
+/* Section Drag & Drop Highlight */
+.section-dragging {
+  outline: 2px dashed rgba(159, 122, 234, 0.8) !important;
+  background-color: rgba(159, 122, 234, 0.12) !important;
+  outline-offset: 2px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+.section-drag-target {
+  outline: 2px dashed rgba(79, 209, 197, 0.7) !important;
+  background-color: rgba(79, 209, 197, 0.1) !important;
+  outline-offset: 2px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
 }

@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('experience.md');
     const sections = text.split('---').map(section => {
       const lines = section.trim().split('\n');
-      const data = { content: [] };
+      const data = { content: [], companies: [] };
 
       lines.forEach(line => {
         const trimmed = line.trim();
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (trimmed.startsWith('### ')) {
           const val = trimmed.replace('### ', '').trim();
           if (val.startsWith("Master's Thesis:")) data.thesis = val;
-          else data.company = val;
+          else data.companies.push(val);
         }
         else if (trimmed.startsWith('#### ')) data.date = trimmed.replace('#### ', '').trim();
         else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim(); // Strip outer italics if present
@@ -232,12 +232,17 @@ document.addEventListener('DOMContentLoaded', function () {
         .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
         .join('');
 
+      // Generate company rows
+      const companyRows = exp.companies
+        .map(co => `<div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(co)}</div>`)
+        .join('');
+
       div.innerHTML = `
         <div class="exp-header">
           <span class="job-title title-1" contenteditable="true">${parseMarkdownLinks(exp.title || '')}</span>
           <span class="exp-date body-text" contenteditable="true">${exp.date || ''}</span>
         </div>
-        <div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(exp.company || '')}</div>
+        ${companyRows}
         ${exp.thesis ? `<div class="thesis title-2" contenteditable="true">${parseMarkdownLinks(exp.thesis)}</div>` : ''}
         <div class="tech-stack title-3-italic" contenteditable="true">${exp.tech || ''}</div>
         <ul class="bullet-list">
@@ -440,8 +445,8 @@ document.addEventListener('DOMContentLoaded', function () {
   devToggleBtn.className = 'dev-toggle-btn';
   devToggleBtn.title = 'CSS Inspector';
   devToggleBtn.innerHTML = `
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
     </svg>
   `;
 
@@ -699,4 +704,182 @@ document.addEventListener('DOMContentLoaded', function () {
   linkTooltip.addEventListener('mouseleave', () => {
     hideLinkTooltip();
   });
+
+  // ========================================
+  // Section Drag & Drop Reordering
+  // ========================================
+
+  const mainContent = document.querySelector('.main-content');
+  const bottomRow = mainContent.querySelector('.bottom-row');
+  const sections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+  const SECTION_ORDER_KEY = 'resume-section-order';
+
+  let draggedSection = null;
+  let draggedOverSection = null;
+
+  // Load saved order
+  function loadSectionOrder() {
+    const savedOrder = localStorage.getItem(SECTION_ORDER_KEY);
+    if (savedOrder) {
+      try {
+        const orderArray = JSON.parse(savedOrder);
+        const currentSections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+        const sectionIds = new Set(orderArray);
+
+        // First, reorder known sections according to saved order
+        orderArray.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section && section.parentElement === mainContent) {
+            if (bottomRow) {
+              mainContent.insertBefore(section, bottomRow);
+            } else {
+              mainContent.appendChild(section);
+            }
+          }
+        });
+
+        // Then, append any NEW sections (not in saved order) at the end
+        currentSections.forEach(section => {
+          if (section.id && !sectionIds.has(section.id)) {
+            if (bottomRow) {
+              mainContent.insertBefore(section, bottomRow);
+            } else {
+              mainContent.appendChild(section);
+            }
+          }
+        });
+
+        // Ensure bottom-row is always last
+        if (bottomRow) {
+          mainContent.appendChild(bottomRow);
+        }
+      } catch (e) {
+        console.error('Failed to load section order:', e);
+      }
+    }
+  }
+
+  // Save current order
+  function saveSectionOrder() {
+    const currentSections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
+    const orderArray = currentSections.map(s => s.id).filter(id => id);
+    localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(orderArray));
+  }
+
+  // Make section titles draggable
+  sections.forEach(section => {
+    const sectionTitle = section.querySelector('.section-title');
+    if (!sectionTitle) return;
+
+    sectionTitle.draggable = true;
+    sectionTitle.style.cursor = 'move';
+
+    // Add drag icon indicator
+    sectionTitle.style.position = 'relative';
+    sectionTitle.title = 'Drag to reorder section';
+
+    // Hover effect on section title
+    sectionTitle.addEventListener('mouseenter', () => {
+      if (!draggedSection) {
+        section.classList.add('section-drag-target');
+      }
+    });
+
+    sectionTitle.addEventListener('mouseleave', () => {
+      if (!draggedSection) {
+        section.classList.remove('section-drag-target');
+      }
+    });
+
+    sectionTitle.addEventListener('dragstart', (e) => {
+      draggedSection = section;
+      section.classList.add('section-dragging');
+      section.classList.remove('section-drag-target');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', section.innerHTML);
+    });
+
+    sectionTitle.addEventListener('dragend', (e) => {
+      section.classList.remove('section-dragging');
+      sections.forEach(s => {
+        s.classList.remove('section-drag-target');
+        s.style.borderTop = '';
+        s.style.borderBottom = '';
+      });
+      draggedSection = null;
+      draggedOverSection = null;
+    });
+
+    section.addEventListener('dragover', (e) => {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+
+      if (draggedSection && section !== draggedSection) {
+        draggedOverSection = section;
+
+        const rect = section.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+
+        // Visual feedback
+        sections.forEach(s => {
+          if (s !== draggedSection) {
+            s.classList.remove('section-drag-target');
+          }
+          s.style.borderTop = '';
+          s.style.borderBottom = '';
+        });
+
+        section.classList.add('section-drag-target');
+
+        if (e.clientY < midpoint) {
+          section.style.borderTop = '3px solid var(--accent-color)';
+        } else {
+          section.style.borderBottom = '3px solid var(--accent-color)';
+        }
+      }
+
+      return false;
+    });
+
+    section.addEventListener('dragleave', (e) => {
+      section.classList.remove('section-drag-target');
+      section.style.borderTop = '';
+      section.style.borderBottom = '';
+    });
+
+    section.addEventListener('drop', (e) => {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+
+      section.classList.remove('section-drag-target');
+      section.style.borderTop = '';
+      section.style.borderBottom = '';
+
+      if (draggedSection && section !== draggedSection) {
+        const rect = section.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+
+        if (e.clientY < midpoint) {
+          mainContent.insertBefore(draggedSection, section);
+        } else {
+          mainContent.insertBefore(draggedSection, section.nextSibling);
+        }
+
+        // Ensure bottom-row stays at the end
+        if (bottomRow) {
+          mainContent.appendChild(bottomRow);
+        }
+
+        saveSectionOrder();
+      }
+
+      return false;
+    });
+  });
+
+  // Load saved order after all content is loaded
+  setTimeout(() => loadSectionOrder(), 100);
 });
