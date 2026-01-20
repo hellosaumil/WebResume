@@ -339,9 +339,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   const SETTINGS_KEY = 'resume-settings';
   const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
-    pageLayout: false,
+    pageLayout: true,
     cssInspector: true,
-    darkMode: false
+    darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
   };
 
   function saveSettings() {
