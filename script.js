@@ -401,6 +401,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Sync with device theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    updateThemeUI(e.matches);
+  });
+
   // Initialize Theme
   updateThemeUI(settings.darkMode);
 
