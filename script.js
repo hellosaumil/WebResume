@@ -451,9 +451,9 @@ document.addEventListener('DOMContentLoaded', function () {
   `;
 
   // Add toggle button to controls
-  const controlsEl = document.querySelector('.controls');
-  if (controlsEl) {
-    controlsEl.insertBefore(devToggleBtn, controlsEl.firstChild);
+  const controlsButtons = document.querySelector('.controls-buttons');
+  if (controlsButtons) {
+    controlsButtons.insertBefore(devToggleBtn, controlsButtons.firstChild);
   }
 
   // State
