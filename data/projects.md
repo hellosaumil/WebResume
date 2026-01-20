@@ -1,4 +1,4 @@
-### [PocketOrreryXR — Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
+### [PocketOrreryXR — 3D Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
 
 ##### *Mixed Reality, Virtual Reality, 3D, glTF, Hand Gestures; Kotlin, Android XR, Android Studio; Google Antigravity, LLMs*
 
