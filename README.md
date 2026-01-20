@@ -1,39 +1,38 @@
 # Web Resume
 
-A modern, interactive web-based resume built with dynamic data loading from Markdown files.
+A modern, interactive web-based resume with dynamic content loading, dark mode, and customizable layout.
 
-## 🔗 Links
+## 🔗 Live Site
 
-- **Live Resume**: [http://127.0.0.1:3000/resume.html](http://127.0.0.1:3000/resume.html)
+**[https://hellosaumil.github.io/WebResume](https://hellosaumil.github.io/WebResume)**
 
-## Features
+## ✨ Features
 
-- **Dynamic Content Loading**: Resume data is loaded from easy-to-edit Markdown files
-- **Live Editing**: Content is editable directly in the browser
-- **Print Ready**: Optimized for PDF export and printing
-- **Page Layout Toggle**: Toggle between fluid and constrained page layouts
-- **CSS Inspector**: Built-in development tool to inspect font sizes, weights, and classes
-- **Clickable Contact Info**: Email, phone, and LinkedIn links are interactive
+### Core Functionality
+- **Dynamic Content Loading**: Resume data loaded from easy-to-edit Markdown files in the `data/` directory
+- **Live Editing**: All content is directly editable in the browser
+- **Print Ready**: Optimized for PDF export and printing with US Letter page constraints
 
-## Project Structure
+### Interactive Features
+- **Dark Mode**: Automatic device theme detection with manual toggle support
+- **Section Reordering**: Drag section titles to customize your resume layout
+- **CSS Inspector**: Hover over elements to see font properties (enabled by default)
+- **Page Layout Toggle**: Show/hide page boundaries and constraints (enabled by default)
+- **Interactive Links**: Clickable email, phone, and LinkedIn with smart tooltips
 
-```
-WebResume/
-├── resume.html         # Main HTML structure
-├── styles.css          # Styling and print layout
-├── script.js           # Dynamic data loading and interactions
-└── data/               # Resume content in Markdown
-    ├── header.md
-    ├── education.md
-    ├── experience.md
-    ├── projects.md
-    ├── skills.md
-    ├── publications.md
-    ├── leadership.md
-    └── certificates.md
-```
+### UI/UX Enhancements
+- **Persistent Settings**: Theme, layout, and section order saved to localStorage
+- **Device Theme Detection**: Automatically matches your system's light/dark preference
+- **Link Tooltips**: Hover over any link to see the URL with a quick-open button
+- **Inspector Tooltips**: Real-time CSS property inspection with color-coded highlights
+- **Drag & Drop Feedback**: Visual indicators during section reordering
 
-## Getting Started
+## 🚀 Getting Started
+
+### View Live
+Simply visit **[https://hellosaumil.github.io/WebResume](https://hellosaumil.github.io/WebResume)**
+
+### Local Development
 
 1. **Start the local server**:
    ```bash
@@ -41,18 +40,41 @@ WebResume/
    ```
 
 2. **Open in browser**:
-   Navigate to [http://127.0.0.1:3000/resume.html](http://127.0.0.1:3000/resume.html)
+   Navigate to [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
 3. **Edit content**:
    - Modify any `.md` file in the `data/` directory
    - Refresh the browser to see changes
 
-## Data Format
+## 📁 Project Structure
+
+```
+WebResume/
+├── index.html          # Main HTML structure (renamed from resume.html)
+├── styles.css          # Styling with dark mode support
+├── script.js           # Dynamic loading and interactive features
+├── _config.yml         # Jekyll configuration for GitHub Pages
+├── data/               # Resume content in Markdown
+│   ├── header.md
+│   ├── education.md
+│   ├── experience.md
+│   ├── projects.md
+│   ├── skills.md
+│   ├── publications.md
+│   ├── leadership.md
+│   └── certificates.md
+└── .github/
+    └── workflows/
+        └── jekyll-gh-pages.yml  # Automated deployment
+```
+
+## 📝 Data Format
 
 ### Header (`header.md`)
 ```markdown
-Name: Your Name
-Phone: +1-XXX-XXX-XXXX
+FirstName: Your
+LastName: Name
+Phone: (123) 456-7890
 Email: your.email@example.com
 Location: City, State
 LinkedIn: linkedin.com/in/yourprofile
@@ -62,11 +84,11 @@ StartDate: Available Date
 ### Experience & Projects (`experience.md`, `projects.md`)
 ```markdown
 ## Job Title
-### Company Name — Location
+### [Company Name](https://example.com) — Location
 #### Date Range
-##### *Tech Stack*
-- Bullet point 1
-- Bullet point 2
+##### *Tech Stack: Python, JavaScript, AWS*
+- Bullet point with `code formatting`
+- Another bullet with **bold text**
 
 ---
 ## Next Job Title
@@ -86,25 +108,80 @@ Degree: Bachelor of Technology...
 
 ### Skills (`skills.md`)
 ```markdown
-- **Category:** Skill1, Skill2, Skill3
-- **Another Category:** More skills
+- **Programming:** Python, JavaScript, TypeScript
+- **Tools & Frameworks:** React, Node.js, Docker
 ```
 
 ### Lists (`publications.md`, `leadership.md`, `certificates.md`)
 ```markdown
-- **Title:** Description or details
-- Another item
+- `[Publication Title](https://doi.org/example)` — Conference Name
+- **Role** — Organization/Event Details
 ```
 
-## Controls
+## 🎮 Controls
 
-- **CSS Inspector** (cube icon): Toggle to inspect font properties on hover
-- **Page Layout** (layout icon): Toggle A4/Letter page constraints and guides
-- **Reset** (refresh icon): Reload all content from Markdown files
+The floating control panel (bottom-right) includes:
 
-## Technologies
+- **🌙 Dark Mode** (moon/sun icon): Toggle dark mode or auto-detect device theme
+- **🧊 CSS Inspector** (cube icon): Toggle CSS property inspection on hover (default: ON)
+- **📄 Page Layout** (document icon): Toggle US Letter page constraints and guides (default: ON)
+- **✖️ Reset** (X icon): Reload all content from Markdown files and clear edits
 
-- Pure HTML/CSS/JavaScript (no frameworks)
-- Markdown for content management
-- Google Fonts (Google Sans Flex, Space Grotesk)
-- Local HTTP server for development
+### Keyboard Shortcuts
+- Drag section titles to reorder sections
+- Click any editable content to modify in place
+- Toggle controls to customize your viewing experience
+
+## 🛠️ Technologies
+
+- **Frontend**: Pure HTML/CSS/JavaScript (no frameworks)
+- **Content**: Markdown for structured data
+- **Fonts**: Google Fonts (Google Sans Flex, Space Grotesk)
+- **Hosting**: GitHub Pages with Jekyll
+- **CI/CD**: GitHub Actions for automated deployment
+- **Storage**: localStorage for persistent user preferences
+
+## 🎨 Customization
+
+### Theme Colors
+Dark mode colors are defined in CSS custom properties in `styles.css`:
+- Automatically adapts to device theme on first visit
+- Manual toggle persists preference in localStorage
+
+### Section Order
+- Drag any section title to reorder
+- Order is saved automatically to localStorage
+- Reset to default using the Reset button
+
+### Content Updates
+Edit any `.md` file in the `data/` directory and commit changes. GitHub Actions will automatically rebuild and deploy your site.
+
+## 📦 Deployment
+
+This project is configured for automatic deployment to GitHub Pages via GitHub Actions.
+
+1. Push changes to the `main` branch
+2. GitHub Actions builds the Jekyll site
+3. Automatic deployment to `https://hellosaumil.github.io/WebResume`
+
+## 🔧 Advanced Features
+
+### CSS Inspector
+- **Default**: Enabled on page load
+- **Tooltip Types**: Shows class names, font size, and font weight
+- **Color Coding**: Different highlight colors for headers, lists, and links
+
+### Section Reordering
+- **Drag Handle**: Section titles act as drag handles
+- **Visual Feedback**: Inspector-style borders during drag
+- **Persistence**: Order saved to localStorage
+- **Reset**: Clear order with Reset button
+
+### Link Intelligence
+- **Auto-formatting**: Email, phone, and LinkedIn auto-linked
+- **Tooltips**: Hover to preview full URL
+- **Quick Open**: Click tooltip button to open in new tab
+
+## 📄 License
+
+MIT License - feel free to use this template for your own resume!
