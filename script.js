@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const SETTINGS_KEY = 'resume-settings';
   const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
     pageLayout: true,
-    cssInspector: true,
+    cssInspector: false,
     darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
   };
 
@@ -440,21 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
   `;
   document.body.appendChild(tooltip);
 
-  // Create toggle button
-  const devToggleBtn = document.createElement('button');
-  devToggleBtn.className = 'dev-toggle-btn';
-  devToggleBtn.title = 'CSS Inspector';
-  devToggleBtn.innerHTML = `
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-    </svg>
-  `;
 
-  // Add toggle button to controls
-  const controlsEl = document.querySelector('.controls');
-  if (controlsEl) {
-    controlsEl.insertBefore(devToggleBtn, controlsEl.firstChild);
-  }
 
   // State
   let devInspectorEnabled = settings.cssInspector;
@@ -462,7 +448,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateInspectorUI(enabled) {
     devInspectorEnabled = enabled;
-    devToggleBtn.classList.toggle('active', enabled);
     settings.cssInspector = enabled;
     saveSettings();
 
@@ -475,10 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Toggle handler
-  devToggleBtn.addEventListener('click', () => {
-    updateInspectorUI(!devInspectorEnabled);
-  });
+
 
   // Initialize Inspector
   updateInspectorUI(settings.cssInspector);
