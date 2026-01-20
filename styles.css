@@ -729,17 +729,17 @@ body.dark-mode [contenteditable="true"]:focus {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  max-width: 320px;
+  gap: 8px;
+  max-width: 400px;
   background: var(--control-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 10px 14px;
+  padding: 12px 18px;
   border-radius: 16px;
   border: 1px solid var(--control-border);
   box-shadow: var(--control-shadow);
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
+  font-size: 12pt;
   color: var(--text-color);
   line-height: 1.5;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -766,7 +766,7 @@ body.dark-mode [contenteditable="true"]:focus {
 
 .tech-link code {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
+  font-size: 12pt;
   font-weight: 600;
   color: var(--accent-color);
   background: transparent;
@@ -774,8 +774,8 @@ body.dark-mode [contenteditable="true"]:focus {
 }
 
 .tech-logo {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
 }
 
@@ -785,11 +785,11 @@ body.dark-mode [contenteditable="true"]:focus {
 
 .attribution code {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
+  font-size: 12pt;
   font-weight: 600;
   color: var(--primary-color);
   background: rgba(0, 0, 0, 0.05);
-  padding: 2px 5px;
+  padding: 2px 6px;
   border-radius: 3px;
 }
 
