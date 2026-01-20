@@ -1,0 +1,10 @@
+title: WebResume
+description: Saumil Shah's Interactive Web Resume
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+exclude:
+  - node_modules
+  - .gitignore
+  - package-lock.json
+  - README.md
