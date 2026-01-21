@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
     pagePreview: true,
     cssInspector: true,
     darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    editMode: true,
+    editMode: false,
     privacyMode: false
   };
 
