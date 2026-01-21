@@ -16,7 +16,7 @@ A modern, interactive web-based resume with dynamic content loading, dark mode, 
 - **Dark Mode**: Automatic device theme detection with manual toggle support
 - **Section Reordering**: Drag section titles to customize your resume layout
 - **CSS Inspector**: Hover over elements to see font properties (enabled by default)
-- **Page Layout Toggle**: Show/hide page boundaries and constraints (enabled by default)
+- **Page Preview Toggle**: Show/hide page boundaries and constraints (enabled by default)
 - **Interactive Links**: Clickable email, phone, and LinkedIn with smart tooltips
 
 ### UI/UX Enhancements
@@ -123,7 +123,7 @@ The floating control panel (bottom-right) includes:
 
 - **🌙 Dark Mode** (moon/sun icon): Toggle dark mode or auto-detect device theme
 - **🧊 CSS Inspector** (cube icon): Toggle CSS property inspection on hover (default: ON)
-- **📄 Page Layout** (document icon): Toggle US Letter page constraints and guides (default: ON)
+- **📄 Page Preview** (document icon): Toggle US Letter page constraints and guides (default: ON)
 - **✖️ Reset** (X icon): Reload all content from Markdown files and clear edits
 
 ### Keyboard Shortcuts
@@ -157,11 +157,35 @@ Edit any `.md` file in the `data/` directory and commit changes. GitHub Actions 
 
 ## 📦 Deployment
 
-This project is configured for automatic deployment to GitHub Pages via GitHub Actions.
+This project uses a dual-branch deployment strategy:
 
-1. Push changes to the `main` branch
-2. GitHub Actions builds the Jekyll site
-3. Automatic deployment to `https://hellosaumil.github.io/WebResume`
+- **`main` branch**: Private development branch for working on new features and content updates
+- **`publish` branch**: Public deployment branch that triggers GitHub Actions
+
+### Deployment Workflow
+
+1. Make changes and commit to the `main` branch
+2. When ready to deploy, merge `main` into `publish`:
+   ```bash
+   git checkout publish
+   git merge main
+   git push origin publish
+   ```
+3. GitHub Actions automatically builds and deploys to `https://hellosaumil.github.io/WebResume`
+
+### Manual Repository Setup
+
+After cloning, set up the `publish` branch:
+```bash
+# Create publish branch from main
+git checkout -b publish
+git push -u origin publish
+
+# Return to main for development
+git checkout main
+```
+
+Configure GitHub Pages to deploy from the `publish` branch in repository Settings → Pages.
 
 ## 🔧 Advanced Features
 
