@@ -12,7 +12,7 @@
 - Designed `interactive web dashboards` empowering stakeholders with immediate insights into `up-to-date` driver health and `regressions`.
 - Presented an org-wide talk on the use of `Model Context Protocol (MCPs)` and `Coding Agents/Cline` to improve developer productivity.
 - Experimented with `Multi-agent Supervisors` using `LangGraph` and `FastMCP` for Q&As about docs/wikis using `RAG` pipelines built with `ChromaDB`.
-- Worked at `3 different locations` — `Boulder` (CO), `Toronto` (Canada), and `San Diego` (CA). `Promoted` from Engineer in `2024`.
+- Operated across `3 different locations` — `Boulder` (CO), `Toronto` (Canada), and `San Diego` (CA). `Promoted` from Engineer in `2024`.
 
 ---
 ## Data Science Developer

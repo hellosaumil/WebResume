@@ -40,12 +40,12 @@ body.dark-mode {
   /* Light gray for body text */
   --text-light: #9ca3af;
   /* Muted gray for secondary text */
-  --bg-color: #0a0a0a;
-  /* Deep black for outer background */
-  --border-color: #374151;
-  /* Dark gray for borders */
-  --white: #111111;
-  /* Very dark gray for page background */
+  --bg-color: #121212;
+  /* Dark gray for outer background */
+  --border-color: #333333;
+  /* Subtle border */
+  --white: #000000;
+  /* Pure black for page background */
 
   /* Controls Design System - Dark */
   --control-bg: rgba(30, 30, 30, 0.8);
@@ -80,7 +80,7 @@ body {
   min-height: 100vh;
 }
 
-body.show-page-layout {
+body.show-page-preview {
   background: var(--bg-color);
   align-items: center;
   /* Restore centering */
@@ -95,12 +95,17 @@ body.show-page-layout {
   position: fixed;
   bottom: 40px;
   right: 40px;
-  z-index: 1000;
+  z-index: 10001;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   align-items: flex-end;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls:has(.attribution.minimized) {
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .controls-buttons {
@@ -156,9 +161,7 @@ body.show-page-layout {
   }
 }
 
-/* Font Options Removed */
-
-/* Font Options Removed */
+/* Controls Buttons Group */
 
 .toggle-layout-btn svg,
 .reset-btn svg,
@@ -243,6 +246,58 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   /* Warm sun color */
 }
 
+/* Edit Mode Button */
+.edit-mode-btn svg,
+.privacy-mode-btn svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.edit-mode-btn,
+.privacy-mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--control-icon);
+}
+
+.edit-mode-btn:hover,
+.privacy-mode-btn:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
+}
+
+.edit-mode-btn.active,
+.privacy-mode-btn.active {
+  background: var(--control-active-bg);
+  color: var(--accent-color);
+}
+
+/* Privacy Mode Icon Toggle */
+.privacy-mode-btn .eye-icon {
+  display: block;
+}
+
+.privacy-mode-btn .eye-off-icon {
+  display: none;
+}
+
+.privacy-mode-btn.active .eye-icon {
+  display: none;
+}
+
+.privacy-mode-btn.active .eye-off-icon {
+  display: block;
+}
 
 .btn-text {
   display: none;
@@ -268,7 +323,7 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   /* For page break indicator */
 }
 
-body.show-page-layout .resume-page {
+body.show-page-preview .resume-page {
   width: var(--page-width);
   /* Strict A4 */
   min-height: var(--page-height);
@@ -283,7 +338,7 @@ body.show-page-layout .resume-page {
 /* Page Break Marker - Hidden by default, shown via toggle */
 .resume-page::after {
   display: none;
-  content: "---------------------- End of Page 1 (US Letter) ----------------------";
+  content: "Estimated End of Page 1 (US Letter)";
   position: absolute;
   top: var(--page-height);
   left: 0;
@@ -301,11 +356,22 @@ body.show-page-layout .resume-page {
   z-index: 100;
 }
 
-body.show-page-layout .resume-page::after {
+body.show-page-preview .resume-page::after {
   display: block;
 }
 
-/* Header */
+body.dark-mode.show-page-preview .resume-page {
+  background-color: #000000 !important;
+  /* Keep page black in layout mode */
+  border: none;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  /* Faint white shadow */
+}
+
+body.dark-mode.show-page-preview .resume-page:hover {
+  background-color: #050505 !important;
+}
+
 /* Header */
 .header {
   display: flex;
@@ -645,7 +711,7 @@ code {
 }
 
 /* Contenteditable Styles */
-[contenteditable="true"] {
+[contenteditable] {
   outline: none;
   transition: background-color 0.2s ease;
   border-radius: 2px;
@@ -725,26 +791,177 @@ body.dark-mode [contenteditable="true"]:focus {
    Attribution Overlay
    ======================================== */
 .attribution {
-  display: flex;
   position: relative;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  max-width: 520px;
+  gap: 4px 8px;
+  max-width: 500px;
   background: var(--control-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 12px 18px;
+  padding: 12px 48px 12px 16px;
+  /* Extra right padding for the toggle */
   border-radius: 16px;
   border: 1px solid var(--control-border);
   box-shadow: var(--control-shadow);
-  font-family: 'Space Grotesk',
-    sans-serif;
-  font-size: 12pt;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11pt;
+  font-weight: 500;
   color: var(--text-color);
-  line-height: 1.5;
+  line-height: 1.4;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+}
+
+/* Attribution Toggle Button - Right side, vertically centered */
+.controls .attribution-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: rgba(128, 128, 128, 0.3);
+  border: none;
+  border-radius: 50%;
+  /* Perfect circle */
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--control-icon);
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 0;
+}
+
+.controls .attribution-toggle:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
+}
+
+.attribution-toggle .chevron-right {
+  width: 14px;
+  height: 14px;
+}
+
+.attribution-toggle .github-icon {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Toggle Icon Visibility - Expanded state shows chevron-right */
+.controls .attribution-toggle .chevron-right {
+  display: block;
+}
+
+.controls .attribution-toggle .github-icon {
+  display: none;
+}
+
+/* Minimized state shows github icon */
+.attribution.minimized .attribution-toggle .chevron-right {
+  display: none;
+}
+
+.attribution.minimized .attribution-toggle .github-icon {
+  display: block;
+}
+
+/* Attribution Content Wrapper */
+.attribution-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 200px;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+}
+
+.attribution.minimized .attribution-content {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.attribution.minimized .attribution-content span:not(.tech-name),
+.attribution.minimized .attribution-content code {
+  display: none;
+}
+
+/* Minimized state - circular button matching control panel height */
+.attribution.minimized {
+  padding: 0;
+  max-width: none;
+  width: 56px;
+  height: 56px;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--control-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--control-border);
+  box-shadow: var(--control-shadow);
+  overflow: visible;
+  /* Allow gradient border to show */
+}
+
+.attribution.minimized .attribution-toggle {
+  position: static;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: transparent;
+  transform: none;
+}
+
+.attribution.minimized .attribution-toggle .github-icon {
+  width: 28px !important;
+  height: 28px !important;
+  display: block;
+}
+
+/* Hover effect matching control panel */
+.attribution.minimized:hover {
+  border-color: rgba(66, 153, 225, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.attribution.minimized .attribution-content {
+  display: none;
+}
+
+.attribution.minimized .tech-link {
+  padding: 0;
+}
+
+.attribution.minimized .tech-name {
+  display: none;
+}
+
+.attribution.minimized .tech-logo {
+  margin: 0;
+}
+
+/* Circular gradient border for minimized state */
+.attribution.minimized::after {
+  border-radius: 50%;
+}
+
+.attribution.minimized:hover::after {
+  opacity: 1;
+  animation: gemini-glow 3s linear infinite;
 }
 
 .attribution::after {
@@ -802,7 +1019,7 @@ body.dark-mode [contenteditable="true"]:focus {
 .tech-link code {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 12pt;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent-color);
   background: transparent;
   padding: 0;
@@ -820,16 +1037,17 @@ body.dark-mode [contenteditable="true"]:focus {
 
 .attribution code {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 12pt;
-  font-weight: 600;
-  color: var(--primary-color);
-  background: rgba(0, 0, 0, 0.05);
-  padding: 2px 6px;
-  border-radius: 3px;
+  font-size: inherit;
+  /* Match parent font size */
+  font-weight: 500;
+  color: var(--text-color);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 body.dark-mode .attribution code {
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
 }
 
 
@@ -963,4 +1181,284 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   background-color: rgba(79, 209, 197, 0.1) !important;
   outline-offset: 2px;
   transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+/* ========================================
+   Mobile Responsive Design
+   ======================================== */
+
+/* Tablet Breakpoint (768px and below) */
+@media (max-width: 768px) {
+
+  /* Controls positioning */
+  .controls {
+    bottom: 20px;
+    right: 20px;
+    transform: scale(0.9);
+  }
+
+  /* Attribution panel adjustments */
+  .attribution {
+    max-width: 400px;
+    font-size: 10pt;
+    padding: 8px 36px 8px 14px;
+  }
+
+  .attribution .tech-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Resume page adjustments */
+  body.show-page-preview .resume-page {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Header - wrap on tablet */
+  .header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-right {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  /* Contact grid - make items wrap */
+  .contact-grid {
+    column-gap: 8px;
+    row-gap: 2px;
+  }
+
+  .contact-item {
+    font-size: 7pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Name - scale down */
+  .header-1 {
+    font-size: 32pt;
+  }
+}
+
+/* Mobile Breakpoint (480px and below) */
+@media (max-width: 480px) {
+
+  /* Body adjustments */
+  body {
+    padding: 0;
+  }
+
+  body.show-page-preview {
+    padding: 10px;
+  }
+
+  /* Controls - reposition to bottom center */
+  .controls {
+    bottom: 10px;
+    right: 50%;
+    transform: translateX(50%) scale(0.85);
+    transform-origin: center bottom;
+  }
+
+  .controls-buttons {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .toggle-layout-btn,
+  .reset-btn,
+  .theme-toggle-btn,
+  .dev-toggle-btn,
+  .edit-mode-btn,
+  .privacy-mode-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Attribution - keep horizontal on mobile */
+  .attribution {
+    max-width: calc(100vw - 40px);
+    font-size: 9pt;
+    padding: 6px 32px 6px 12px;
+    gap: 6px;
+  }
+
+  .attribution .tech-logo {
+    width: 14px;
+    height: 14px;
+  }
+
+  .attribution code {
+    font-size: 9pt;
+    padding: 1px 4px;
+  }
+
+  /* Resume page - remove fixed width on mobile */
+  .resume-page,
+  body.show-page-preview .resume-page {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: 16px 20px;
+    box-shadow: none;
+  }
+
+  /* Header - stack vertically */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .header-right {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    row-gap: 3px;
+  }
+
+  .start-date {
+    margin-top: 4px;
+  }
+
+  /* Typography - reduce font sizes proportionally */
+  .header-1 {
+    font-size: 32pt;
+  }
+
+  .header-2 {
+    font-size: 11pt;
+  }
+
+  .title-1 {
+    font-size: 8.5pt;
+  }
+
+  .title-2,
+  .title-2-accent,
+  .title-3-italic,
+  .body-text {
+    font-size: 7.5pt;
+  }
+
+  /* Section spacing */
+  .main-content {
+    gap: 8px;
+  }
+
+  .section {
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    margin-bottom: 4px;
+  }
+
+  /* Skills grid - single column on mobile */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  /* Experience and Projects */
+  .experience-item,
+  .project-item {
+    margin-bottom: 10px;
+  }
+
+  .exp-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .exp-date {
+    text-align: left;
+  }
+
+  /* Bottom row - stack vertically */
+  .bottom-row,
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .half-section,
+  .half {
+    width: 100%;
+  }
+
+  /* Link tooltip - adjust size */
+  .link-tooltip {
+    font-size: 6pt;
+    padding: 0.3rem 0.6rem;
+    max-width: 250px;
+    border-radius: 16px;
+  }
+
+  .link-tooltip-url {
+    max-width: 180px;
+  }
+
+  .link-tooltip-btn {
+    padding: 4px;
+  }
+
+  /* Dev inspector tooltip */
+  .dev-inspector-tooltip {
+    font-size: 8pt;
+    padding: 4px 8px;
+  }
+
+  /* Minimize contenteditable hover effects on mobile for better UX */
+  [contenteditable="true"]:hover {
+    background-color: transparent;
+  }
+
+  [contenteditable="true"]:focus {
+    background-color: rgba(66, 153, 225, 0.15);
+  }
+
+  body.dark-mode [contenteditable="true"]:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Extra small devices (360px and below) */
+@media (max-width: 360px) {
+  .header-1 {
+    font-size: 28pt;
+  }
+
+  .header-2 {
+    font-size: 10pt;
+  }
+
+  .resume-page,
+  body.show-page-preview .resume-page {
+    padding: 12px 16px;
+  }
+
+  .attribution {
+    font-size: 8pt;
+    padding: 4px 28px 4px 10px;
+  }
+
+  .controls {
+    transform: translateX(50%) scale(0.75);
+  }
 }

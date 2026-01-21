@@ -339,9 +339,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   const SETTINGS_KEY = 'resume-settings';
   const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {
-    pageLayout: true,
+    pagePreview: true,
     cssInspector: true,
-    darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
+    darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
+    editMode: true,
+    privacyMode: false
   };
 
   function saveSettings() {
@@ -354,24 +356,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggleLayoutBtn = document.getElementById('toggleLayout');
 
   function updateLayoutUI(isVisible) {
-    document.body.classList.toggle('show-page-layout', isVisible);
+    document.body.classList.toggle('show-page-preview', isVisible);
     if (toggleLayoutBtn) {
       toggleLayoutBtn.classList.toggle('active', isVisible);
-      toggleLayoutBtn.title = isVisible ? 'Hide Page Layout' : 'Show Page Layout';
+      toggleLayoutBtn.title = isVisible ? 'Hide Page Preview' : 'Show Page Preview';
     }
-    settings.pageLayout = isVisible;
+    settings.pagePreview = isVisible;
     saveSettings();
   }
 
   if (toggleLayoutBtn) {
     toggleLayoutBtn.addEventListener('click', () => {
-      const isVisible = !document.body.classList.contains('show-page-layout');
+      const isVisible = !document.body.classList.contains('show-page-preview');
       updateLayoutUI(isVisible);
     });
   }
 
   // Initialize Layout
-  updateLayoutUI(settings.pageLayout);
+  updateLayoutUI(settings.pagePreview);
 
   // ========================================
   // Theme Toggle (Dark Mode)
@@ -408,6 +410,96 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize Theme
   updateThemeUI(settings.darkMode);
+
+  // ========================================
+  // Edit Mode Toggle
+  // ========================================
+  const editModeBtn = document.createElement('button');
+  editModeBtn.className = 'edit-mode-btn';
+  editModeBtn.title = 'Toggle Edit Mode';
+  editModeBtn.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+  `;
+
+  // Add to controls - insert before Reset button (last position)
+  let controlsButtons = document.querySelector('.controls-buttons');
+  if (controlsButtons) {
+    const resetBtn = controlsButtons.querySelector('.reset-btn');
+    if (resetBtn) {
+      controlsButtons.insertBefore(editModeBtn, resetBtn);
+    } else {
+      // Fallback: insert after dev inspector button
+      const devBtn = controlsButtons.querySelector('.dev-toggle-btn');
+      if (devBtn && devBtn.nextSibling) {
+        controlsButtons.insertBefore(editModeBtn, devBtn.nextSibling);
+      } else {
+        controlsButtons.appendChild(editModeBtn);
+      }
+    }
+  }
+
+  function updateEditModeUI(enabled) {
+    const editableElements = document.querySelectorAll('[contenteditable]');
+    editableElements.forEach(el => {
+      el.contentEditable = enabled ? 'true' : 'false';
+    });
+
+    editModeBtn.classList.toggle('active', enabled);
+    editModeBtn.title = enabled ? 'Disable Edit Mode' : 'Enable Edit Mode';
+    settings.editMode = enabled;
+    saveSettings();
+
+    // If enabling Edit Mode, turn off Inspector if it's on
+    // user can manually turn it back on if needed
+    if (enabled && devInspectorEnabled) {
+      if (typeof updateInspectorUI === 'function') {
+        updateInspectorUI(false);
+      }
+    }
+  }
+
+  editModeBtn.addEventListener('click', () => {
+    updateEditModeUI(!settings.editMode);
+  });
+
+  // Initialize Edit Mode after content loads
+  setTimeout(() => updateEditModeUI(settings.editMode), 200);
+
+  // ========================================
+  // Attribution Panel Minimize Toggle
+  // ========================================
+  const attribution = document.querySelector('.attribution');
+  const attributionToggle = attribution ? attribution.querySelector('.attribution-toggle') : null;
+
+  // Add minimized state to settings if not present
+  // Always start expanded regardless of saved state
+  settings.attributionMinimized = false;
+  saveSettings();
+
+  function updateAttributionUI(minimized) {
+    if (!attribution || !attributionToggle) return;
+
+    attribution.classList.toggle('minimized', minimized);
+    attributionToggle.title = minimized ? 'Expand Attribution' : 'Minimize Attribution';
+    settings.attributionMinimized = minimized;
+    saveSettings();
+  }
+
+  if (attributionToggle) {
+    attributionToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      updateAttributionUI(!settings.attributionMinimized);
+    });
+  }
+
+  // Initialize as expanded
+  setTimeout(() => updateAttributionUI(false), 100);
+
+  // Remove auto-minimize on resize - user controls this manually
 
   // ========================================
   // Fixed Scale Controls (Zoom Resistance)
@@ -455,8 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </svg>
   `;
 
-  // Add toggle button to controls
-  const controlsButtons = document.querySelector('.controls-buttons');
+  // Add toggle button to controls (reuse controlsButtons from above)
   if (controlsButtons) {
     controlsButtons.insertBefore(devToggleBtn, controlsButtons.firstChild);
   }
