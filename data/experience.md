@@ -6,7 +6,7 @@
 - Facilitated `100k+ weekly tests` to validate `flagship [Snapdragon GPUs](https://www.qualcomm.com/snapdragon)` across critical test suites: `CTS` (`Vulkan`, `OpenCL`), `GFXR`, `DCAP`, `VKPerf` drivers.
 - Designed custom `Docker/Singularity` images to `sandbox` and manage host setups with test dependencies and drivers, guaranteeing `reproducibility`.
 - Devised an `asynchronous` reporting pipeline using `RabbitMQ` to route results to `Artifactory` storage, decoupling execution from logging services.
-- Developed `high-performance` back-end using `FastAPI` to monitor live job status, providing real-time feedback on `1M+ weekly rows` from `Redis Cache`.
+- Developed `high-performance` back-end using `FastAPI` to monitor live job status, providing real-time feedback on `1M+ weekly rows` from `RedisJSON`.
 - Implemented a `regression tracking` system using `Django` and `PostgreSQL` to update `time-series` data, enabling early detection of performance hits.
 - Architected core `Pydantic` schemas and helper classes to standardize data flow, minimizing integration errors and technical debt.
 - Designed `interactive web dashboards` empowering stakeholders with immediate insights into `up-to-date` driver health and `regressions`.
