@@ -1066,6 +1066,15 @@ body.dark-mode .attribution code {
   .dev-inspector-tooltip {
     display: none !important;
   }
+
+  /* Fix thin font rendering in PDF export —
+     print/PDF engines lack sub-pixel antialiasing,
+     causing light weights (100–300) to appear thinner than on screen. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-text-stroke: 0.1px currentColor;
+  }
 }
 
 /* ========================================
