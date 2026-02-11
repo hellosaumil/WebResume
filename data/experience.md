@@ -30,7 +30,7 @@
 ### [Marine Bio-acoustics Research Collaborative (<u>MBARC</u>)](https://acoustics.ucsd.edu) — San Diego, CA
 ### [Marine Acoustics Research (<u>MAR</u>) Lab, SDSU](https://roch.sdsu.edu/index.php/research-overview) & [Scripps Institution of Oceanography (<u>SIO</u>), UCSD](https://www.cetus.ucsd.edu)
 #### 2019 - 2020
-### Master's Thesis: `[Learning to Detect Odontocete Whistles from Generative Synthetic Samples](https://csu-sdsu.primo.exlibrisgroup.com/permalink/01CALS_SDL/r45sar/alma991023922865902917)`, Advisor: [Dr. Marie Roch](https://roch.sdsu.edu)
+### Master's Thesis: `[Learning to Detect Odontocete Whistles from Generative Synthetic Samples](https://csu-sdsu.primo.exlibrisgroup.com/permalink/01CALS_SDL/10r4g1c/cdi_proquest_journals_2493456813)`, Advisor: [Dr. Marie Roch](https://roch.sdsu.edu)
 ##### *Deep Learning, Bio-Acoustics, CycleGAN, WGAN, CNN, U-Net, ResNets, PatchGAN; Python, PyTorch, CUDA, MATLAB*
 - Designed `[DeepWhistleGAN](https://drive.google.com/file/d/1vp1WcMvt0eAPQbaeXxriQ5qnka3edRHn/view?usp=sharing)`, a novel `unsupervised learning` architecture to synthesize `dolphin whistles` and `oceanic noise` spectrogram patches.
 - Solved `data scarcity` by generating `1000% synthetic samples`, enabling `WGAN`+`CycleGAN` models to train effectively on just `6.25% of annotated data`.
