@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       await Promise.all([
         loadHeader(),
+        loadSummary(),
         loadEducation(),
         loadSkills(),
         loadPublications(),
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Helper to fetch markdown
   async function fetchMarkdown(filename) {
-    const response = await fetch(`data/${filename}`);
+    const response = await fetch(`data/${filename}?cache=${new Date().getTime()}`);
     if (!response.ok) throw new Error(`Failed to load ${filename}`);
     return await response.text();
   }
@@ -93,6 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // --- Specific Loaders ---
+
+  async function loadSummary() {
+    const text = await fetchMarkdown('summary.md');
+    const section = document.getElementById('summary-section');
+
+    const p = document.createElement('p');
+    p.className = 'summary-text body-text';
+    p.setAttribute('contenteditable', 'true');
+    p.innerHTML = parseMarkdownLinks(text.trim());
+    section.appendChild(p);
+  }
 
   async function loadHeader() {
     const text = await fetchMarkdown('header.md');
@@ -255,39 +267,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function loadProjects() {
     const text = await fetchMarkdown('projects.md');
-    const sections = text.split('---').map(section => {
-      const lines = section.trim().split('\n');
-      const data = { content: [] };
 
-      lines.forEach(line => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('### ')) data.title = trimmed.replace('### ', '').trim();
-        else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
-        else if (trimmed.startsWith('- ')) data.content.push(trimmed);
-      });
-      return data;
-    });
+    // Split by '===' to separate ML Research Projects from Side Projects
+    const majorSections = text.split('===').map(s => s.trim());
+    const sectionTitles = ['ML Research Projects', 'Side Projects'];
 
     const container = document.getElementById('projects-section');
 
-    sections.forEach(proj => {
-      if (!proj.title) return;
+    majorSections.forEach((majorSection, idx) => {
+      // Add a sub-section title if there's more than one major section
+      if (majorSections.length > 1) {
+        const subTitle = document.createElement('h2');
+        subTitle.className = 'section-title header-2';
+        subTitle.textContent = sectionTitles[idx] || 'Projects';
+        container.appendChild(subTitle);
+      }
 
-      const div = document.createElement('div');
-      div.className = 'project-item';
+      const sections = majorSection.split('---').map(section => {
+        const lines = section.trim().split('\n');
+        const data = { content: [] };
 
-      const bullets = proj.content
-        .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
-        .join('');
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('### ')) data.title = trimmed.replace('### ', '').trim();
+          else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
+          else if (trimmed.startsWith('- ')) data.content.push(trimmed);
+        });
+        return data;
+      });
 
-      div.innerHTML = `
-        <div class="project-title title-1" contenteditable="true">${parseMarkdownLinks(proj.title || '')}</div>
-        <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
-        <ul class="bullet-list">
-          ${bullets}
-        </ul>
-      `;
-      container.appendChild(div);
+      sections.forEach(proj => {
+        if (!proj.title) return;
+
+        const div = document.createElement('div');
+        div.className = 'project-item';
+
+        const bullets = proj.content
+          .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
+          .join('');
+
+        div.innerHTML = `
+          <div class="project-title title-1" contenteditable="true">${parseMarkdownLinks(proj.title || '')}</div>
+          <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
+          <ul class="bullet-list">
+            ${bullets}
+          </ul>
+        `;
+        container.appendChild(div);
+      });
     });
   }
 
@@ -818,11 +845,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const savedOrder = localStorage.getItem(SECTION_ORDER_KEY);
     if (savedOrder) {
       try {
-        const orderArray = JSON.parse(savedOrder);
+        let orderArray = JSON.parse(savedOrder);
         const currentSections = Array.from(mainContent.querySelectorAll('.section:not(.half-section)'));
         const sectionIds = new Set(orderArray);
 
-        // First, reorder known sections according to saved order
+        // If Summary is a new section, and we have a saved order, 
+        // inject it at the beginning of the order to ensure it shows up at top
+        if (document.getElementById('summary-section') && !sectionIds.has('summary-section')) {
+          orderArray.unshift('summary-section');
+          sectionIds.add('summary-section');
+          saveSectionOrder(); // Save this updated order
+        }
+
+        // Reorder sections according to saved/updated order
         orderArray.forEach(sectionId => {
           const section = document.getElementById(sectionId);
           if (section && section.parentElement === mainContent) {
@@ -834,9 +869,9 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
 
-        // Then, append any NEW sections (not in saved order) at the end
+        // Any other NEW sections still not accounted for
         currentSections.forEach(section => {
-          if (section.id && !sectionIds.has(section.id)) {
+          if (section.id && !new Set(orderArray).has(section.id)) {
             if (bottomRow) {
               mainContent.insertBefore(section, bottomRow);
             } else {

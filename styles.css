@@ -498,6 +498,20 @@ body.dark-mode.show-page-preview .resume-page:hover {
   color: var(--text-color);
 }
 
+/* Summary */
+.summary-text {
+  color: var(--text-light);
+  line-height: 1.45;
+  margin: 0;
+  padding-bottom: 8px;
+  /* Spacing before divider */
+}
+
+#summary-section {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 8px;
+}
+
 /* Education */
 .education-item {
   margin-bottom: 4px;
