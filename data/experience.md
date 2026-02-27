@@ -2,6 +2,7 @@
 ### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) — San Diego, CA
 #### 2021 - Present
 ##### *Boulder · Toronto · San Diego - Promoted 2024*
+
 - `Architected and own Aether E2E`: an in-house `end-to-end automation platform` purpose-built to orchestrate pipelines dispatching `200K+ jobs/week` as containerized (`Docker`/`Singularity`) workloads across an `on-prem LSF server-farm`, with real-time result reporting for `Vulkan`/`OpenCL`/`OpenGL` graphics driver validation across all upcoming premium-tier flagship `[Snapdragon Adreno GPUs](https://www.qualcomm.com/processors/adreno)`.
 
 - `Engineered FastAPI backend` + `RedisJSON`/`RediSearch` for `sub-second` live access to job statuses, test results, and aggregated result metrics; sustains `~2M rolling rows/month` with custom expiry model, deliberately trading history depth for query performance at scale.
@@ -49,4 +50,4 @@
 #### 2016 - 2017
 ##### *Recommendation System, NLP, Microservices, Ontology; Python, Flask, SPARQL, RDFLib*
 
-- Architected a cloud-based `microservice` HCM platform on `AWS` with `NLP` resume parsing and a `SPARQL`/`RDFLib` knowledge inference engine. `[Published](https://ieeexplore.ieee.org/document/8369531/)` at `IEEE SysCon 2018`.
+- `Co-developed a job-candidate recommendation engine` on a cloud-based `AWS EC2` `microservice` platform; built `NLP` feature extraction pipelines from resume and job descriptions to build a skill-based ontology using `SPARQL`/`RDFLib` for knowledge inference. `[Published](https://ieeexplore.ieee.org/document/8369531/)` at `IEEE SysCon 2018`.

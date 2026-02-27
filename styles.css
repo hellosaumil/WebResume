@@ -401,7 +401,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 /* Typography Hierarchy - From DESIGN_SYSTEM.md */
 .header-1 {
-  font-size: 40pt;
+  font-size: 38pt;
 }
 
 .header-2 {
@@ -452,18 +452,19 @@ body.dark-mode.show-page-preview .resume-page:hover {
   grid-template-columns: auto auto;
   /* Two columns for phone/location and email/linkedin */
   column-gap: 12px;
-  row-gap: 1px;
-  justify-items: end;
+  row-gap: 4px;
 }
 
 .contact-item {
   line-height: 1.1;
 }
 
-.start-date {
-  margin-top: 2px;
-  font-weight: 500;
-  color: var(--text-color);
+.contact-item:nth-child(odd) {
+  justify-self: start;
+}
+
+.contact-item:nth-child(even) {
+  justify-self: end;
 }
 
 /* Main Content */
@@ -503,13 +504,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
   color: var(--text-light);
   line-height: 1.45;
   margin: 0;
-  padding-bottom: 8px;
-  /* Spacing before divider */
-}
-
-#summary-section {
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 /* Education */
@@ -680,9 +675,14 @@ code {
   color: var(--text-color);
 }
 
-/* Publications & Awards - Visual Divider */
+/* Publications Hack */
 #publications-section {
-  padding-top: 6px;
+  margin-top: -8px;
+}
+
+/* Projects - Visual Divider */
+#projects-section {
+  padding-top: 8px;
   border-top: 1px solid var(--border-color);
 }
 
@@ -1352,10 +1352,6 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     grid-template-columns: 1fr;
     justify-items: start;
     row-gap: 3px;
-  }
-
-  .start-date {
-    margin-top: 4px;
   }
 
   /* Typography - reduce font sizes proportionally */

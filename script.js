@@ -117,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'phone': 'field-phone',
       'email': 'field-email',
       'location': 'field-location',
-      'linkedin': 'field-linkedin',
-      'startdate': 'field-startdate'
+      'linkedin': 'field-linkedin'
     };
 
     for (const [key, id] of Object.entries(mapping)) {
