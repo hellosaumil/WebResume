@@ -389,6 +389,9 @@ body.dark-mode.show-page-preview .resume-page:hover {
   line-height: 1;
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 #field-firstname {
@@ -445,18 +448,24 @@ body.dark-mode.show-page-preview .resume-page:hover {
   font-size: 8pt;
   /* Body Level */
   color: var(--text-light);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .contact-grid {
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
-  column-gap: 12px;
   row-gap: 4px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .contact-item {
   line-height: 1.1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .contact-item:nth-child(1) {
@@ -486,6 +495,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
   grid-row: 2;
   justify-self: end;
 }
+
 
 /* Main Content */
 .main-content {
@@ -847,6 +857,8 @@ body.dark-mode [contenteditable="true"]:focus {
   line-height: 1.4;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Attribution Toggle Button - Right side, vertically centered */
@@ -1270,7 +1282,6 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   /* Contact grid - make items wrap */
   .contact-grid {
-    column-gap: 8px;
     row-gap: 2px;
   }
 
@@ -1279,6 +1290,18 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .contact-item:nth-child(1),
+  .contact-item:nth-child(3) {
+    justify-self: stretch;
+    text-align: left;
+  }
+
+  .contact-item:nth-child(2),
+  .contact-item:nth-child(4) {
+    justify-self: stretch;
+    text-align: right;
   }
 
   /* Name - scale down */
@@ -1303,13 +1326,12 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   .controls {
     bottom: 10px;
     right: 50%;
-    transform: translateX(50%) scale(0.85);
-    transform-origin: center bottom;
+    transform: translateX(50%);
   }
 
   .controls-buttons {
-    padding: 4px;
-    gap: 4px;
+    padding: 3px;
+    gap: 3px;
   }
 
   .toggle-layout-btn,
@@ -1318,16 +1340,23 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   .dev-toggle-btn,
   .edit-mode-btn,
   .privacy-mode-btn {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .controls button svg {
+    width: 22px;
+    height: 22px;
   }
 
   /* Attribution - keep horizontal on mobile */
   .attribution {
-    max-width: calc(100vw - 40px);
+    max-width: calc(100% - 40px);
     font-size: 9pt;
     padding: 6px 32px 6px 12px;
     gap: 6px;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .attribution .tech-logo {
@@ -1369,23 +1398,20 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   }
 
   .contact-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-flow: column;
-    grid-template-rows: auto auto;
-    justify-items: start;
     row-gap: 3px;
-    column-gap: 16px;
     width: 100%;
   }
 
   .contact-item:nth-child(1),
   .contact-item:nth-child(3) {
-    justify-self: start;
+    justify-self: stretch;
+    text-align: left;
   }
 
   .contact-item:nth-child(2),
   .contact-item:nth-child(4) {
-    justify-self: end;
+    justify-self: stretch;
+    text-align: right;
   }
 
   /* Typography - reduce font sizes proportionally */
@@ -1489,6 +1515,34 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
   body.dark-mode [contenteditable="true"]:focus {
     background-color: rgba(255, 255, 255, 0.1);
   }
+
+  /* All resume content should wrap, never overflow */
+  .resume-page {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Single column contact grid when zoomed */
+  .zoomed .contact-grid {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+  }
+
+  .zoomed .contact-item {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .zoomed .contact-item:nth-child(1),
+  .zoomed .contact-item:nth-child(2),
+  .zoomed .contact-item:nth-child(3),
+  .zoomed .contact-item:nth-child(4) {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    text-align: left;
+  }
 }
 
 /* Extra small devices (360px and below) */
@@ -1513,5 +1567,10 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   .controls {
     transform: translateX(50%) scale(0.75);
+  }
+
+  /* Minimal spacing for extreme zoom scenarios */
+  .contact-grid {
+    gap: 2px 0;
   }
 }
