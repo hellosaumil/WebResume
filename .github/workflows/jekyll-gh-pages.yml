@@ -5,6 +5,10 @@ on:
     branches: ["main"]
     tags: ["v*"]
   workflow_dispatch:
+    inputs:
+      version_tag:
+        description: "Tag to deploy to versioned subfolder (e.g. v1)"
+        required: false
 
 permissions:
   contents: write
@@ -21,6 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ inputs.version_tag || github.ref }}
 
       - name: Write version info
         run: |
@@ -28,6 +33,7 @@ jobs:
           echo "{\"tag\":\"$TAG\",\"branch\":\"${{ github.ref_name }}\",\"sha\":\"${{ github.sha }}\"}" > version.json
 
       - name: Deploy to gh-pages (root)
+        if: ${{ !inputs.version_tag }}
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
@@ -38,10 +44,10 @@ jobs:
             v*
 
       - name: Deploy to versioned subfolder (tags only)
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') || inputs.version_tag
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: .
-          target-folder: ${{ github.ref_name }}
+          target-folder: ${{ inputs.version_tag || github.ref_name }}
           clean: false
