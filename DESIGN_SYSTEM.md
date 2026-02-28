@@ -6,7 +6,7 @@ Enforce a strict, simplified typography hierarchy across the resume to ensure co
 ## Typography Rules
 | Level | Font Size | Weight | Style | Usage Examples |
 | :--- | :--- | :--- | :--- | :--- |
-| **Heading-1** | `30pt` | `300`/`100` | Normal | Main Name (Header: First/Last) |
+| **Heading-1** | `38pt` | `300`/`100` | Normal | Main Name (Header: First/Last)    |
 | **Heading-2** | `12pt` | `700` | Normal | Section Titles (Education, Projects) |
 | **Title-1** | `9pt` | `500` | Normal | Degree, Skill Label, Job Title, Project Title |
 | **Title-2** | `8pt` | `400` | Normal | School Name, Headers inside items |
@@ -14,17 +14,25 @@ Enforce a strict, simplified typography hierarchy across the resume to ensure co
 | **Italic-Title-3** | `8pt` | `300` | Italic | Tech Stack, Metadata |
 | **Body (Default)** | `8pt` | `300` | Normal | Bullet points, General text, Dates |
 
-## Proposed Changes
-### `styles.css`
-- **Root Variables:** Update variables if necessary, or just hardcode the standardized values to prevent drift.
-- **Global Reset:** Set `body` to `8pt`, `300`.
-- **Level Classes:**
-    - Update `.degree`, `.skill-label`, `.job-title`, `.project-title` to `9pt`, `500`.
-    - Update `.school` to `8pt`, `400`.
-    - Update `.company` to `8pt`, `400` (plus accent color).
-    - Update `.tech-stack`, `.thesis` to `8pt`, `300`, `italic`.
-    - Ensure `.date` elements adapt to the `8pt` default or specific level if needed (likely Body or Italic).
-- **Cleanup:** Remove `9.5pt`, `8.5pt`, or other "in-between" sizes.
+## Layout Rules
+- **Header Structure**:
+    - **Name**: Left-aligned, Heading-1.
+    - **Contact Grid**: Two-column layout with split alignment.
+        - **Column 1 (Phone, Location)**: Left-aligned (`justify-self: start`).
+        - **Column 2 (Email, LinkedIn)**: Right-aligned (`justify-self: end`).
+- **Section Spacing**:
+    - **Global Section Gap**: `6px` gap in main content + `2px` section margin-bottom.
+    - **Internal Rhythym**: Section items (Education, Projects, etc.) use a `4px` margin-bottom for internal spacing.
+- **Summary Consistency**:
+    - Summary section must follow standard section formatting (no unique borders or extra padding).
+    - Summary text uses a `0px` margin-bottom as it is a single cohesive block.
+- **Major Transitions**:
+    - **Projects Section**: Uses a `border-top` and `padding-top: 8px` to clearly mark the transition to technical projects in the lower half of the resume.
+
+## Implementation Notes
+- **Start Date Removal**: The "Start Date" field is permanently removed to decrease header height and focus on core contact info.
+- **Header Alignment**: Implemented split-alignment in contact grid (left for phone/location, right for links).
+- **Media Query Cleanup**: Consolidated mobile typography overrides within the `max-width: 480px` breakpoint.
 
 ## Verification
 - Use the **Element Inspector** to verify that hover states match exact pt/weight values.
