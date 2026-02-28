@@ -1,3 +1,0 @@
-- **Publication:** "Real-time Face Recognition in HD Videos" [doi: 10.1109/SYSCON.2018.8369529](https://doi.org/10.1109/SYSCON.2018.8369529)
-- **Publication:** "Automated Human Capital Management System" [doi: 10.1109/SYSCON.2018.8369531](https://doi.org/10.1109/SYSCON.2018.8369531)
-- **Award:** Nvidia Quadro P5000 GPU [Academic Seeding Grant Recipient](https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program) (Sep 2017)

@@ -1,2 +1,0 @@
-- **Programming:** Python (FastAPI, FastMCP, LangGraph, Pika, Pandas, Pydantic, TensorFlow, PyTorch, Keras, Scikit, PySpark), Shell (Bash), HTML/CSS/JS
-- **Tools & Frameworks:** Redis (RedisJSON, RediSearch), RabbitMQ, Artifactory, Docker, Kubernetes, Chroma, MongoDB, Postgres, GCP (GKE), Jenkins
