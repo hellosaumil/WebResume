@@ -450,7 +450,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 .contact-grid {
   display: grid;
   grid-template-columns: auto auto;
-  /* Two columns for phone/location and email/linkedin */
+  grid-template-rows: auto auto;
   column-gap: 12px;
   row-gap: 4px;
 }
@@ -459,11 +459,31 @@ body.dark-mode.show-page-preview .resume-page:hover {
   line-height: 1.1;
 }
 
-.contact-item:nth-child(odd) {
+.contact-item:nth-child(1) {
+  /* Phone - top left */
+  grid-column: 1;
+  grid-row: 1;
   justify-self: start;
 }
 
-.contact-item:nth-child(even) {
+.contact-item:nth-child(2) {
+  /* Email - top right */
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.contact-item:nth-child(3) {
+  /* Location - bottom left */
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+}
+
+.contact-item:nth-child(4) {
+  /* LinkedIn - bottom right */
+  grid-column: 2;
+  grid-row: 2;
   justify-self: end;
 }
 
@@ -1345,13 +1365,27 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   .header-right {
     width: 100%;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-template-rows: auto auto;
     justify-items: start;
     row-gap: 3px;
+    column-gap: 16px;
+    width: 100%;
+  }
+
+  .contact-item:nth-child(1),
+  .contact-item:nth-child(3) {
+    justify-self: start;
+  }
+
+  .contact-item:nth-child(2),
+  .contact-item:nth-child(4) {
+    justify-self: end;
   }
 
   /* Typography - reduce font sizes proportionally */
