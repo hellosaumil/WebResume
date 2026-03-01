@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         div.className = 'skills-item';
         div.innerHTML = `
           <span class="skill-label title-1">${match[1]}:</span>
-          <span class="skill-value" contenteditable="true">${match[2]}</span>
+          <span class="skill-value" contenteditable="true">${parseMarkdownLinks(match[2])}</span>
         `;
         container.appendChild(div);
       }
