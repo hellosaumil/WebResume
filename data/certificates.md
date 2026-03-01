@@ -1,6 +1,6 @@
-- `[Certificate Name 1](#)` — Issuer 1
-- `[Certificate Name 2](#)` — Issuer 2
-- `[Certificate Name 3](#)` — Issuer 3
-- `[Certificate Name 4](#)` — Issuer 4
-- `[Certificate Name 5](#)` — Issuer 5
-- `[Certificate Name 6](#)` — Issuer 6
+- `[Intro to TensorFlow for AI, ML & Deep Learning](https://www.coursera.org/account/accomplishments/certificate/XKVMUR4UEJKP)` — Google
+- `[Neural Networks and Deep Learning](http://coursera.org/verify/NDPQD56KBKZT)` — deeplearning.ai
+- `[How Google does Machine Learning](https://www.coursera.org/account/accomplishments/verify/7DEYMK49VWTM)` — Google Cloud
+- `[Launching into Machine Learning](http://coursera.org/verify/NDPQD56KBKZT)` — Google Cloud
+- `[Deep Learning Explained](https://courses.edx.org/certificates/1c65f0e4c3744d538da4967582bdf4d7)` — Microsoft
+- `[Introduction to Linux](https://www.coursera.org/account/accomplishments/verify/7DEYMK49VWTM)` — Linux Foundation

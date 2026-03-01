@@ -1,6 +1,6 @@
-FirstName: Scott
-LastName: Summers
-Phone: (000)-000-0000
-Email: scott@team.xmen
-Location: City, State
-LinkedIn: example.com/linkedin
+FirstName: Saumil
+LastName: Shah
+Phone: (858)-324-4496
+Email: ssh.saumil@gmail.com
+Location: San Diego, CA
+LinkedIn: linkedin.com/in/hellosaumil
