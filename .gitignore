@@ -1,5 +1,4 @@
 .DS_Store
-.agent/*
-.agents/*
-.claude/*
-*.pdf
+.agents
+.claude
+.idea
