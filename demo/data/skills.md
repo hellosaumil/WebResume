@@ -1,0 +1,3 @@
+- **Field Leadership:** Tactical Strategy, Mission Planning, Team Coordination, Optic Blast Mastery, Precision Targeting
+- **Technical Skills:** Danger Room OS, Cerebro Interface, Blackbird Jet Avionics, Ruby-Quartz Engineering, Python, C++, ROS
+- **Soft Skills:** Conflict Resolution, Crisis Counseling, Public Speaking, Mutant-Human Relations

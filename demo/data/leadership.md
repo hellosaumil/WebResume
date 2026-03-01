@@ -1,0 +1,4 @@
+- **Deputy Headmaster** — `Xavier Institute for Higher Learning 20XX`
+- **Field Commander** — `X-Men Strike Force: Gold Team`
+- **Student Mentor** — `The New Mutants` (Tactical Training)
+- **Volunteer** — `Mutant Rights Foundation` (Community Outreach)

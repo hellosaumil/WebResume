@@ -1,0 +1,10 @@
+title: Resume Demo
+description: Interactive Web Resume Template for Demo
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+exclude:
+  - node_modules
+  - .gitignore
+  - package-lock.json
+  - README.md

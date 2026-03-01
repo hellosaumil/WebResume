@@ -1,0 +1,3 @@
+- **Publication:** "Strategic Deployment of Superhuman Units in Global Conflict" [doi: 10.xxxx/XMEN.20XX.01](#)
+- **Publication:** "Ethical Implications of Telepathic Communication Protocols" [doi: 10.xxxx/XMEN.20XX.02](#)
+- **Award:** Xavier Institute Academic Excellence [Seeding Grant Recipient](#) (20XX)
