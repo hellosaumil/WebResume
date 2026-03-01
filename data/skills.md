@@ -1,3 +1,3 @@
-- **Field Leadership:** Tactical Strategy, Mission Planning, Team Coordination, Optic Blast Mastery, Precision Targeting
-- **Technical Skills:** Danger Room OS, Cerebro Interface, Blackbird Jet Avionics, Ruby-Quartz Engineering, Python, C++, ROS
-- **Soft Skills:** Conflict Resolution, Crisis Counseling, Public Speaking, Mutant-Human Relations
+- **Field Leadership:** `Tactical Strategy` (Ground Ops, Air Support), `Mission Planning`, Team Coordination, Optic Blast Mastery, Precision Targeting
+- **Technical Skills:** `Danger Room OS` (Combat Mode, Neural Link, Holo-Sim), `Cerebro Interface` (Psionic Sweep, Global Tracking), Blackbird Jet Avionics, Ruby-Quartz Engineering, `Python`, C++, ROS
+- **Soft Skills:** `Conflict Resolution` (Mutant-Human Relations), Crisis Counseling, Public Speaking
