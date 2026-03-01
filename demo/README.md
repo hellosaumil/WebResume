@@ -3,6 +3,7 @@
 A modern, interactive web-based resume — dynamic content loading, dark mode, live editing, and print-ready layout.
 
 [![Live Site](https://img.shields.io/badge/🔗_Live_Site-hellosaumil.github.io/WebResume-blue)](https://hellosaumil.github.io/WebResume)
+[![Latest Version](https://img.shields.io/badge/📌_Latest-/v2-purple)](https://hellosaumil.github.io/WebResume/v2/)
 [![Demo Site](https://img.shields.io/badge/🧪_Demo_Site-/demo-orange)](https://hellosaumil.github.io/WebResume/demo/)
 [![GitHub Pages](https://img.shields.io/github/actions/workflow/status/hellosaumil/WebResume/jekyll-gh-pages.yml?label=Deploy)](https://github.com/hellosaumil/WebResume/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](#license)
