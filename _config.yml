@@ -1,5 +1,5 @@
-title: WebResume
-description: Saumil Shah's Interactive Web Resume
+title: Resume Demo
+description: Interactive Web Resume Template for Demo
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-seo-tag
