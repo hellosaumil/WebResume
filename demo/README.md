@@ -39,11 +39,13 @@ I hope this saves time for people who are looking for a simple, local, and easy-
 
 - **CSS Inspector** — Hover to inspect font properties
 
-  <img src="docs/assets/Feature_Highlight-CSS_Inspector1-Demo.png" alt="CSS Inspector 1" width="500">
-  <img src="docs/assets/Feature_Highlight-CSS_Inspector2-Demo.png" alt="CSS Inspector 2" width="500">
+  <p>
+    <img src="docs/assets/Feature_Highlight-CSS_Inspector1-Demo.png" alt="CSS Inspector 1" width="400">
+    <img src="docs/assets/Feature_Highlight-CSS_Inspector2-Demo.png" alt="CSS Inspector 2" width="400">
+  </p>
 - **Dark Mode** — Auto-detects device theme with manual toggle
 
-  <img src="docs/assets/Feature_Highlight-Dark_Mode-Demo.png" alt="Dark Mode" width="500">
+  <img src="docs/assets/Feature_Highlight-Dark_Mode-Demo.png" alt="Dark Mode" width="400">
 - **Dynamic Content Loading** — Resume data from easy-to-edit Markdown files  <!-- ![](docs/assets/feature-dynamic.png) -->
 - **Live Edit Mode** — All content editable in-browser  <!-- ![](docs/assets/feature-edit.png) -->
 - **Section Reordering** — Drag & drop section titles  <!-- ![](docs/assets/feature-reorder.png) -->
