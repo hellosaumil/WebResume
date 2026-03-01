@@ -31,7 +31,7 @@
 ---
 
 ## Associate Researcher, Deep Learning
-### [Marine Bio-acoustics Research Collaborative (<u>MBARC</u>)](https://acoustics.ucsd.edu) — San Diego, CA
+### [Marine Bio-acoustics Research Collaborative (<u>MBARCO</u>)](https://acoustics.ucsd.edu) — San Diego, CA
 ### [Marine Acoustics Research (<u>MAR</u>) Lab, SDSU](https://roch.sdsu.edu/index.php/research-overview) & [Scripps Institution of Oceanography (<u>SIO</u>), UCSD](https://www.cetus.ucsd.edu)
 #### 2019 - 2020
 ### Master's Thesis: `[Learning to Detect Odontocete Whistles from Generative Synthetic Samples](https://csu-sdsu.primo.exlibrisgroup.com/permalink/01CALS_SDL/10r4g1c/cdi_proquest_journals_2493456813)`, Advisor: [Dr. Marie Roch](https://roch.sdsu.edu)
