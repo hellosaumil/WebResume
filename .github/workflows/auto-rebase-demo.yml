@@ -1,0 +1,40 @@
+name: Auto-rebase demo onto main
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Rebase demo onto main
+        run: |
+          git checkout demo
+          git rebase origin/main
+        continue-on-error: true
+
+      - name: Push rebased demo
+        if: success()
+        run: |
+          git push origin demo --force-with-lease
+
+      - name: Handle rebase conflict
+        if: failure()
+        run: |
+          echo "⚠️ Auto-rebase failed due to conflicts in demo branch."
+          echo "Please manually resolve conflicts and push."
+          exit 1
