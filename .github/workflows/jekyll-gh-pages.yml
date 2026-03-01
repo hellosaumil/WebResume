@@ -33,7 +33,7 @@ jobs:
           echo "{\"tag\":\"$TAG\",\"branch\":\"${{ github.ref_name }}\",\"sha\":\"${{ github.sha }}\"}" > version.json
 
       - name: Deploy to gh-pages (root)
-        if: ${{ !inputs.version_tag }}
+        if: ${{ github.ref == 'refs/heads/main' && !inputs.version_tag }}
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
