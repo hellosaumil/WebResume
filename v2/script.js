@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         div.className = 'skills-item';
         div.innerHTML = `
           <span class="skill-label title-1">${match[1]}:</span>
-          <span class="skill-value" contenteditable="true">${match[2]}</span>
+          <span class="skill-value" contenteditable="true">${parseMarkdownLinks(match[2])}</span>
         `;
         container.appendChild(div);
       }
@@ -266,54 +266,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function loadProjects() {
     const text = await fetchMarkdown('projects.md');
-
-    // Split by '===' to separate ML Research Projects from Side Projects
-    const majorSections = text.split('===').map(s => s.trim());
-    const sectionTitles = ['ML Research Projects', 'Side Projects'];
-
     const container = document.getElementById('projects-section');
 
-    majorSections.forEach((majorSection, idx) => {
-      // Add a sub-section title if there's more than one major section
-      if (majorSections.length > 1) {
-        const subTitle = document.createElement('h2');
-        subTitle.className = 'section-title header-2';
-        subTitle.textContent = sectionTitles[idx] || 'Projects';
-        container.appendChild(subTitle);
-      }
+    const sections = text.split('---').map(section => {
+      const lines = section.trim().split('\n');
+      const data = { content: [] };
 
-      const sections = majorSection.split('---').map(section => {
-        const lines = section.trim().split('\n');
-        const data = { content: [] };
-
-        lines.forEach(line => {
-          const trimmed = line.trim();
-          if (trimmed.startsWith('### ')) data.title = trimmed.replace('### ', '').trim();
-          else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
-          else if (trimmed.startsWith('- ')) data.content.push(trimmed);
-        });
-        return data;
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('### ')) data.title = trimmed.replace('### ', '').trim();
+        else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
+        else if (trimmed.startsWith('- ')) data.content.push(trimmed);
       });
+      return data;
+    });
 
-      sections.forEach(proj => {
-        if (!proj.title) return;
+    sections.forEach(proj => {
+      if (!proj.title) return;
 
-        const div = document.createElement('div');
-        div.className = 'project-item';
+      const div = document.createElement('div');
+      div.className = 'project-item';
 
-        const bullets = proj.content
-          .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
-          .join('');
+      const bullets = proj.content
+        .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
+        .join('');
 
-        div.innerHTML = `
-          <div class="project-title title-1" contenteditable="true">${parseMarkdownLinks(proj.title || '')}</div>
-          <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
-          <ul class="bullet-list">
-            ${bullets}
-          </ul>
-        `;
-        container.appendChild(div);
-      });
+      div.innerHTML = `
+        <div class="project-title title-1" contenteditable="true">${parseMarkdownLinks(proj.title || '')}</div>
+        <div class="tech-stack title-3-italic" contenteditable="true">${proj.tech || ''}</div>
+        <ul class="bullet-list">
+          ${bullets}
+        </ul>
+      `;
+      container.appendChild(div);
     });
   }
 
@@ -542,6 +527,26 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', updateScale);
     updateScale();
   }
+
+  // ========================================
+  // Zoom Detection for Mobile Layout
+  // ========================================
+
+  function updateZoomClass() {
+    const zoom = window.visualViewport ? window.visualViewport.scale : 1;
+    const cssZoom = parseFloat(document.body.style.zoom) || 1;
+    const effectiveZoom = Math.max(zoom, cssZoom);
+    document.body.classList.toggle('zoomed', effectiveZoom > 2.0);
+  }
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateZoomClass);
+  }
+  window.addEventListener('resize', updateZoomClass);
+  updateZoomClass();
+
+  // Re-check periodically for CSS zoom changes
+  new MutationObserver(updateZoomClass).observe(document.body, { attributes: true, attributeFilter: ['style'] });
 
   // ========================================
   // Dev Inspector (CSS Info on Hover)
