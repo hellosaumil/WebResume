@@ -7,6 +7,7 @@ Dedicated `Field Commander` and `Strategic Leader` with `10+ years` of experienc
         <ol>
             <li>`Responsive` design works on all devices.</li>
             <li>`Highlight` Keywords using `backticks`</li>
+            <li>`Drag` to `Reorder` Sections</li>
             <li>`Toolbar`
                 <div style="padding-left: 1.2em;">
                     <ul>
