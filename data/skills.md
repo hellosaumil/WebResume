@@ -1,2 +1,3 @@
-- **Programming:** Python (FastAPI, FastMCP, LangGraph, Pika, Pandas, Pydantic, TensorFlow, PyTorch, Keras, Scikit, PySpark), Shell (Bash), HTML/CSS/JS
-- **Tools & Frameworks:** Redis (RedisJSON, RediSearch), RabbitMQ, Artifactory, Docker, Kubernetes, Chroma, MongoDB, Postgres, GCP (GKE), Jenkins
+- **Field Leadership:** Tactical Strategy, Mission Planning, Team Coordination, Optic Blast Mastery, Precision Targeting
+- **Technical Skills:** Danger Room OS, Cerebro Interface, Blackbird Jet Avionics, Ruby-Quartz Engineering, Python, C++, ROS
+- **Soft Skills:** Conflict Resolution, Crisis Counseling, Public Speaking, Mutant-Human Relations

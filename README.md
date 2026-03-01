@@ -2,8 +2,9 @@
 
 A modern, interactive web-based resume with dynamic content loading, dark mode, and customizable layout.
 
-- 🔗 Live Site - **[https://hellosaumil.github.io/WebResume](https://hellosaumil.github.io/WebResume)**
-- 💻 Local Site - **[http://localhost:3000/index.html](http://localhost:3000/index.html)**
+- 🔗 [![Live Site](https://img.shields.io/badge/🔗_Live_Site-demo-blue?style=for-the-badge)](#)
+[![Deploy Status](https://img.shields.io/badge/Deploy-passing-brightgreen?style=for-the-badge)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#license)
 
 ## ✨ Features
 
