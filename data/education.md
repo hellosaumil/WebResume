@@ -1,8 +1,8 @@
-Degree: Master of Arts, Tactical Leadership
-School: Xavier's School for Gifted Youngsters
-Date: 19XX
-GPA: GPA 4.0
+Degree: Master of Science, Computer Science
+School: San Diego State University
+Date: 2020
+GPA: GPA 3.8
 ---
-Degree: Bachelor of Science, Strategic Studies
-School: Institute of Tactical Excellence
-Date: 19XX
+Degree: Bachelor of Technology, Information and Communication Technology
+School: Ahmedabad University
+Date: 2017

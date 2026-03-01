@@ -1,9 +1,1 @@
-Dedicated `Field Commander` and `Strategic Leader` with `10+ years` of experience orchestrating `tactical operations` and managing high-performance teams in `complex conflict environments`. Expert in `crisis response` and `long-term strategic planning`, with a focus on developing training protocols for `emerging talent`. Committed to fostering `human-mutant cooperation` and institutional excellence at the `Xavier Institute`.
-
-The resume supports custom Markdown highlighting using `backticks`. This applies a specific highlight style to your text, making it stand out to recruiters and helping with visual scanning.
-
-**Highlighting Examples:**
-- **In Summary**: Emphasize your core role, such as `Tactical Strategist` or `Field Commander`.
-- **In Experience**: Highlight specific `Unit Names`, `Skills`, or `Key Metrics` like `100% mission success`.
-- **In Projects**: Mention the specific `Tools` used for each individual project like `Danger Room` or `Cerebro`.
-- **In Leadership**: Highlight specific `Positions` like `Deputy Headmaster`.
+Senior Infrastructure Software Engineer with `5+ years` building `distributed automation systems`, high-performance `API backends`, and developer tools at scale. At Qualcomm, I `architected and own` the Adreno drivers validation platform `running 200K+ tests/week` across next-gen `Snapdragon GPUs` - from containerized orchestration to async pipelines and real-time reporting `handling 2M+ rows/month`. Currently building `MCP servers` for LLM-accessible infrastructure. Prior `ML research` in `GANs` and `speech processing`. Driven by building reliable, delightful tools that create lasting impact.
