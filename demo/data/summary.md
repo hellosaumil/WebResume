@@ -1,9 +1,23 @@
-Dedicated `Field Commander` and `Strategic Leader` with `10+ years` of experience orchestrating `tactical operations` and managing high-performance teams in `complex conflict environments`. Expert in `crisis response` and `long-term strategic planning`, with a focus on developing training protocols for `emerging talent`. Committed to fostering `human-mutant cooperation` and institutional excellence at the `Xavier Institute`.
+Dedicated `Field Commander` and `Strategic Leader` with `10+ years` of experience orchestrating `tactical operations` and managing high-performance teams in `complex conflict environments` with `X-Men`. Committed to fostering `human-mutant cooperation` and institutional excellence at the `Xavier Institute`. (This is where your high-level career achievements and summary goes if it was not obvious. 😉)
+<br><br>
 
-The resume supports custom Markdown highlighting using `backticks`. This applies a specific highlight style to your text, making it stand out to recruiters and helping with visual scanning.
-
-**Highlighting Examples:**
-- **In Summary**: Emphasize your core role, such as `Tactical Strategist` or `Field Commander`.
-- **In Experience**: Highlight specific `Unit Names`, `Skills`, or `Key Metrics` like `100% mission success`.
-- **In Projects**: Mention the specific `Tools` used for each individual project like `Danger Room` or `Cerebro`.
-- **In Leadership**: Highlight specific `Positions` like `Deputy Headmaster`.
+<div>
+    <h3>Notable Features:</h3>
+    <div style="padding-left: 2em;">
+        <ol>
+            <li>`Responsive` design works on all devices.</li>
+            <li>`Highlight` Keywords using `backticks`</li>
+            <li>`Toolbar`
+                <div style="padding-left: 1.2em;">
+                    <ul>
+                        <li> 📦: CSS-Inspector to quickly see font-size, font-weight, CSS class names. </li>
+                        <li> 🌙: Toggle Dark mode or auto-detect device theme. </li>
+                        <li> 📃: Print Preview Mode for US Letter </li>
+                        <li> 📝: In-page editing. </li>
+                        <li> X: Reload all content from Markdown files and clear edits.</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
