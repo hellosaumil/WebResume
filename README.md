@@ -12,9 +12,28 @@ A modern, interactive web-based resume — dynamic content loading, dark mode, l
   <img src="docs/assets/Hero-Dark.png" alt="Hero Dark" width="400">
 </p>
 
-## 💡 Motivation
+## 💡 Why did I build this?
 
-<!-- TODO: Write motivation — why I decided to build this, what problem it solves, etc. -->
+### The Why?
+On the onset of 2026, I wanted to revamp my resume since I last updated it in 2020 after my post-graduation.
+My resume lived in an `Apple Pages` template I hand-crafted in 2017 — custom fonts, pixel-perfect spacing, the best I could do at the time. Five years of "just one more tweak" later, spending 20 mins fixing a single bullet point or adding a new project URL was taking more time than it should.
+**I wanted something local, easy to edit, maintain, and version control. 💭**
+`Google Docs`? Been there, done that, moving text-boxes is not fun. `LaTeX`? Great until you want `_italic-bold-link_` on the same line without selling your soul. `MS Word`? ...let's not.
+
+### The When?
+Over the holidays of Christmas 2025, I got my hands on Google's Project Antigravity and vibe-coded a Solar System Android XR app from scratch for my all-new Galaxy XR headset — in a weekend.
+As a backend engineer, I've been using AI pair-programming at work to build delightful websites. I thought: why can't I just make a `WebResume` to complement my limited front-end skills?
+
+### The How?
+A resume I actually *enjoy* updating — write content in `Markdown`, watch it `render live`, toggle `dark mode` for ✨vibes✨, and hit `Ctrl+P` when a recruiter inevitably asks for a `PDF`.
+**No frameworks, no build step, just `HTML + CSS + JS` and a little bit of audacity.**
+
+### Some Design Choices
+- **Markdown-first content** — I've been living in `.md` files thanks to LLMs; it's the easiest way to add highlights, links, and formatting without drowning in HTML tags. So I made it the data layer.
+- **Versioned deployments** — Because past-me and future-me deserve their own URLs. GitHub Pages + Actions auto-deploy `main`, `demo`, `PR previews`, and `tagged version snapshots` — so every iteration is a living, linkable artifact.
+
+### Closing Notes
+I hope this saves time for people who are looking for a simple, local, and easy-to-edit resume template. I hope you enjoy using this resume template as much as I enjoyed building it!
 
 ## ✨ Features
 
@@ -121,6 +140,12 @@ flowchart LR
 | [Deployment](docs/deployment.md) | Production, versioned, and PR preview deployments |
 | [Customization](docs/customization.md) | Theming, section order, style guide |
 | [Design System](DESIGN_SYSTEM.md) | Typography hierarchy & spacing conventions |
+
+## Acknowledgements
+
+Thanks to [![Google Antigravity](https://img.shields.io/badge/Google_Antigravity-4285F4?logo=google&logoColor=white)](https://antigravity.google) [![Gemini 3 Pro](https://img.shields.io/badge/Gemini_3_Pro-8E75B2?logo=googlegemini&logoColor=white)](https://deepmind.google/technologies/gemini/) and [![Claude Sonnet 5](https://img.shields.io/badge/Claude_Sonnet_5-D97757?logo=anthropic&logoColor=white)](https://www.anthropic.com/claude) for co-designing the initial version of this resume up till now.
+
+---
 
 ## 📄 License
 
