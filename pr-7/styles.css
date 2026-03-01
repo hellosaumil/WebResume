@@ -1,0 +1,1576 @@
+/* ========================================
+   Resume Website - A4 PDF Export Ready
+   Single Column Layout - Matching Original
+   ======================================== */
+
+:root {
+  --primary-color: #1a1a1a;
+  --accent-color: #0066cc;
+  --text-color: #333333;
+  --text-light: #555555;
+  --bg-color: #f5f5f5;
+  --border-color: #cccccc;
+  --white: #ffffff;
+
+  /* US Letter Dimensions */
+  --page-width: 216mm;
+  --page-height: 279mm;
+  --margin-top: 6mm;
+  --margin-bottom: 6mm;
+  --margin-left: 12mm;
+  --margin-right: 12mm;
+
+  /* Controls Design System */
+  --control-bg: rgba(255, 255, 255, 0.75);
+  --control-border: rgba(0, 0, 0, 0.1);
+  --control-icon: rgba(0, 0, 0, 0.7);
+  --control-hover-bg: rgba(0, 0, 0, 0.05);
+  --control-active-bg: rgba(0, 0, 0, 0.1);
+  --control-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --tooltip-bg: rgba(0, 0, 0, 0.85);
+  --tooltip-text: #ffffff;
+}
+
+body.dark-mode {
+  --primary-color: #ffffff;
+  /* Pure white for headers in dark mode */
+  --accent-color: #60a5fa;
+  /* Brighter blue for accent */
+  --text-color: #e5e7eb;
+  /* Light gray for body text */
+  --text-light: #9ca3af;
+  /* Muted gray for secondary text */
+  --bg-color: #121212;
+  /* Dark gray for outer background */
+  --border-color: #333333;
+  /* Subtle border */
+  --white: #000000;
+  /* Pure black for page background */
+
+  /* Controls Design System - Dark */
+  --control-bg: rgba(30, 30, 30, 0.8);
+  --control-border: rgba(255, 255, 255, 0.1);
+  --control-icon: rgba(255, 255, 255, 0.82);
+  --control-hover-bg: rgba(255, 255, 255, 0.1);
+  --control-active-bg: rgba(255, 255, 255, 0.15);
+  --control-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --tooltip-bg: rgba(255, 255, 255, 0.95);
+  --tooltip-text: #1a1a1a;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 8pt;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--text-color);
+  background: var(--white);
+  display: flex;
+  /* Kept for flex children if needed, but not forcing center */
+  flex-direction: column;
+  /* align-items: center;  <-- REMOVED to allow full width */
+  padding: 0;
+  min-height: 100vh;
+}
+
+body.show-page-preview {
+  background: var(--bg-color);
+  align-items: center;
+  /* Restore centering */
+  padding: 20px;
+}
+
+
+
+/* Controls - Hidden in Print */
+/* Controls - Floating Pill (Fixed) */
+.controls {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls:has(.attribution.minimized) {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.controls-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  background: var(--control-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 6px;
+  border-radius: 40px;
+  border: 1px solid var(--control-border);
+  box-shadow: var(--control-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls-buttons:hover {
+  border-color: rgba(66, 153, 225, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Tooltips */
+.controls button {
+  position: relative;
+}
+
+.controls button:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s forwards;
+  z-index: 2000;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+/* Controls Buttons Group */
+
+.toggle-layout-btn svg,
+.reset-btn svg,
+.theme-toggle-btn svg,
+.dev-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.reset-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+.toggle-layout-btn,
+.reset-btn,
+.theme-toggle-btn,
+.dev-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--control-icon);
+}
+
+.toggle-layout-btn:hover,
+.reset-btn:hover,
+.theme-toggle-btn:hover,
+.dev-toggle-btn:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
+}
+
+.toggle-layout-btn.active,
+.theme-toggle-btn.active,
+.dev-toggle-btn.active {
+  background: var(--control-active-bg);
+  color: var(--accent-color);
+}
+
+.toggle-layout-btn svg path,
+.reset-btn svg path,
+.theme-toggle-btn svg path,
+.dev-toggle-btn svg path {
+  stroke: currentColor;
+}
+
+/* Specific tweaks for SVGs that use fill */
+.toggle-layout-btn svg path[fill="white"],
+.reset-btn svg path[fill="white"],
+.theme-toggle-btn svg path[fill="white"] {
+  fill: currentColor;
+}
+
+/* Theme Toggle Transitions */
+.theme-toggle-btn .sun-icon {
+  display: none;
+}
+
+.theme-toggle-btn .moon-icon {
+  display: block;
+}
+
+body.dark-mode .theme-toggle-btn .sun-icon {
+  display: block;
+}
+
+body.dark-mode .theme-toggle-btn .moon-icon {
+  display: none;
+}
+
+.theme-toggle-btn.active {
+  color: #ff9f43;
+  /* Warm sun color */
+}
+
+/* Edit Mode Button */
+.edit-mode-btn svg,
+.privacy-mode-btn svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.edit-mode-btn,
+.privacy-mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--control-icon);
+}
+
+.edit-mode-btn:hover,
+.privacy-mode-btn:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
+}
+
+.edit-mode-btn.active,
+.privacy-mode-btn.active {
+  background: var(--control-active-bg);
+  color: var(--accent-color);
+}
+
+/* Privacy Mode Icon Toggle */
+.privacy-mode-btn .eye-icon {
+  display: block;
+}
+
+.privacy-mode-btn .eye-off-icon {
+  display: none;
+}
+
+.privacy-mode-btn.active .eye-icon {
+  display: none;
+}
+
+.privacy-mode-btn.active .eye-off-icon {
+  display: block;
+}
+
+.btn-text {
+  display: none;
+}
+
+
+
+/* Resume Page Container */
+/* Resume Page Container */
+.resume-page {
+  width: 100%;
+  /* Default: Fluid */
+  max-width: 100%;
+  /* Allow full width */
+  min-height: auto;
+  /* Default: Height fits content */
+  background: var(--white);
+  padding: 20px 40px;
+  /* Comfortable reading padding */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* For page break indicator */
+}
+
+body.show-page-preview .resume-page {
+  width: var(--page-width);
+  /* Strict A4 */
+  min-height: var(--page-height);
+  /* Strict A4 */
+  padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+  /* Strict margins */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* Page Break Marker - Hidden by default, shown via toggle */
+.resume-page::after {
+  display: none;
+  content: "Estimated End of Page 1 (US Letter)";
+  position: absolute;
+  top: var(--page-height);
+  left: 0;
+  width: 100%;
+  height: 20px;
+  /* Space for text */
+  border-top: 2px dashed #ff4444;
+  color: #ff4444;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  line-height: 20px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 100;
+}
+
+body.show-page-preview .resume-page::after {
+  display: block;
+}
+
+body.dark-mode.show-page-preview .resume-page {
+  background-color: #000000 !important;
+  /* Keep page black in layout mode */
+  border: none;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  /* Faint white shadow */
+}
+
+body.dark-mode.show-page-preview .resume-page:hover {
+  background-color: #050505 !important;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Center align items vertically */
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.name {
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#field-firstname {
+  font-weight: 300;
+}
+
+#field-lastname {
+  font-weight: 100;
+}
+
+/* Typography Hierarchy - From DESIGN_SYSTEM.md */
+.header-1 {
+  font-size: 38pt;
+}
+
+.header-2 {
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+.title-1 {
+  font-size: 9pt;
+  font-weight: 500;
+}
+
+.title-2 {
+  font-size: 8pt;
+  font-weight: 400;
+}
+
+.title-2-accent {
+  font-size: 8pt;
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.title-3-italic {
+  font-size: 8pt;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.body-text {
+  font-size: 8pt;
+  font-weight: 300;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 8pt;
+  /* Body Level */
+  color: var(--text-light);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.contact-grid {
+  display: grid;
+  row-gap: 4px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.contact-item {
+  line-height: 1.1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-item:nth-child(1) {
+  /* Phone - top left */
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.contact-item:nth-child(2) {
+  /* Email - top right */
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.contact-item:nth-child(3) {
+  /* Location - bottom left */
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+}
+
+.contact-item:nth-child(4) {
+  /* LinkedIn - bottom right */
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+}
+
+
+/* Main Content */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Section Styles */
+.section {
+  margin-bottom: 2px;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Base components inheriting from hierarchy */
+.degree,
+.job-title,
+.project-title,
+.skill-label {
+  color: var(--text-color);
+}
+
+/* Summary */
+.summary-text {
+  color: var(--text-light);
+  line-height: 1.45;
+  margin: 0;
+  margin-bottom: 0;
+}
+
+/* Education */
+.education-item {
+  margin-bottom: 4px;
+}
+
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.edu-left {
+  flex: 1;
+}
+
+.degree {
+  color: var(--text-color);
+}
+
+.edu-date {
+  color: var(--text-light);
+  text-align: right;
+}
+
+.school {
+  color: var(--text-color);
+}
+
+.gpa {
+  color: var(--accent-color);
+  margin-left: 6px;
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1px;
+}
+
+.skills-item {
+  margin-bottom: 2px;
+}
+
+.skill-label {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.skill-value {
+  color: var(--text-light);
+}
+
+.skill-value code {
+  color: var(--text-color);
+}
+
+/* Lists */
+.bullet-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1px;
+}
+
+.bullet-list li {
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 2px;
+  color: var(--text-light);
+}
+
+.bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
+  color: var(--text-color);
+}
+
+.compact-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.compact-list li {
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 1px;
+  color: var(--text-light);
+}
+
+.compact-list li::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
+  color: var(--text-color);
+}
+
+/* Inline Code */
+code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Experience */
+.experience-item {
+  margin-bottom: 8px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.job-title {
+  color: var(--text-color);
+}
+
+.exp-date {
+  color: var(--text-light);
+}
+
+.company {
+  color: var(--accent-color);
+  margin-bottom: 1px;
+}
+
+.company a {
+  text-decoration: none !important;
+}
+
+.thesis {
+  color: var(--text-light);
+  margin-bottom: 1px;
+}
+
+.tech-stack {
+  color: var(--text-light);
+  margin-bottom: 2px;
+}
+
+.tech-stack-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
+.tech-concepts {
+  color: var(--text-light);
+}
+
+.tech-tools {
+  color: var(--text-light);
+  text-align: right;
+}
+
+/* Projects */
+.project-item {
+  margin-bottom: 8px;
+}
+
+.project-title {
+  color: var(--text-color);
+}
+
+/* Publications Hack */
+#publications-section {
+  margin-top: -8px;
+}
+
+/* Projects - Visual Divider */
+#projects-section {
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Bottom Row - Leadership & Certificates */
+.bottom-row,
+.row {
+  display: flex;
+  gap: 20px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+
+.row {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  margin-bottom: 4px;
+}
+
+.half-section,
+.half {
+  width: 50%;
+  margin-bottom: 0;
+}
+
+.half-section .section-title {
+  /* Inherits from .header-2 automatically */
+}
+
+.leadership-content p {
+  margin-bottom: 2px;
+  color: var(--text-light);
+}
+
+.leadership-content p strong,
+.compact-list li strong {
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+/* Contenteditable Styles */
+[contenteditable] {
+  outline: none;
+  transition: background-color 0.2s ease;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+[contenteditable="true"]:hover {
+  background-color: rgba(66, 153, 225, 0.1);
+}
+
+[contenteditable="true"]:focus {
+  background-color: rgba(66, 153, 225, 0.2);
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.4);
+}
+
+body.dark-mode [contenteditable="true"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode [contenteditable="true"]:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+
+/* Link Hover Tooltip - Interactive with button */
+.link-tooltip {
+  position: fixed;
+  background: rgb(75 75 75);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 7pt;
+  font-weight: 500;
+  font-family: "Space Grotesk", sans-serif;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 350px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.link-tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.link-tooltip-url {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.link-tooltip-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-tooltip-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   Attribution Overlay
+   ======================================== */
+.attribution {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  max-width: 500px;
+  background: var(--control-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 12px 48px 12px 16px;
+  /* Extra right padding for the toggle */
+  border-radius: 16px;
+  border: 1px solid var(--control-border);
+  box-shadow: var(--control-shadow);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11pt;
+  font-weight: 500;
+  color: var(--text-color);
+  line-height: 1.4;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Attribution Toggle Button - Right side, vertically centered */
+.controls .attribution-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: rgba(128, 128, 128, 0.3);
+  border: none;
+  border-radius: 50%;
+  /* Perfect circle */
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--control-icon);
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 0;
+}
+
+.controls .attribution-toggle:hover {
+  background: var(--control-hover-bg);
+  color: var(--primary-color);
+}
+
+.attribution-toggle .chevron-right {
+  width: 14px;
+  height: 14px;
+}
+
+.attribution-toggle .github-icon {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Toggle Icon Visibility - Expanded state shows chevron-right */
+.controls .attribution-toggle .chevron-right {
+  display: block;
+}
+
+.controls .attribution-toggle .github-icon {
+  display: none;
+}
+
+/* Minimized state shows github icon */
+.attribution.minimized .attribution-toggle .chevron-right {
+  display: none;
+}
+
+.attribution.minimized .attribution-toggle .github-icon {
+  display: block;
+}
+
+/* Attribution Content Wrapper */
+.attribution-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 200px;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+}
+
+.attribution.minimized .attribution-content {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.attribution.minimized .attribution-content span:not(.tech-name),
+.attribution.minimized .attribution-content code {
+  display: none;
+}
+
+/* Minimized state - circular button matching control panel height */
+.attribution.minimized {
+  padding: 0;
+  max-width: none;
+  width: 56px;
+  height: 56px;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--control-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--control-border);
+  box-shadow: var(--control-shadow);
+  overflow: visible;
+  /* Allow gradient border to show */
+}
+
+.attribution.minimized .attribution-toggle {
+  position: static;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: transparent;
+  transform: none;
+}
+
+.attribution.minimized .attribution-toggle .github-icon {
+  width: 28px !important;
+  height: 28px !important;
+  display: block;
+}
+
+/* Hover effect matching control panel */
+.attribution.minimized:hover {
+  border-color: rgba(66, 153, 225, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.attribution.minimized .attribution-content {
+  display: none;
+}
+
+.attribution.minimized .tech-link {
+  padding: 0;
+}
+
+.attribution.minimized .tech-name {
+  display: none;
+}
+
+.attribution.minimized .tech-logo {
+  margin: 0;
+}
+
+/* Circular gradient border for minimized state */
+.attribution.minimized::after {
+  border-radius: 50%;
+}
+
+.attribution.minimized:hover::after {
+  opacity: 1;
+  animation: gemini-glow 3s linear infinite;
+}
+
+.attribution::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #4285f4, #c61ad9, #1a73e8, #4285f4);
+  background-size: 300% 100%;
+  border-radius: 17.5px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+@keyframes gemini-glow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.attribution:hover {
+  border-color: transparent;
+  box-shadow: 0 8px 32px rgba(66, 153, 225, 0.2);
+  transform: translateY(-2px);
+}
+
+.attribution:hover::after {
+  opacity: 1;
+  animation: gemini-glow 3s linear infinite;
+}
+
+.tech-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.tech-link:hover {
+  text-decoration: underline;
+}
+
+.tech-link code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12pt;
+  font-weight: 500;
+  color: var(--accent-color);
+  background: transparent;
+  padding: 0;
+}
+
+.tech-logo {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.tech-name {
+  font-weight: 500;
+}
+
+.attribution code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: inherit;
+  /* Match parent font size */
+  font-weight: 500;
+  color: var(--text-color);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+body.dark-mode .attribution code {
+  background: transparent;
+}
+
+
+/* ========================================
+   Print / PDF Export Styles
+   ======================================== */
+
+/* ========================================
+   Print / PDF Export Styles
+   ======================================== */
+
+@media print {
+
+  .no-print,
+  .controls,
+  .dev-inspector-tooltip {
+    display: none !important;
+  }
+
+  /* Fix thin font rendering in PDF export —
+     print/PDF engines lack sub-pixel antialiasing,
+     causing light weights (100–300) to appear thinner than on screen. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-text-stroke: 0.1px currentColor;
+  }
+}
+
+/* ========================================
+   View Mode Overrides
+   ======================================== */
+/* Previously View Mode styles were here. Now default body is View Mode. */
+/* Using .view-mode class to apply previous default styles (handled above) */
+
+/* ========================================
+   Dev Inspector Tooltip - Chip Layout
+   ======================================== */
+.dev-inspector-tooltip {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.dev-inspector-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dev-inspector-tooltip .tooltip-row {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 3px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 9px;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark-mode .dev-inspector-tooltip .tooltip-row {
+  background: #1e1e1e;
+  border-color: #444;
+  color: #fff;
+}
+
+
+.dev-inspector-tooltip .tooltip-value {
+  font-weight: 500;
+}
+
+/* Color accents for chips if desired, or keep neutral */
+.dev-inspector-tooltip .tooltip-value.class-value {
+  color: inherit;
+}
+
+.dev-inspector-tooltip .tooltip-value.size-value {
+  color: inherit;
+}
+
+.dev-inspector-tooltip .tooltip-value.weight-value {
+  color: inherit;
+}
+
+/* Highlight effects on hovered elements - Multi-color variants */
+.dev-inspector-highlight {
+  outline-offset: 2px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+/* Default / Blue-Teal (General elements) */
+.dev-inspector-highlight.h-blue {
+  outline: 2px dashed rgba(79, 209, 197, 0.7) !important;
+  background-color: rgba(79, 209, 197, 0.1) !important;
+}
+
+/* Purple (Headings h1, h2) */
+.dev-inspector-highlight.h-purple {
+  outline: 2px dashed rgba(159, 122, 234, 0.8) !important;
+  background-color: rgba(159, 122, 234, 0.12) !important;
+}
+
+/* Orange (List items, Skills) */
+.dev-inspector-highlight.h-orange {
+  outline: 2px dashed rgba(246, 173, 85, 0.8) !important;
+  background-color: rgba(246, 173, 85, 0.12) !important;
+}
+
+/* Green (Email, Phone, Links) */
+.dev-inspector-highlight.h-green {
+  outline: 2px dashed rgba(104, 211, 145, 0.8) !important;
+  background-color: rgba(104, 211, 145, 0.12) !important;
+}
+
+/* CSS Inspector specific active state */
+.dev-toggle-btn.active {
+  background: rgba(79, 209, 197, 0.2);
+  color: #4fd1c5;
+}
+
+/* Section Drag & Drop Highlight */
+.section-dragging {
+  outline: 2px dashed rgba(159, 122, 234, 0.8) !important;
+  background-color: rgba(159, 122, 234, 0.12) !important;
+  outline-offset: 2px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+.section-drag-target {
+  outline: 2px dashed rgba(79, 209, 197, 0.7) !important;
+  background-color: rgba(79, 209, 197, 0.1) !important;
+  outline-offset: 2px;
+  transition: outline 0.15s ease, background-color 0.15s ease;
+}
+
+/* ========================================
+   Mobile Responsive Design
+   ======================================== */
+
+/* Tablet Breakpoint (768px and below) */
+@media (max-width: 768px) {
+
+  /* Controls positioning */
+  .controls {
+    bottom: 20px;
+    right: 20px;
+    transform: scale(0.9);
+  }
+
+  /* Attribution panel adjustments */
+  .attribution {
+    max-width: 400px;
+    font-size: 10pt;
+    padding: 8px 36px 8px 14px;
+  }
+
+  .attribution .tech-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Resume page adjustments */
+  body.show-page-preview .resume-page {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Header - wrap on tablet */
+  .header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-right {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  /* Contact grid - make items wrap */
+  .contact-grid {
+    row-gap: 2px;
+  }
+
+  .contact-item {
+    font-size: 7pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .contact-item:nth-child(1),
+  .contact-item:nth-child(3) {
+    justify-self: stretch;
+    text-align: left;
+  }
+
+  .contact-item:nth-child(2),
+  .contact-item:nth-child(4) {
+    justify-self: stretch;
+    text-align: right;
+  }
+
+  /* Name - scale down */
+  .header-1 {
+    font-size: 32pt;
+  }
+}
+
+/* Mobile Breakpoint (480px and below) */
+@media (max-width: 480px) {
+
+  /* Body adjustments */
+  body {
+    padding: 0;
+  }
+
+  body.show-page-preview {
+    padding: 10px;
+  }
+
+  /* Controls - reposition to bottom center */
+  .controls {
+    bottom: 10px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .controls-buttons {
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .toggle-layout-btn,
+  .reset-btn,
+  .theme-toggle-btn,
+  .dev-toggle-btn,
+  .edit-mode-btn,
+  .privacy-mode-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .controls button svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Attribution - keep horizontal on mobile */
+  .attribution {
+    max-width: calc(100% - 40px);
+    font-size: 9pt;
+    padding: 6px 32px 6px 12px;
+    gap: 6px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .attribution .tech-logo {
+    width: 14px;
+    height: 14px;
+  }
+
+  .attribution code {
+    font-size: 9pt;
+    padding: 1px 4px;
+  }
+
+  /* Resume page - remove fixed width on mobile */
+  .resume-page,
+  body.show-page-preview .resume-page {
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    padding: 16px 20px;
+    box-shadow: none;
+  }
+
+  /* Header - stack vertically */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .header-right {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .contact-grid {
+    row-gap: 3px;
+    width: 100%;
+  }
+
+  .contact-item:nth-child(1),
+  .contact-item:nth-child(3) {
+    justify-self: stretch;
+    text-align: left;
+  }
+
+  .contact-item:nth-child(2),
+  .contact-item:nth-child(4) {
+    justify-self: stretch;
+    text-align: right;
+  }
+
+  /* Typography - reduce font sizes proportionally */
+  .header-1 {
+    font-size: 32pt;
+  }
+
+  .header-2 {
+    font-size: 11pt;
+  }
+
+  .title-1 {
+    font-size: 8.5pt;
+  }
+
+  .title-2,
+  .title-2-accent,
+  .title-3-italic,
+  .body-text {
+    font-size: 7.5pt;
+  }
+
+  /* Section spacing */
+  .main-content {
+    gap: 8px;
+  }
+
+  .section {
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    margin-bottom: 4px;
+  }
+
+  /* Skills grid - single column on mobile */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  /* Experience and Projects */
+  .experience-item,
+  .project-item {
+    margin-bottom: 10px;
+  }
+
+  .exp-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .exp-date {
+    text-align: left;
+  }
+
+  /* Bottom row - stack vertically */
+  .bottom-row,
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .half-section,
+  .half {
+    width: 100%;
+  }
+
+  /* Link tooltip - adjust size */
+  .link-tooltip {
+    font-size: 6pt;
+    padding: 0.3rem 0.6rem;
+    max-width: 250px;
+    border-radius: 16px;
+  }
+
+  .link-tooltip-url {
+    max-width: 180px;
+  }
+
+  .link-tooltip-btn {
+    padding: 4px;
+  }
+
+  /* Dev inspector tooltip */
+  .dev-inspector-tooltip {
+    font-size: 8pt;
+    padding: 4px 8px;
+  }
+
+  /* Minimize contenteditable hover effects on mobile for better UX */
+  [contenteditable="true"]:hover {
+    background-color: transparent;
+  }
+
+  [contenteditable="true"]:focus {
+    background-color: rgba(66, 153, 225, 0.15);
+  }
+
+  body.dark-mode [contenteditable="true"]:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* All resume content should wrap, never overflow */
+  .resume-page {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Single column contact grid when zoomed */
+  .zoomed .contact-grid {
+    grid-template-columns: 1fr;
+    row-gap: 2px;
+  }
+
+  .zoomed .contact-item {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .zoomed .contact-item:nth-child(1),
+  .zoomed .contact-item:nth-child(2),
+  .zoomed .contact-item:nth-child(3),
+  .zoomed .contact-item:nth-child(4) {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    text-align: left;
+  }
+}
+
+/* Extra small devices (360px and below) */
+@media (max-width: 360px) {
+  .header-1 {
+    font-size: 28pt;
+  }
+
+  .header-2 {
+    font-size: 10pt;
+  }
+
+  .resume-page,
+  body.show-page-preview .resume-page {
+    padding: 12px 16px;
+  }
+
+  .attribution {
+    font-size: 8pt;
+    padding: 4px 28px 4px 10px;
+  }
+
+  .controls {
+    transform: translateX(50%) scale(0.75);
+  }
+
+  /* Minimal spacing for extreme zoom scenarios */
+  .contact-grid {
+    gap: 2px 0;
+  }
+}
