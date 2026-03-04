@@ -9,8 +9,8 @@ A modern, interactive web-based resume — dynamic content loading, dark mode, l
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](#license)
 
 <p align="center">
-  <img src="docs/assets/Hero-Light.png" alt="Hero Light" width="400">
-  <img src="docs/assets/Hero-Dark.png" alt="Hero Dark" width="400">
+  <img src="docs/assets/Hero-Light_Mode.png" alt="Hero Light" width="400">
+  <img src="docs/assets/Hero-Dark_Mode.png" alt="Hero Dark" width="400">
 </p>
 
 ## 💡 Why did I build this?
@@ -41,8 +41,8 @@ I hope this saves time for people who are looking for a simple, local, and easy-
 - **CSS Inspector** — Hover to inspect font properties
 
   <p>
-    <img src="docs/assets/Feature_Highlight-CSS_Inspector1-Demo.png" alt="CSS Inspector 1" width="400">
-    <img src="docs/assets/Feature_Highlight-CSS_Inspector2-Demo.png" alt="CSS Inspector 2" width="400">
+    <img src="docs/assets/Feature_Highlight-CSS_Inspector1-Light_Mode-Demo.png" alt="CSS Inspector 1" width="400">
+    <img src="docs/assets/Feature_Highlight-CSS_Inspector2-Light_Mode-Demo.png" alt="CSS Inspector 2" width="400">
   </p>
 - **Dark Mode** — Auto-detects device theme with manual toggle
 
