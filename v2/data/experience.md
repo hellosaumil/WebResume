@@ -50,4 +50,4 @@
 #### 2016 - 2017
 ##### *Recommendation System, NLP, Microservices, Ontology; Python, Flask, SPARQL, RDFLib*
 
-- `Co-developed a job-candidate recommendation engine` on a cloud-based `AWS EC2` `microservice` platform; built `NLP` feature extraction pipelines from resume and job descriptions to build a skill-based ontology using `SPARQL`/`RDFLib` for knowledge inference. `[Published](https://ieeexplore.ieee.org/document/8369531/)` at `IEEE SysCon 2018`.
+- Co-developed a `[job-candidate recommendation engine]((https://drive.google.com/drive/folders/0B9gQb-9dKj0uM1h5eWRlRXhpUmc?resourcekey=0--sNi2HxA2uTPENpWuYTB-A&usp=sharing)` on a cloud-based `AWS EC2` `microservice` platform; built `NLP` feature extraction pipelines from resume and job descriptions to build a skill-based ontology using `SPARQL`/`RDFLib` for knowledge inference. `[Published](https://ieeexplore.ieee.org/document/8369531/)` at `IEEE SysCon 2018`.
