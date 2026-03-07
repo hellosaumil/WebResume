@@ -1,7 +1,5 @@
 ### [PocketOrreryXR — 3D Solar System on Android XR](https://github.com/hellosaumil/PocketOrreryXR)
-
 ##### *Mixed Reality, Virtual Reality, 3D, glTF, Hand Gestures; Kotlin, Android XR, Android Studio; Google Antigravity, LLMs*
-
 - Designed an `immersive 3D` app for the solar system on `Android XR` using `Jetpack Compose` and `SceneCore` spatial APIs.
 - Implemented `spatial gestures` with pinch-to-select or by dragging to move the solar system in `3D` space.
 - Developed `planetary mechanics` with `axial` rotation and `orbit` simulation in `Kotlin` via `iterative AI prompting`.
