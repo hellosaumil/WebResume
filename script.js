@@ -117,23 +117,24 @@ document.addEventListener('DOMContentLoaded', function () {
       'phone': 'field-phone',
       'email': 'field-email',
       'location': 'field-location',
-      'linkedin': 'field-linkedin'
+      'linkedin': 'field-linkedin',
+      'website': 'field-website'
     };
 
     for (const [key, id] of Object.entries(mapping)) {
       if (data[key]) {
         const el = document.getElementById(id);
+        if (!el) continue;
+
         if (key === 'email') {
-          el.innerHTML = `<a href="mailto:${data[key]}" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+          el.innerHTML = `<a href="mailto:${data[key]}" class="contact-link">${data[key]}</a>`;
         } else if (key === 'phone') {
           const cleanPhone = data[key].replace(/[^\d+]/g, '');
-          el.innerHTML = `<a href="tel:${cleanPhone}" class="contact-link" style="text-decoration:none; color:inherit;">${data[key]}</a>`;
-        } else if (key === 'linkedin') {
-          // Assume data[key] is a URL or handle cases where it isn't? 
-          // If it starts with http, use it. If not, maybe prepend https://?
+          el.innerHTML = `<a href="tel:${cleanPhone}" class="contact-link">${data[key]}</a>`;
+        } else if (key === 'linkedin' || key === 'website') {
           let url = data[key];
           if (!url.startsWith('http')) url = 'https://' + url;
-          el.innerHTML = `<a href="${url}" target="_blank" class="contact-link" style="text-decoration:underline; color:inherit;">${data[key]}</a>`;
+          el.innerHTML = `<a href="${url}" target="_blank" class="contact-link">${data[key]}</a>`;
         } else {
           el.textContent = data[key];
         }
