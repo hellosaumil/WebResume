@@ -1,0 +1,5 @@
+- **Qualcomm Ambassador** — `SDSU College of Engineering Open House 2025`
+- **Student Volunteer** — `Computer Science and Sound: Dolphins and You` at `[San Diego Festival of Science and Engineering 2019 @ SDSU](https://www.lovestemsd.org/)`
+- **Student Volunteer** — `[Cal State Tech Conference 2019](https://calstate.eventsair.com/cal-state-tech-conference-2019/)`
+- **Instructional Student Assistant** — `SDSU Dept. of Computer Science` (`CS559 Computer Vision`, `CS570 Operating Systems`)
+- **Teaching Associate** — `Ahmedabad University` (`Intro to Programming`, `Operating Systems`, `OOP`, `DBMS`, `Software Engineering`)
