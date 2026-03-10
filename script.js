@@ -99,6 +99,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('summary.md');
     const section = document.getElementById('summary-section');
 
+    // Clear existing summary text if it exists
+    const existing = section.querySelector('.summary-text');
+    if (existing) existing.remove();
+
     const p = document.createElement('p');
     p.className = 'summary-text body-text';
     p.setAttribute('contenteditable', 'true');
@@ -146,6 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('education.md');
     const sections = parseSections(text);
     const container = document.getElementById('education-section');
+
+    // Clear existing except title
+    const existingItems = container.querySelectorAll('.education-item');
+    existingItems.forEach(el => el.remove());
 
     sections.forEach(edu => {
       const div = document.createElement('div');
@@ -198,6 +206,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('publications.md');
     const items = parseList(text);
     const container = document.getElementById('publications-section');
+
+    // Clear existing except title
+    const existing = container.querySelector('.compact-list');
+    if (existing) existing.remove();
+
     const ul = document.createElement('ul');
     ul.className = 'compact-list';
 
@@ -232,6 +245,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const container = document.getElementById('experience-section');
+
+    // Clear existing except title
+    const existingItems = container.querySelectorAll('.experience-item');
+    existingItems.forEach(el => el.remove());
 
     sections.forEach(exp => {
       if (!exp.title) return; // Skip empty sections
@@ -268,6 +285,10 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadProjects() {
     const text = await fetchMarkdown('projects.md');
     const container = document.getElementById('projects-section');
+
+    // Clear existing except title
+    const existingItems = container.querySelectorAll('.project-item');
+    existingItems.forEach(el => el.remove());
 
     const sections = text.split('---').map(section => {
       const lines = section.trim().split('\n');
@@ -307,6 +328,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('leadership.md');
     const items = parseList(text);
     const container = document.getElementById('leadership-section');
+
+    // Clear existing except title
+    const existing = container.querySelector('.compact-list');
+    if (existing) existing.remove();
+
     const ul = document.createElement('ul');
     ul.className = 'compact-list';
     items.forEach(item => {
@@ -322,6 +348,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('certificates.md');
     const items = parseList(text);
     const container = document.getElementById('certificates-section');
+
+    // Clear existing except title
+    const existing = container.querySelector('.compact-list');
+    if (existing) existing.remove();
+
     const ul = document.createElement('ul');
     ul.className = 'compact-list';
     items.forEach(item => {
