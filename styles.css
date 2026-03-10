@@ -1141,8 +1141,8 @@ body.dark-mode .attribution code {
   * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    -webkit-text-stroke: 0.1px currentColor;
   }
+
 }
 
 /* ========================================
