@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loadSkills(),
         loadPublications(),
         loadExperience(),
-        loadProjects(),
-        loadLeadership(),
-        loadCertificates()
+        loadProjects()
       ]);
       console.log('Resume data loaded successfully');
     } catch (error) {
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Helper: Convert Markdown links [text](url) to HTML <a> tags
   function parseMarkdownLinks(text) {
     return text
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2" style="text-decoration:underline; color:inherit;">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2">$1</a>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/`([^`]+)`/g, '<code>$1</code>');
   }
@@ -161,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
       div.innerHTML = `
         <div class="edu-header">
           <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
-          <span class="edu-date body-text" contenteditable="true">${edu.date || ''}</span>
-        </div>
-        <div class="edu-details">
-          <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
-          ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true">${edu.gpa}</span>` : ''}
+          <div class="edu-right" style="text-align: right;">
+            <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
+            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> — ${edu.gpa}</span>` : ''}
+            ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 8px;">${edu.date}</span>` : ''}
+          </div>
         </div>
       `;
       container.appendChild(div);
@@ -323,47 +321,6 @@ document.addEventListener('DOMContentLoaded', function () {
       container.appendChild(div);
     });
   }
-
-  async function loadLeadership() {
-    const text = await fetchMarkdown('leadership.md');
-    const items = parseList(text);
-    const container = document.getElementById('leadership-section');
-
-    // Clear existing except title
-    const existing = container.querySelector('.compact-list');
-    if (existing) existing.remove();
-
-    const ul = document.createElement('ul');
-    ul.className = 'compact-list';
-    items.forEach(item => {
-      const li = document.createElement('li');
-      li.contentEditable = true;
-      li.innerHTML = parseMarkdownLinks(item);
-      ul.appendChild(li);
-    });
-    container.appendChild(ul);
-  }
-
-  async function loadCertificates() {
-    const text = await fetchMarkdown('certificates.md');
-    const items = parseList(text);
-    const container = document.getElementById('certificates-section');
-
-    // Clear existing except title
-    const existing = container.querySelector('.compact-list');
-    if (existing) existing.remove();
-
-    const ul = document.createElement('ul');
-    ul.className = 'compact-list';
-    items.forEach(item => {
-      const li = document.createElement('li');
-      li.contentEditable = true;
-      li.innerHTML = parseMarkdownLinks(item);
-      ul.appendChild(li);
-    });
-    container.appendChild(ul);
-  }
-
 
   // Initialize
   loadResumeData();
