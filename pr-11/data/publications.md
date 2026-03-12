@@ -1,0 +1,2 @@
+- **Publications:** "Real-time Face Recognition in HD Videos" (IEEE SysCon 2018) · "Automated Human Capital Management System" (IEEE SysCon 2018)
+- **Award:** Nvidia Quadro P5000 GPU Academic Seeding Grant (2017)
