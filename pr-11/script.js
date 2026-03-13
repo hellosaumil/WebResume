@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Helper: Convert Markdown links [text](url) to HTML <a> tags
   function parseMarkdownLinks(text) {
     return text
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2" style="text-decoration:underline; color:inherit;">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2">$1</a>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/`([^`]+)`/g, '<code>$1</code>');
   }

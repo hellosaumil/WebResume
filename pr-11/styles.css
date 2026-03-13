@@ -740,6 +740,18 @@ code {
 #publications-section {
 }
 
+/* Common link styling for markdown-parsed links */
+.resume-page a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+#publications-section a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 400;
+}
+
 /* Projects - Visual Divider (Removed for 1-pager) */
 #projects-section {
 }
