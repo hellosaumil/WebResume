@@ -31,6 +31,8 @@ Enforce a strict, simplified typography hierarchy across the resume to ensure co
     - **Internal Rhythm**: Tightened spacing; Education items use a `2px` margin-bottom (reduced from 4px).
 - **PDF Rendering Fixes**:
     - Implemented `hyphens: none` and `word-break: keep-all` globally on `.resume-page`, `.summary-text`, and `.bullet-list li` to prevent awkward splitting of hyphenated compound words (e.g., "high-performance", "pinch-to-select") during PDF export and page scaling.
+- **Link Styling**:
+    - High-signal links (e.g., Projects, Publications, Awards) should be wrapped in backticks (`` `[Text](URL)` ``) to reuse the `code` tag's `Space Grotesk` font and `500` weight, creating a premium, unified visual language.
 - **Visual Dividers**:
     - Removed arbitrary top borders and negative margin hacks (e.g., Projects border, Publications negative margin) to ensure the 10px flex gap handles all spacing naturally.
 
