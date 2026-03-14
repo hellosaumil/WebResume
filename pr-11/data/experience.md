@@ -10,7 +10,7 @@
 - Designed `web dashboards`, on-demand `Excel` reports, and automated regression `email alerts` to `meet each stakeholder group's reporting needs`.
 - Eliminated reporting bottlenecks via async `RabbitMQ` routing to `Postgres` and `Artifactory`, enabling independent scaling of each layer.
 - Standardized `Pydantic` canonical schemas across `10+` Khronos test suites; adopted by the benchmarking team, `saving months of engineering effort`.
-- Introduced `MCP servers` wrapping live `API` backends, making operational infra `LLM-queryable`; drove org-wide adoption of `agentic coding` (`Cline`).
+- Introduced `MCP servers` wrapping live `API` backends, making `LLM-queryable operational infra`; drove org-wide adoption of `agentic coding` (`Cline`).
 
 ---
 

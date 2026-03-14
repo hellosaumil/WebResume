@@ -381,9 +381,9 @@ body.dark-mode.show-page-preview .resume-page:hover {
   justify-content: space-between;
   align-items: center;
   /* Center align items vertically */
-  padding-bottom: 4px;
   border-bottom: 2px solid var(--primary-color);
-  margin-bottom: 4px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .name {
@@ -407,7 +407,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 /* Typography Hierarchy - From DESIGN_SYSTEM.md */
 .header-1 {
-  font-size: 38pt;
+  font-size: 42pt;
 }
 
 .header-2 {
@@ -504,7 +504,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
 }
 
@@ -1469,7 +1469,7 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   /* Section spacing */
   .main-content {
-    gap: 12px;
+    gap: 10px;
   }
 
   .section {
