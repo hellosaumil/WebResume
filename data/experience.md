@@ -5,7 +5,7 @@
 #### 2021 - Present
 
 - `Architected and own` an in-house pre-silicon `GPU validation` `end-to-end automation framework` dispatching `500K+ jobs/week` on `LSF` on-prem, catching driver regressions on flagship `Snapdragon Adreno GPUs`.
-- Parallelized `Docker`/`Singularity` containerized workloads, cutting nightly driver validation cycles from `211 days to 1 day` to support higher throughput.
+- Parallelized `Docker`/`Singularity` containerized workloads, cutting nightly driver validation cycles from `240 days to 1 day` to support higher throughput.
 - Delivered a `FastAPI` + `RedisJSON`/`RediSearch` backend with `TTL`-based expiry, providing `sub-second` access to live test metrics with `2M+ rows/month`.
 - Designed `web dashboards`, on-demand `Excel` reports, and automated regression `email alerts` to `meet each stakeholder group's reporting needs`.
 - Eliminated reporting bottlenecks via async `RabbitMQ` routing to `Postgres` and `Artifactory`, enabling independent scaling of each layer.
