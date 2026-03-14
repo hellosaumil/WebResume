@@ -4,11 +4,13 @@
 
 #### 2021 - Present
 
-- `Architected and own` an in-house `end-to-end automation platform` purpose-built for graphics driver validation across upcoming flagship `Snapdragon Adreno GPUs`; orchestrates `200K+ jobs/week` as containerized (`Docker`/`Singularity`) workloads across an `on-prem LSF server-farm` with real-time result reporting for `Vulkan`/`OpenCL`/`OpenGL` test suites.
-- `Established` a `Pydantic`-based canonical result schema unifying data contracts across the platform; extensible enough that the on-device `benchmarking team adopted it wholesale` for KPI workloads without modifications, `saving months of parallel engineering effort`.
-- `Engineered FastAPI` + `RedisJSON`/`RediSearch` backend for `sub-second` access to live job statuses, test results, and aggregated metrics; sustains `over 2M rolling rows/month` with TTL-based expiry, deliberately trading history depth for query performance at scale.
-- `Decoupled` execution from reporting via `RabbitMQ` async routing; test logs persist to `Artifactory` and regressions tracked in `Postgres`, enabling `independent scaling of each layer`; `custom-built` interactive web dashboards and automated regression alerts for stakeholder decision-making.
-- `Introduced MCP servers` wrapping live `API` backends, making operational infra `LLM`-queryable via natural language without direct API knowledge; drove org-wide adoption of `MCP` and agentic coding (`Cline`) across engineering teams.
+- `Architected and own` an in-house pre-silicon `GPU validation` `end-to-end automation framework` dispatching `500K+ jobs/week` on `LSF` on-prem, catching driver regressions on flagship `Snapdragon Adreno GPUs`.
+- Parallelized `Docker`/`Singularity` containerized workloads, cutting nightly driver validation cycles from `211 days to 1 day` to support higher throughput.
+- Delivered a `FastAPI` + `RedisJSON`/`RediSearch` backend with `TTL`-based expiry, providing `sub-second` access to live test metrics with `2M+ rows/month`.
+- Designed `web dashboards`, on-demand `Excel` reports, and automated regression `email alerts` to `meet each stakeholder group's reporting needs`.
+- Eliminated reporting bottlenecks via async `RabbitMQ` routing to `Postgres` and `Artifactory`, enabling independent scaling of each layer.
+- Standardized `Pydantic` canonical schemas across `10+` Khronos test suites; adopted by the benchmarking team, `saving months of engineering effort`.
+- Introduced `MCP servers` wrapping live `API` backends, making operational infra `LLM-queryable`; drove org-wide adoption of `agentic coding` (`Cline`).
 
 ---
 
