@@ -321,6 +321,9 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   flex-direction: column;
   position: relative;
   /* For page break indicator */
+  hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 body.show-page-preview .resume-page {
@@ -378,9 +381,9 @@ body.dark-mode.show-page-preview .resume-page:hover {
   justify-content: space-between;
   align-items: center;
   /* Center align items vertically */
-  padding-bottom: 4px;
   border-bottom: 2px solid var(--primary-color);
-  margin-bottom: 4px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .name {
@@ -404,7 +407,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 /* Typography Hierarchy - From DESIGN_SYSTEM.md */
 .header-1 {
-  font-size: 38pt;
+  font-size: 42pt;
 }
 
 .header-2 {
@@ -501,13 +504,13 @@ body.dark-mode.show-page-preview .resume-page:hover {
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
   flex: 1;
 }
 
 /* Section Styles */
 .section {
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 /* Section title and alignment defaults moved to consolidate at bottom for priority */
@@ -534,11 +537,13 @@ body.dark-mode.show-page-preview .resume-page:hover {
   line-height: 1.45;
   margin: 0;
   margin-bottom: 0;
+  hyphens: none;
+  word-break: keep-all;
 }
 
 /* Education */
 .education-item {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .education-item:last-child {
@@ -566,6 +571,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 .school {
   color: var(--text-color);
+  font-size: 8.5pt;
 }
 
 .gpa {
@@ -613,6 +619,8 @@ body.dark-mode.show-page-preview .resume-page:hover {
   padding-left: 12px;
   margin-bottom: 2px;
   color: var(--text-light);
+  hyphens: none;
+  word-break: keep-all;
 }
 
 .bullet-list li:last-child {
@@ -728,15 +736,18 @@ code {
   color: var(--text-color);
 }
 
-/* Publications Hack */
+/* Publications */
 #publications-section {
-  margin-top: -8px;
 }
 
-/* Projects - Visual Divider */
+/* Common link styling for markdown-parsed links */
+.resume-page a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+/* Projects - Visual Divider (Removed for 1-pager) */
 #projects-section {
-  padding-top: 8px;
-  border-top: 1px solid var(--border-color);
 }
 
 /* Bottom Row - Leadership & Certificates */
@@ -1458,11 +1469,11 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   /* Section spacing */
   .main-content {
-    gap: 8px;
+    gap: 10px;
   }
 
   .section {
-    margin-bottom: 6px;
+    margin-bottom: 0;
   }
 
   .section-title {
@@ -1540,8 +1551,9 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
 
   /* All resume content should wrap, never overflow */
   .resume-page {
-    overflow-wrap: break-word;
-    word-break: break-word;
+    overflow-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
   }
 
   /* Single column contact grid when zoomed */
