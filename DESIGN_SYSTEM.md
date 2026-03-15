@@ -1,39 +1,45 @@
 # Typography Standardization Plan
 
 ## Goal
-Enforce a strict, simplified typography hierarchy across the resume to ensure consistency and clean aesthetics.
+Enforce a strict, simplified typography hierarchy across the resume to ensure consistency and clean aesthetics, optimized for a high-impact 1-page Senior Engineer layout.
 
 ## Typography Rules
 | Level | Font Size | Weight | Style | Usage Examples |
 | :--- | :--- | :--- | :--- | :--- |
 | **Heading-1** | `38pt` | `300`/`100` | Normal | Main Name (Header: First/Last)    |
-| **Heading-2** | `12pt` | `700` | Normal | Section Titles (Education, Projects) |
+| **Heading-2** | `12pt` | `700` | Normal | Section Titles (Summary, Experience, Projects) |
 | **Title-1** | `9pt` | `500` | Normal | Degree, Skill Label, Job Title, Project Title |
-| **Title-2** | `8pt` | `400` | Normal | School Name, Headers inside items |
+| **Title-2** | `8pt` (School: `8.5pt`) | `400` | Normal | School Name (increased by 0.5pt), Headers inside items |
 | **Color-Title-2** | `8pt` | `400` | Normal | Company Name (Accent Color), GPA |
 | **Italic-Title-3** | `8pt` | `300` | Italic | Tech Stack, Metadata |
 | **Body (Default)** | `8pt` | `300` | Normal | Bullet points, General text, Dates |
 
-## Layout Rules
+## Layout Rules & 1-Pager Formatting
+- **1-Page Architecture**:
+    - Focus heavily on Senior-level experience (Aether, Qualcomm, MBARCO) and high-signal ML projects.
+    - Omitted "Leadership" and "Certificates" sections entirely to recover vertical real estate.
+    - Reordered structure: Summary → Technical Skills → Experience → Projects → Education → Publications & Awards.
 - **Header Structure**:
     - **Name**: Left-aligned, Heading-1.
-    - **Contact Grid**: Two-column layout with split alignment.
-        - **Column 1 (Phone, Location)**: Left-aligned (`justify-self: start`).
-        - **Column 2 (Email, LinkedIn)**: Right-aligned (`justify-self: end`).
+    - **Contact Grid**: Two-column layout with split alignment. Column 1 (Left-aligned), Column 2 (Right-aligned). Start Date field permanently removed.
+- **Education Structure**:
+    - Condensed to single lines per degree using flex layout (`.edu-header` and `.edu-right`).
+    - Graduation years explicitly omitted. GPA omitted.
+    - Commas added for formal presentation (e.g., `M.S., Computer Science`).
 - **Section Spacing**:
-    - **Global Section Gap**: `6px` gap in main content + `2px` section margin-bottom.
-    - **Internal Rhythym**: Section items (Education, Projects, etc.) use a `4px` margin-bottom for internal spacing.
-- **Summary Consistency**:
-    - Summary section must follow standard section formatting (no unique borders or extra padding).
-    - Summary text uses a `0px` margin-bottom as it is a single cohesive block.
-- **Major Transitions**:
-    - **Projects Section**: Uses a `border-top` and `padding-top: 8px` to clearly mark the transition to technical projects in the lower half of the resume.
+    - **Global Section Gap**: Consistently `10px` gap in the main content flex container, with `0px` section margin-bottoms for uniform vertical flow. Mobile gap is `12px`.
+    - **Internal Rhythm**: Tightened spacing; Education items use a `2px` margin-bottom (reduced from 4px).
+- **PDF Rendering Fixes**:
+    - Implemented `hyphens: none` and `word-break: keep-all` globally on `.resume-page`, `.summary-text`, and `.bullet-list li` to prevent awkward splitting of hyphenated compound words (e.g., "high-performance", "pinch-to-select") during PDF export and page scaling.
+- **Link Styling**:
+    - High-signal links (e.g., Projects, Publications, Awards) should be wrapped in backticks (`` `[Text](URL)` ``) to reuse the `code` tag's `Space Grotesk` font and `500` weight, creating a premium, unified visual language.
+- **Visual Dividers**:
+    - Removed arbitrary top borders and negative margin hacks (e.g., Projects border, Publications negative margin) to ensure the 10px flex gap handles all spacing naturally.
 
 ## Implementation Notes
-- **Start Date Removal**: The "Start Date" field is permanently removed to decrease header height and focus on core contact info.
 - **Header Alignment**: Implemented split-alignment in contact grid (left for phone/location, right for links).
-- **Media Query Cleanup**: Consolidated mobile typography overrides within the `max-width: 480px` breakpoint.
+- **Media Query Cleanup**: Consolidated mobile typography overrides within the `max-width: 480px` breakpoint, using flex `gap` instead of margin-bottoms.
 
 ## Verification
 - Use the **Element Inspector** to verify that hover states match exact pt/weight values.
-- Visual check of School vs Degree vs Company.
+- Validate PDF export visually to ensure compound words wrap intact without hyphen-breaks.
