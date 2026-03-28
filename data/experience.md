@@ -25,7 +25,7 @@
 
 ---
 
-## Associate Researcher, Deep Learning
+## Assistant Researcher, Deep Learning
 
 ### [Marine Bio-acoustics Research Collaborative (MBARC)](https://acoustics.ucsd.edu), [SDSU](https://roch.sdsu.edu/index.php/research-overview) — San Diego, CA
 
