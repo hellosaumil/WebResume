@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function parseMarkdownLinks(text) {
     return text
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" title="$2">$1</a>')
+      .replace(/\*\*(.*?):\*\*\s*/g, '<strong>$1: </strong>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`\s+`([^`]+)`/g, '`$1 $2`')
       .replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
@@ -137,6 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
           let url = data[key];
           if (!url.startsWith('http')) url = 'https://' + url;
           el.innerHTML = `<a href="${url}" target="_blank" class="contact-link">${data[key]}</a>`;
+        } else if (key === 'firstname') {
+          el.textContent = data[key] + ' ';
         } else {
           el.textContent = data[key];
         }
@@ -192,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const div = document.createElement('div');
         div.className = 'skills-item';
         div.innerHTML = `
-          <span class="skill-label title-1">${match[1]}:</span>
+          <span class="skill-label title-1">${match[1]}: </span>
           <span class="skill-value" contenteditable="true">${parseMarkdownLinks(match[2])}</span>
         `;
         container.appendChild(div);
