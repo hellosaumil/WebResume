@@ -24,12 +24,24 @@ def extract_text(pdf_path):
 
     for page in reader.pages:
         try:
-            raw_layout = page.extract_text(extraction_mode="layout") or ""
+            raw_layout = page.extract_text(
+                extraction_mode="layout",
+                layout_mode_font_height_weight=0.9,
+            ) or ""
             layout_pages.append("\n".join(line.rstrip() for line in raw_layout.split("\n")))
         except Exception:
             layout_pages.append(page.extract_text() or "")
 
-        flat_pages.append(page.extract_text() or "")
+        runs = []
+        page.extract_text(visitor_text=lambda t, cm, tm, font, sz: runs.append((t, tm[4], tm[5])))
+        raw_parts, prev_y = [], None
+        for text, x, y in runs:
+            if y != 0 and prev_y is not None and (y - prev_y) >= 28.0:
+                raw_parts.append("\n")
+            if y != 0:
+                prev_y = y
+            raw_parts.append(text)
+        flat_pages.append("".join(raw_parts).replace("→  ", "→ "))
 
     return "\n\n".join(layout_pages), "\n".join(flat_pages), pages
 
