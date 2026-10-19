@@ -27,7 +27,7 @@ git push origin v2
 This deploys to `https://hellosaumil.github.io/WebResume/v2/` automatically.
 
 > **Tip**: Update the "Latest Version" badge in `README.md` to point to the new version when releasing. Search for `Latest-/v` and update the URL.
-> Example: `[![Latest Version](https://img.shields.io/badge/📌_Latest-/v3-purple)](https://hellosaumil.github.io/WebResume/v3/)`
+> Example: `[![Latest Version](https://img.shields.io/badge/📌_Latest-/v4-purple)](https://hellosaumil.github.io/WebResume/v4/)`
 
 To manually deploy an existing tag:
 - Go to **Actions → Deploy to GitHub Pages → Run workflow**
