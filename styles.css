@@ -1138,6 +1138,11 @@ body.dark-mode .attribution code {
    Print / PDF Export Styles
    ======================================== */
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
 @media print {
 
   .no-print,
@@ -1152,6 +1157,37 @@ body.dark-mode .attribution code {
   * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  /* Consistent margins in print whether preview mode was toggled or not */
+  .resume-page {
+    padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left) !important;
+  }
+
+  /* Ensure in-flow painting order for clean ATS stream */
+  .section-title,
+  h2.section-title {
+    position: static !important;
+  }
+
+  .bullet-list li,
+  .compact-list li {
+    position: static !important;
+    padding-left: 10px !important;
+    text-indent: -10px !important;
+  }
+
+  .bullet-list li::before,
+  .compact-list li::before {
+    content: "• " !important;
+    position: static !important;
+    display: inline !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure name elements flow inline with whitespace */
+  .name {
+    display: inline-block !important;
   }
 
 }
