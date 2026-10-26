@@ -181,7 +181,8 @@ body.show-page-preview {
 .toggle-layout-btn,
 .reset-btn,
 .theme-toggle-btn,
-.dev-toggle-btn {
+.dev-toggle-btn,
+.latex-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,16 +200,26 @@ body.show-page-preview {
 .toggle-layout-btn:hover,
 .reset-btn:hover,
 .theme-toggle-btn:hover,
-.dev-toggle-btn:hover {
+.dev-toggle-btn:hover,
+.latex-btn:hover {
   background: var(--control-hover-bg);
   color: var(--primary-color);
 }
 
 .toggle-layout-btn.active,
 .theme-toggle-btn.active,
-.dev-toggle-btn.active {
+.dev-toggle-btn.active,
+.latex-btn.active {
   background: var(--control-active-bg);
   color: var(--accent-color);
+}
+
+.latex-icon-text {
+  font-family: 'Times New Roman', 'Latin Modern Roman', 'Computer Modern', Georgia, serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
 .toggle-layout-btn svg path,
@@ -1726,4 +1737,161 @@ h2.section-title {
   font-size: 8pt !important;
   font-weight: 300 !important;
   color: var(--text-light) !important;
+}
+
+/* ========================================
+   Dynamic LaTeX Export Modal
+   ======================================== */
+.latex-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.latex-modal {
+  background: var(--white);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.latex-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--control-bg);
+}
+
+.latex-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14pt;
+  font-weight: 600;
+}
+
+.latex-title-tex {
+  font-family: 'Times New Roman', serif;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.latex-title-tex .sub {
+  position: relative;
+  top: 3px;
+  font-size: 0.8em;
+}
+
+.latex-badge-live {
+  font-size: 9pt;
+  font-weight: 500;
+  background: #10b981;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.latex-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 22pt;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0 4px;
+}
+
+.latex-close-btn:hover {
+  color: var(--primary-color);
+}
+
+.latex-modal-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--control-hover-bg);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.latex-meta-info {
+  font-size: 9pt;
+  color: var(--text-light);
+}
+
+.latex-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.latex-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 9pt;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  color: var(--text-color);
+  transition: all 0.15s ease;
+}
+
+.latex-action-btn:hover {
+  background: var(--control-hover-bg);
+  border-color: var(--primary-color);
+}
+
+.latex-action-btn.copied {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.latex-overleaf-btn {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4338ca;
+}
+
+.latex-overleaf-btn:hover {
+  background: #4338ca;
+  color: #ffffff;
+}
+
+.latex-code-container {
+  padding: 16px 20px;
+  overflow: auto;
+  flex: 1;
+  background: #1e1e1e;
+}
+
+.latex-code-container pre {
+  margin: 0;
+  font-family: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 8.5pt;
+  line-height: 1.45;
+  color: #d4d4d4;
+  white-space: pre;
 }

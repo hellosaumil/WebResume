@@ -31,10 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Helper to fetch markdown
+  const rawMarkdownCache = {};
+
   async function fetchMarkdown(filename) {
     const response = await fetch(`data/${filename}?cache=${new Date().getTime()}`);
     if (!response.ok) throw new Error(`Failed to load ${filename}`);
-    return await response.text();
+    const text = await response.text();
+    rawMarkdownCache[filename] = text;
+    return text;
   }
 
   // Helper: Parse Key-Value pairs (e.g., "Name: John")
@@ -1010,4 +1014,353 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Load saved order after all content is loaded
   setTimeout(() => loadSectionOrder(), 100);
+
+  // ========================================
+  // Dynamic LaTeX Export & Overleaf Integration
+  // ========================================
+  function initLatexExport() {
+    const latexBtn = document.getElementById('latexExportBtn');
+    const modal = document.getElementById('latexModal');
+    const closeBtn = document.getElementById('closeLatexModal');
+    const copyBtn = document.getElementById('copyLatexBtn');
+    const downloadBtn = document.getElementById('downloadLatexBtn');
+    const overleafBtn = document.getElementById('openOverleafBtn');
+    const display = document.getElementById('latexCodeDisplay');
+    const overleafForm = document.getElementById('overleafForm');
+    const overleafSnip = document.getElementById('overleafSnipInput');
+
+    if (!latexBtn || !modal) return;
+
+    function escapeLatex(text) {
+      if (!text) return '';
+      const chars = {
+        '\\': '\\textbackslash{}',
+        '&': '\\&',
+        '%': '\\%',
+        '$': '\\$',
+        '#': '\\#',
+        '_': '\\_',
+        '{': '\\{',
+        '}': '\\}',
+        '~': '$\\sim$',
+        '^': '\\textasciicircum{}',
+        '<': '\\textless{}',
+        '>': '\\textgreater{}'
+      };
+      return text.replace(/([\\&%$#_{}~^<>])/g, m => chars[m] || m);
+    }
+
+    function mdToLatex(text, underlineLinks = true) {
+      if (!text) return '';
+      let str = text.replace(/—/g, '---').replace(/–/g, '--');
+      const tokens = [];
+      const saveToken = (val) => {
+        const id = tokens.length;
+        tokens.push(val);
+        return `@@TOK${id}@@`;
+      };
+
+      str = str.replace(/`\[([^\]]+)\]\(([^)]+)\)`/g, (_, label, url) => {
+        const esc = escapeLatex(label);
+        const inner = underlineLinks ? `\\underline{\\tech{${esc}}}` : `\\tech{${esc}}`;
+        return saveToken(`\\href{${url}}{${inner}}`);
+      });
+      str = str.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+        const esc = escapeLatex(label);
+        const inner = underlineLinks ? `\\underline{${esc}}` : esc;
+        return saveToken(`\\href{${url}}{${inner}}`);
+      });
+      str = str.replace(/`([^`]+)`/g, (_, code) => saveToken(`\\tech{${escapeLatex(code)}}`));
+      str = str.replace(/\*\*([^*]+)\*\*/g, (_, b) => saveToken(`\\textbf{${escapeLatex(b)}}`));
+      str = str.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, (_, it) => saveToken(`\\textit{${escapeLatex(it)}}`));
+
+      str = escapeLatex(str);
+      str = str.replace(/→/g, '$\\to$').replace(/·/g, '$\\cdot$');
+
+      tokens.forEach((tok, i) => {
+        str = str.replace(new RegExp(`@@TOK${i}@@`, 'g'), tok);
+      });
+      return str;
+    }
+
+    function generateLatexCode() {
+      const headerData = parseKeyValue(rawMarkdownCache['header.md'] || '');
+      const summaryText = (rawMarkdownCache['summary.md'] || '').trim();
+      const skillsLines = parseList(rawMarkdownCache['skills.md'] || '');
+      const educationEntries = parseSections(rawMarkdownCache['education.md'] || '');
+      const publicationsLines = parseList(rawMarkdownCache['publications.md'] || '');
+
+      const fname = headerData['firstname'] || 'Saumil';
+      const lname = headerData['lastname'] || 'Shah';
+      const fullname = `${fname} ${lname}`.trim().toUpperCase();
+      const phone = headerData['phone'] || '';
+      const cleanPhone = phone.replace(/[^\d+]/g, '');
+      const email = headerData['email'] || '';
+      const loc = headerData['location'] || '';
+      const linkedin = headerData['linkedin'] || '';
+      const liUrl = linkedin.startsWith('http') ? linkedin : `https://${linkedin}`;
+      const website = headerData['website'] || '';
+      const webUrl = website.startsWith('http') ? website : `https://${website}`;
+
+      const headerItems = [];
+      if (loc) headerItems.push(escapeLatex(loc));
+      if (phone) headerItems.push(`\\href{tel:${cleanPhone}}{${escapeLatex(phone)}}`);
+      if (email) headerItems.push(`\\href{mailto:${email}}{\\underline{${escapeLatex(email)}}}`);
+      if (linkedin) headerItems.push(`\\href{${liUrl}}{\\underline{${escapeLatex(linkedin)}}}`);
+      if (website) headerItems.push(`\\href{${webUrl}}{\\underline{${escapeLatex(website)}}}`);
+
+      let out = `% !TEX root = resume.tex
+% ============================================================================
+% DYNAMICALLY GENERATED FROM WebResume data/*.md
+% Single Source of Truth: data/ directory
+% Template: Classic Academic / Jake's Resume (Computer Modern Default LaTeX)
+% ============================================================================
+\\documentclass[letterpaper,10pt]{article}
+
+\\usepackage{latexsym}
+\\usepackage{titlesec}
+\\usepackage{xcolor}
+\\usepackage{enumitem}
+\\usepackage{hyperref}
+\\usepackage{fancyhdr}
+\\usepackage{tabularx}
+\\usepackage{textcomp}
+\\usepackage{geometry}
+
+% --- Geometry (Precise 1-page fit with Jake's Resume 10pt/9pt font sizes) ---
+\\geometry{
+  letterpaper,
+  top=0.22in,
+  bottom=0.22in,
+  left=0.30in,
+  right=0.30in
+}
+\\pagestyle{empty}
+\\urlstyle{same}
+\\raggedbottom
+\\raggedright
+\\setlength{\\tabcolsep}{0in}
+\\renewcommand{\\arraystretch}{0.92}
+
+% --- Color Setup ---
+\\definecolor{textdark}{RGB}{0,0,0}
+\\definecolor{accentcolor}{HTML}{0066CC}
+
+% --- Section Formatting (True Small Caps 12pt \\large matching Jake's Resume) ---
+\\titleformat{\\section}{
+  \\scshape\\raggedright\\large
+}{}{0em}{}[\\color{black}\\titlerule]
+\\titlespacing*{\\section}{0pt}{3pt}{1.5pt}
+
+% --- Custom Commands (Jake's Resume Macros) ---
+\\newcommand{\\tech}[1]{\\textbf{#1}}
+\\newcommand{\\resumeItem}[1]{
+  \\item\\fontsize{8.5pt}{9.4pt}\\selectfont{#1}
+}
+
+\\newcommand{\\resumeSubheading}[4]{
+  \\item
+    \\begin{tabular*}{\\linewidth}{@{\\extracolsep{\\fill}}lr}
+      \\textbf{\\textcolor{accentcolor}{#1}} & #2 \\\\
+      \\textbf{\\textit{#3}} & \\textit{#4} \\\\
+    \\end{tabular*}\\vspace{-1.5pt}
+}
+
+\\newcommand{\\resumeProjectHeading}[2]{
+  \\item
+    \\begin{tabular*}{\\linewidth}{@{\\extracolsep{\\fill}}lr}
+      \\textbf{#1} & \\\\
+      \\textit{\\small #2} & \\\\
+    \\end{tabular*}\\vspace{-1.5pt}
+}
+
+\\newcommand{\\resumeSubHeadingListStart}{\\begin{itemize}[leftmargin=0in, label={}, topsep=1pt, itemsep=1.5pt, parsep=0pt, partopsep=0pt]}
+\\newcommand{\\resumeSubHeadingListEnd}{\\end{itemize}}
+\\newcommand{\\resumeItemListStart}{\\begin{itemize}[leftmargin=10pt, label=\\small$\\bullet$, topsep=1pt, itemsep=-0.8pt, parsep=0pt, partopsep=0pt]}
+\\newcommand{\\resumeItemListEnd}{\\end{itemize}}
+
+\\begin{document}
+
+% --- HEADER ---
+\\begin{center}
+    \\textbf{\\Huge ${fullname}} \\\\[2pt]
+    \\small ${headerItems.join(' \\textopenbullet\\ ')}
+\\end{center}
+\\hypersetup{pdfborder={0 0 0}}
+\\vspace{-11pt}
+
+`;
+
+      if (summaryText) {
+        out += `% --- SUMMARY ---
+\\section{Summary}
+\\begin{itemize}[leftmargin=0in, label={}, topsep=1pt, itemsep=0pt, parsep=0pt, partopsep=0pt]
+  \\item\\fontsize{8.5pt}{9.4pt}\\selectfont{${mdToLatex(summaryText)}}
+\\end{itemize}
+
+`;
+      }
+
+      if (skillsLines.length) {
+        out += `% --- TECHNICAL SKILLS ---
+\\section{Technical Skills}
+\\resumeSubHeadingListStart
+`;
+        skillsLines.forEach(line => {
+          out += `  \\item\\fontsize{8.5pt}{9.4pt}\\selectfont{${mdToLatex(line)}}\n`;
+        });
+        out += `\\resumeSubHeadingListEnd\n\n`;
+      }
+
+      // Experience
+      const expText = rawMarkdownCache['experience.md'] || '';
+      if (expText.trim()) {
+        out += `% --- PROFESSIONAL EXPERIENCE ---
+\\section{Professional Experience}
+\\resumeSubHeadingListStart
+`;
+        expText.split('---').forEach(sec => {
+          const lines = sec.trim().split('\n');
+          let title = '', date = '', thesis = '', tech = '';
+          const companies = [];
+          const bullets = [];
+
+          lines.forEach(l => {
+            const trimmed = l.trim();
+            if (trimmed.startsWith('## ')) title = trimmed.replace('## ', '').trim();
+            else if (trimmed.startsWith('### ')) {
+              const val = trimmed.replace('### ', '').trim();
+              if (val.startsWith("Master's Thesis:")) thesis = val;
+              else companies.push(val);
+            }
+            else if (trimmed.startsWith('#### ')) date = trimmed.replace('#### ', '').trim();
+            else if (trimmed.startsWith('##### ')) tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
+            else if (trimmed.startsWith('- ')) bullets.push(trimmed.replace(/^-\s*/, '').trim());
+          });
+
+          if (!title) return;
+          const companyRaw = companies.join(' --- ');
+          let coTex = '', locTex = '';
+          if (companyRaw.includes(' — ')) {
+            const p = companyRaw.split(' — ');
+            coTex = mdToLatex(p[0].trim(), false);
+            locTex = mdToLatex(p[1].trim(), false);
+          } else {
+            coTex = mdToLatex(companyRaw, false);
+          }
+
+          out += `  \\resumeSubheading{${coTex}}{${locTex}}{${mdToLatex(title, false)}}{${mdToLatex(date, false)}}\n`;
+          if (thesis) {
+            out += `  \\vspace{-5pt}\\par\\noindent\\fontsize{8.5pt}{9.4pt}\\selectfont{\\textit{${mdToLatex(thesis)}}}\\vspace{-1.5pt}\n`;
+          }
+          if (tech || bullets.length) {
+            out += `  \\resumeItemListStart\n`;
+            if (tech) out += `    \\resumeItem{\\textit{${mdToLatex(tech)}}}\n`;
+            bullets.forEach(b => out += `    \\resumeItem{${mdToLatex(b)}}\n`);
+            out += `  \\resumeItemListEnd\n`;
+          }
+        });
+        out += `\\resumeSubHeadingListEnd\n\n`;
+      }
+
+      // Projects
+      const projText = rawMarkdownCache['projects.md'] || '';
+      if (projText.trim()) {
+        out += `% --- RESEARCH AND PROJECTS ---
+\\section{Research and Projects}
+\\resumeSubHeadingListStart
+`;
+        projText.split('---').forEach(sec => {
+          const lines = sec.trim().split('\n');
+          let title = '', tech = '';
+          const bullets = [];
+          lines.forEach(l => {
+            const trimmed = l.trim();
+            if (trimmed.startsWith('### ')) title = trimmed.replace('### ', '').trim();
+            else if (trimmed.startsWith('##### ')) tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim();
+            else if (trimmed.startsWith('- ')) bullets.push(trimmed.replace(/^-\s*/, '').trim());
+          });
+          if (!title) return;
+          out += `  \\resumeProjectHeading{${mdToLatex(title)}}{${mdToLatex(tech)}}\n`;
+          if (bullets.length) {
+            out += `  \\resumeItemListStart\n`;
+            bullets.forEach(b => out += `    \\resumeItem{${mdToLatex(b)}}\n`);
+            out += `  \\resumeItemListEnd\n`;
+          }
+        });
+        out += `\\resumeSubHeadingListEnd\n\n`;
+      }
+
+      // Education
+      if (educationEntries.length) {
+        out += `% --- EDUCATION ---
+\\section{Education}
+\\resumeSubHeadingListStart
+`;
+        educationEntries.forEach(edu => {
+          out += `  \\item\n    \\begin{tabular*}{\\linewidth}{@{\\extracolsep{\\fill}}lr}\\textbf{${mdToLatex(edu.school || '')}} & \\textit{${mdToLatex(edu.degree || '')}} \\\\\\end{tabular*}\n`;
+        });
+        out += `\\resumeSubHeadingListEnd\n\n`;
+      }
+
+      // Publications & Awards
+      if (publicationsLines.length) {
+        out += `% --- PUBLICATIONS & AWARDS ---
+\\section{Publications \\& Awards}
+\\resumeItemListStart
+`;
+        publicationsLines.forEach(pub => {
+          out += `  \\resumeItem{${mdToLatex(pub)}}\n`;
+        });
+        out += `\\resumeItemListEnd\n\n`;
+      }
+
+      out += `\\end{document}\n`;
+      return out;
+    }
+
+    latexBtn.addEventListener('click', () => {
+      const code = generateLatexCode();
+      display.textContent = code;
+      modal.style.display = 'flex';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(display.textContent).then(() => {
+        copyBtn.classList.add('copied');
+        copyBtn.querySelector('span').textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.classList.remove('copied');
+          copyBtn.querySelector('span').textContent = 'Copy';
+        }, 2000);
+      });
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([display.textContent], { type: 'text/x-tex;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'resume.tex';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    overleafBtn.addEventListener('click', () => {
+      if (overleafSnip && overleafForm) {
+        overleafSnip.value = display.textContent;
+        overleafForm.submit();
+      }
+    });
+  }
+
+  initLatexExport();
 });

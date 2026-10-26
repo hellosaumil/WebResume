@@ -48,6 +48,7 @@ I hope this saves time for people who are looking for a simple, local, and easy-
 
   <img src="docs/assets/Feature_Highlight-Dark_Mode-Demo.png" alt="Dark Mode" width="400">
 - **Dynamic Content Loading** — Resume data from easy-to-edit Markdown files  <!-- ![](docs/assets/feature-dynamic.png) -->
+- **Dynamic LaTeX & PDF Export** — Instant 1-page classic LaTeX (Jake's Resume / Computer Modern) generation directly from markdown with one-click Overleaf launch and native `pdfTeX` compilation
 - **Live Edit Mode** — All content editable in-browser  <!-- ![](docs/assets/feature-edit.png) -->
 - **Section Reordering** — Drag & drop section titles  <!-- ![](docs/assets/feature-reorder.png) -->
 - **Page Preview** — US Letter page constraints & guides  <!-- ![](docs/assets/feature-pagepreview.png) -->
@@ -58,7 +59,8 @@ I hope this saves time for people who are looking for a simple, local, and easy-
 ## 🚀 Quick Start
 
 ```bash
-npx serve .          # start local server → open http://127.0.0.1:3000
+npx serve .                         # start local server → open http://127.0.0.1:3000
+python3 scripts/generate_latex.py   # generate dynamic LaTeX & 1-page PDF
 ```
 
 Edit any `.md` file in `data/`, refresh to see changes. See [Data Format](docs/data-format.md) for schemas.
@@ -67,10 +69,12 @@ Edit any `.md` file in `data/`, refresh to see changes. See [Data Format](docs/d
 
 ```
 WebResume/
-├── index.html              # Main HTML structure
+├── index.html              # Main HTML structure with LaTeX export modal
 ├── styles.css              # Styling with dark mode support
-├── script.js               # Dynamic loading & interactive features
+├── script.js               # Dynamic loading, interactive features & TeX generator
 ├── DESIGN_SYSTEM.md        # Typography & spacing style guide
+├── scripts/
+│   └── generate_latex.py   # Dynamic LaTeX & 1-page PDF generator (Jake's Resume template)
 ├── data/                   # Resume content in Markdown
 │   ├── header.md
 │   ├── summary.md

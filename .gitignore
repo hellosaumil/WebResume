@@ -3,5 +3,7 @@
 .claude
 .idea
 .venv/
+__pycache__/
+*.pyc
 test/exports/
 test/out/
