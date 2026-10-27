@@ -82,6 +82,7 @@ class TestLatexGenerator(unittest.TestCase):
             "## Senior Engineer\n"
             "### [Company](http://co.com) — City, ST\n"
             "#### 2021 - Present\n"
+            "**Core Platform**\n"
             "- Did amazing things\n"
         )
         entries = parse_experience(raw)
@@ -90,6 +91,10 @@ class TestLatexGenerator(unittest.TestCase):
         self.assertEqual(entries[0]["date"], "2021 - Present")
         self.assertEqual(entries[0]["companies"], ["[Company](http://co.com) — City, ST"])
         self.assertEqual(entries[0]["content"], ["Did amazing things"])
+        self.assertEqual(entries[0]["items"], [
+            {"type": "subheading", "text": "**Core Platform**"},
+            {"type": "bullet", "text": "Did amazing things"},
+        ])
 
     def test_parse_projects(self):
         raw = (
@@ -109,7 +114,7 @@ class TestLatexGenerator(unittest.TestCase):
         self.assertIn("SAUMIL SHAH", tex)
         self.assertIn("Qualcomm", tex)
         self.assertIn("San Diego State University", tex)
-        self.assertIn("JobPostHighlightsExtension", tex)
+        self.assertIn("Satellite Terrain Classification", tex)
         self.assertIn(r"\definecolor{accentcolor}{HTML}{0066CC}", tex)
         self.assertIn(r"\end{document}", tex)
 

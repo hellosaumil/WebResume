@@ -6,7 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Saumil Shah - Senior Infrastructure Software Engineer Resume">
   <title>Saumil Shah - Resume</title>
-  <link rel="stylesheet" href="styles.css?v=12">
+  <script>
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem('resume-settings'));
+        var isDark = s && typeof s.darkMode === 'boolean' ? s.darkMode : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css?v=19">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -15,6 +26,11 @@
 </head>
 
 <body>
+  <script>
+    if (document.documentElement.classList.contains('dark-mode')) {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
   <div class="controls no-print">
     <div class="controls-buttons">
       <button id="themeToggle" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
@@ -60,10 +76,6 @@
           <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             vector-effect="non-scaling-stroke"></line>
         </svg>
-      </button>
-
-      <button id="latexExportBtn" class="latex-btn" title="Dynamic LaTeX & PDF Export">
-        <span class="latex-icon-text">TeX</span>
       </button>
     </div>
 
@@ -165,48 +177,7 @@
     </div>
   </div>
 
-  <!-- Dynamic LaTeX Export Modal -->
-  <div id="latexModal" class="latex-modal-backdrop" style="display: none;">
-    <div class="latex-modal">
-      <div class="latex-modal-header">
-        <div class="latex-modal-title">
-          <span class="latex-title-tex">T<span class="sub">E</span>X</span> Dynamic LaTeX Resume
-          <span class="latex-badge-live">Live from .md</span>
-        </div>
-        <button id="closeLatexModal" class="latex-close-btn" title="Close">&times;</button>
-      </div>
-
-      <div class="latex-modal-toolbar">
-        <div class="latex-meta-info">
-          <span>Classic LaTeX (Computer Modern) &middot; 1-Page ATS Ready</span>
-        </div>
-        <div class="latex-actions">
-          <button id="copyLatexBtn" class="latex-action-btn" title="Copy LaTeX code to clipboard">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            <span>Copy</span>
-          </button>
-          <button id="downloadLatexBtn" class="latex-action-btn" title="Download resume.tex">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span>Download .tex</span>
-          </button>
-          <button id="openOverleafBtn" class="latex-action-btn latex-overleaf-btn" title="Open and compile directly in Overleaf">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
-            <span>Open in Overleaf</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="latex-code-container">
-        <pre><code id="latexCodeDisplay"></code></pre>
-      </div>
-    </div>
-  </div>
-
-  <form id="overleafForm" action="https://www.overleaf.com/docs" method="POST" target="_blank" style="display:none;">
-    <input type="hidden" name="snip" id="overleafSnipInput" value="">
-  </form>
-
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=19"></script>
 </body>
 
 </html>

@@ -98,8 +98,8 @@ def md_to_latex(text: str, underline_links: bool = True) -> str:
     # 7. Convert math symbols and restore tokens
     text = text.replace("→", r"$\to$").replace("·", r"$\cdot$")
 
-    for i, tok in enumerate(tokens):
-        text = text.replace(f"@@TOK{i}@@", tok)
+    for i in reversed(range(len(tokens))):
+        text = text.replace(f"@@TOK{i}@@", tokens[i])
 
     return text
 
@@ -143,7 +143,7 @@ def parse_experience(content: str) -> list:
     raw_sections = content.split("---")
     for sec in raw_sections:
         lines = sec.strip().splitlines()
-        entry = {"companies": [], "content": []}
+        entry = {"companies": [], "content": [], "items": []}
         for line in lines:
             t = line.strip()
             if t.startswith("## "):
@@ -157,9 +157,18 @@ def parse_experience(content: str) -> list:
             elif t.startswith("#### "):
                 entry["date"] = t[5:].strip()
             elif t.startswith("##### "):
-                entry["tech"] = t[6:].strip().strip("*")
+                val = t[6:].strip()
+                if val.startswith("*") and val.endswith("*"):
+                    entry["tech"] = val.strip("*")
+                else:
+                    entry["items"].append({"type": "subheading", "text": val})
             elif t.startswith("- "):
                 entry["content"].append(t[2:].strip())
+                entry["items"].append({"type": "bullet", "text": t[2:].strip()})
+            elif t.startswith("###### "):
+                entry["items"].append({"type": "subheading", "text": t[7:].strip()})
+            elif t.startswith("**") and (t.endswith("**") or t.endswith("**:")):
+                entry["items"].append({"type": "subheading", "text": t})
 
         if entry.get("title"):
             entries.append(entry)
@@ -308,6 +317,10 @@ def generate_latex(
         r"topsep=1pt, itemsep=-0.8pt, parsep=0pt, partopsep=0pt]}"
     )
     lines.append(r"\newcommand{\resumeItemListEnd}{\end{itemize}}")
+    lines.append(
+        r"\newcommand{\resumeSubheadingTitle}[1]{"
+        r"\vspace{2pt}\par\noindent\fontsize{8.5pt}{9.4pt}\selectfont{#1}\vspace{1pt}}"
+    )
     lines.append(r"")
     lines.append(r"\begin{document}")
     lines.append(r"")
@@ -386,12 +399,29 @@ def generate_latex(
                 lines.append(
                     rf"  \vspace{{-5pt}}\par\noindent\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{\textit{{{md_to_latex(exp['thesis'])}}}}}\vspace{{-1.5pt}}"
                 )
-            if exp.get("tech") or exp.get("content"):
+            in_list = False
+            if exp.get("tech"):
                 lines.append(r"  \resumeItemListStart")
-                if exp.get("tech"):
-                    lines.append(rf"    \resumeItem{{\textit{{{md_to_latex(exp['tech'])}}}}}")
-                for bullet in exp.get("content", []):
-                    lines.append(rf"    \resumeItem{{{md_to_latex(bullet)}}}")
+                lines.append(rf"    \resumeItem{{\textit{{{md_to_latex(exp['tech'])}}}}}")
+                in_list = True
+
+            items = exp.get("items", [])
+            if not items and exp.get("content"):
+                items = [{"type": "bullet", "text": b} for b in exp.get("content", [])]
+
+            for item in items:
+                if item["type"] == "subheading":
+                    if in_list:
+                        lines.append(r"  \resumeItemListEnd")
+                        in_list = False
+                    lines.append(rf"  \resumeSubheadingTitle{{{md_to_latex(item['text'])}}}")
+                elif item["type"] == "bullet":
+                    if not in_list:
+                        lines.append(r"  \resumeItemListStart")
+                        in_list = True
+                    lines.append(rf"    \resumeItem{{{md_to_latex(item['text'])}}}")
+
+            if in_list:
                 lines.append(r"  \resumeItemListEnd")
         lines.append(r"\resumeSubHeadingListEnd")
         lines.append(r"")

@@ -23,6 +23,7 @@ One or two sentence professional summary paragraph.
 ### [Company Name](https://example.com) — Location
 #### Date Range
 ##### *Tech Stack: Python, JavaScript, AWS*
+##### Subsection Title (or **Subsection Title**)
 - Bullet point with `code formatting`
 - Another bullet with **bold text**
 
