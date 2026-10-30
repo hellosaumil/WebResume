@@ -364,7 +364,9 @@ def generate_latex(
         lines.append(r"\section{Technical Skills}")
         lines.append(r"\resumeSubHeadingListStart")
         for s_line in skills_lines:
-            lines.append(rf"  \item\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{{md_to_latex(s_line)}}}")
+            parts = re.split(r"\s+(?:[-—–]|--|---)\s+(?=\*\*[^*]+?:\*\*)", s_line)
+            skill_tex = r"\quad ".join(md_to_latex(p) for p in parts)
+            lines.append(rf"  \item\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{{skill_tex}}}")
         lines.append(r"\resumeSubHeadingListEnd")
         lines.append(r"")
 
@@ -379,8 +381,8 @@ def generate_latex(
             company_raw = " --- ".join(exp.get("companies", []))
 
             # Split company and location
-            if " — " in company_raw:
-                parts = company_raw.split(" — ", 1)
+            if " — " in company_raw or " - " in company_raw:
+                parts = re.split(r" [—-] ", company_raw, maxsplit=1)
                 co_tex = md_to_latex(parts[0].strip(), underline_links=False)
                 loc_tex = md_to_latex(parts[1].strip(), underline_links=False)
             elif "---" in company_raw:
@@ -396,8 +398,10 @@ def generate_latex(
                 rf"{{{title_tex}}}{{{date_tex}}}"
             )
             if exp.get("thesis"):
+                thesis_tex = md_to_latex(exp["thesis"])
                 lines.append(
-                    rf"  \vspace{{-5pt}}\par\noindent\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{\textit{{{md_to_latex(exp['thesis'])}}}}}\vspace{{-1.5pt}}"
+                    rf"  \vspace{{-5pt}}\par\noindent\fontsize{{8.5pt}}{{9.4pt}}\selectfont"
+                    rf"{{\textit{{{thesis_tex}}}}}\vspace{{-1.5pt}}"
                 )
             in_list = False
             if exp.get("tech"):

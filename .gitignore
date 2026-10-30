@@ -7,3 +7,4 @@ __pycache__/
 *.pyc
 test/exports/
 test/out/
+*_raw

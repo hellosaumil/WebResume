@@ -20,7 +20,7 @@ One or two sentence professional summary paragraph.
 ## Experience & Projects (`experience.md`, `projects.md`)
 ```markdown
 ## Job Title
-### [Company Name](https://example.com) — Location
+### [Company Name](https://example.com) - Location
 #### Date Range
 ##### *Tech Stack: Python, JavaScript, AWS*
 ##### Subsection Title (or **Subsection Title**)
@@ -46,11 +46,11 @@ Degree: Bachelor of Technology...
 ## Skills (`skills.md`)
 ```markdown
 - **Programming:** Python, JavaScript, TypeScript
-- **Tools & Frameworks:** React, Node.js, Docker
+- **Data:** PyTorch, Pandas, PostgreSQL - **ML:** TensorFlow, LangGraph, ChromaDB
 ```
 
 ## Lists (`publications.md`, `leadership.md`, `certificates.md`)
 ```markdown
-- `[Publication Title](https://doi.org/example)` — Conference Name
-- **Role** — Organization/Event Details
+- `[Publication Title](https://doi.org/example)` - Conference Name
+- **Role** - Organization/Event Details
 ```

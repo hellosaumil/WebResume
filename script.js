@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
           <div class="edu-right" style="text-align: right;">
             <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
-            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> — ${edu.gpa}</span>` : ''}
+            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> - ${edu.gpa}</span>` : ''}
             ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 8px;">${edu.date}</span>` : ''}
           </div>
         </div>
@@ -194,6 +194,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     items.forEach(item => {
+      // Check if line contains multiple skills (e.g. "**Data:** ... - **ML:** ...")
+      const parts = item.split(/\s+(?:[-—–]|--|---)\s+(?=\*\*[^*]+?:\*\*)/);
+      if (parts.length > 1) {
+        const subItems = parts.map(p => {
+          const m = p.match(/^\*\*(.*?):\*\*\s*(.*)$/);
+          return m ? { label: m[1], val: m[2] } : null;
+        }).filter(Boolean);
+
+        if (subItems.length > 1) {
+          const div = document.createElement('div');
+          div.className = 'skills-item';
+          div.innerHTML = subItems.map((sub, idx) =>
+            `<span class="skill-label title-1">${idx > 0 ? '&nbsp; ' : ''}${sub.label}: </span><span class="skill-value" contenteditable="true">${parseMarkdownLinks(sub.val)}</span>`
+          ).join('');
+          container.appendChild(div);
+          return;
+        }
+      }
+
       // Expecting format "**Label:** Value"
       const match = item.match(/^\*\*(.*?):\*\*\s*(.*)$/);
       if (match) {

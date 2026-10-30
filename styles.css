@@ -598,6 +598,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
   margin-bottom: 0;
 }
 
+
 .skill-label {
   color: var(--primary-color);
   font-weight: 500;
@@ -1172,7 +1173,7 @@ body.dark-mode .attribution code {
     display: none !important;
   }
 
-  /* Fix thin font rendering in PDF export —
+  /* Fix thin font rendering in PDF export -
      print/PDF engines lack sub-pixel antialiasing,
      causing light weights (100–300) to appear thinner than on screen.
      Use darker ink tokens and stepped-up print weights instead of
@@ -1561,6 +1562,7 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     grid-template-columns: 1fr;
     gap: 4px;
   }
+
 
   /* Experience and Projects */
   .experience-item,
