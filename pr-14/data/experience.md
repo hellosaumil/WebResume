@@ -19,8 +19,8 @@
 
 ##### Agentic Developer Infrastructure
 
-- `Shipped` `MCP` servers over live infra APIs plus a `LangGraph`/`ChromaDB` RAG over internal docs, making operational data LLM-queryable.
-- Drove org-wide adoption of agentic coding with `Cline`, delivering talks on MCP-based developer workflows.
+- `Shipped` `MCP` server with `OAuth2` over live infra APIs plus a `LangGraph`/`ChromaDB` RAG over internal docs, making operational data LLM-queryable.
+- Drove org-wide adoption of agentic coding with `Cline`, `Codex CLI`, delivering talks on MCP-based developer workflows and writing custom Skills.
 
 ---
 
