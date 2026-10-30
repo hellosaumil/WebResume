@@ -1,0 +1,26 @@
+[project]
+name = "webresume"
+version = "0.1.0"
+description = "ATS-friendly web resume and PDF verification tooling"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flake8>=7.4.1",
+    "pypdf>=6.21.1",
+]
+
+[dependency-groups]
+dev = [
+    "flake8-pyproject>=1.2.4",
+]
+
+[tool.flake8]
+max-line-length = 120
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    ".agents",
+    ".claude",
+    ".idea",
+]
