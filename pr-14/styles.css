@@ -598,20 +598,6 @@ body.dark-mode.show-page-preview .resume-page:hover {
   margin-bottom: 0;
 }
 
-.skills-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 100%;
-}
-
-.skills-left {
-  text-align: left;
-}
-
-.skills-right {
-  text-align: right;
-}
 
 .skill-label {
   color: var(--primary-color);
@@ -1577,15 +1563,6 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     gap: 4px;
   }
 
-  .skills-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .skills-right {
-    text-align: left;
-  }
 
   /* Experience and Projects */
   .experience-item,

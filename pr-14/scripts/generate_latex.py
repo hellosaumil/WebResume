@@ -365,17 +365,8 @@ def generate_latex(
         lines.append(r"\resumeSubHeadingListStart")
         for s_line in skills_lines:
             parts = re.split(r"\s+(?:[-—–]|--|---)\s+(?=\*\*[^*]+?:\*\*)", s_line)
-            if len(parts) == 2:
-                left_tex = md_to_latex(parts[0])
-                right_tex = md_to_latex(parts[1])
-                lines.append(
-                    rf"  \item\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{"
-                    rf"\begin{{tabular*}}{{\linewidth}}{{@{{\extracolsep{{\fill}}}}lr}}"
-                    rf"{left_tex} & {right_tex} \\"
-                    rf"\end{{tabular*}}\vspace{{-1.5pt}}}}"
-                )
-            else:
-                lines.append(rf"  \item\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{{md_to_latex(s_line)}}}")
+            skill_tex = r"\quad ".join(md_to_latex(p) for p in parts)
+            lines.append(rf"  \item\fontsize{{8.5pt}}{{9.4pt}}\selectfont{{{skill_tex}}}")
         lines.append(r"\resumeSubHeadingListEnd")
         lines.append(r"")
 

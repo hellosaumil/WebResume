@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     items.forEach(item => {
-      // Check if line contains multiple skills side-by-side (e.g. "**Data:** ... - **ML:** ...")
+      // Check if line contains multiple skills (e.g. "**Data:** ... - **ML:** ...")
       const parts = item.split(/\s+(?:[-—–]|--|---)\s+(?=\*\*[^*]+?:\*\*)/);
       if (parts.length > 1) {
         const subItems = parts.map(p => {
@@ -202,19 +202,12 @@ document.addEventListener('DOMContentLoaded', function () {
           return m ? { label: m[1], val: m[2] } : null;
         }).filter(Boolean);
 
-        if (subItems.length === 2) {
+        if (subItems.length > 1) {
           const div = document.createElement('div');
-          div.className = 'skills-item skills-row';
-          div.innerHTML = `
-            <div class="skills-col skills-left">
-              <span class="skill-label title-1">${subItems[0].label}: </span>
-              <span class="skill-value" contenteditable="true">${parseMarkdownLinks(subItems[0].val)}</span>
-            </div>
-            <div class="skills-col skills-right">
-              <span class="skill-label title-1">${subItems[1].label}: </span>
-              <span class="skill-value" contenteditable="true">${parseMarkdownLinks(subItems[1].val)}</span>
-            </div>
-          `;
+          div.className = 'skills-item';
+          div.innerHTML = subItems.map((sub, idx) =>
+            `<span class="skill-label title-1">${idx > 0 ? '&nbsp; ' : ''}${sub.label}: </span><span class="skill-value" contenteditable="true">${parseMarkdownLinks(sub.val)}</span>`
+          ).join('');
           container.appendChild(div);
           return;
         }
