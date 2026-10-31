@@ -5,7 +5,7 @@
 ##### Distributed Pre-Silicon GPU Driver Validation Platform
 
 - `Designed and led` end-to-end `pre-silicon` GPU validation platform from concept to production, catching regressions and protecting pass rates on proprietary GPU driver code across `5 generations` up to `Snapdragon 8 Elite Extreme` (mobile) and `X Elite Extreme` (PC) series chipsets.
-- Scaled validation to `900K+ containers/week` on Windows/Linux across an on-prem `HPC` farm through a fault-tolerant runner harness, covering `Vulkan`/`OpenCL`/`OpenGLES` - `CTS`, `VKPerf`, `GFXReconstruct`, and device-capture replay with `billions of tests` in sandboxed, reproducible runtimes.
+- Scaled validation to `900K+ containers/month` on Windows/Linux across an on-prem `HPC` farm through a fault-tolerant runner harness, covering `Vulkan`/`OpenCL`/`OpenGLES` - `CTS`, `VKPerf`, `GFXReconstruct`, and device-capture replay with `billions of tests` in sandboxed, reproducible runtimes.
 - Parallelized `1100+ days` of serial `CPU-based Adreno emulation` into a `24-hour` nightly cycle (`1100x`) with `Docker`/`Singularity` on `IBM Spectrum LSF`.
 - Built `FastAPI observability backend API` on `RedisJSON`/`RediSearch`, serving live job health and test metrics at `sub-second` latency over `5M+` records.
 - Architected async `RabbitMQ` pipelines into `Postgres` and a `DuckDB` data lake, offloading raw driver logs to `Artifactory` to keep databases lean.
