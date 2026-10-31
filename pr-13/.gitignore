@@ -1,7 +1,0 @@
-.DS_Store
-.agents
-.claude
-.idea
-.venv/
-test/exports/
-test/out/
