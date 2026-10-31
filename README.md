@@ -1,6 +1,6 @@
 # WebResume 🌐 💻 📄
 
-A modern, interactive web-based resume — dynamic content loading, dark mode, live editing, and print-ready layout.
+A modern, interactive web-based resume - dynamic content loading, dark mode, live editing, and print-ready layout.
 
 [![Live Site](https://img.shields.io/badge/🔗_Live_Site-hellosaumil.github.io/WebResume-blue)](https://hellosaumil.github.io/WebResume)
 [![Latest Version](https://img.shields.io/badge/📌_Latest-/v4-purple)](https://hellosaumil.github.io/WebResume/v4/)
@@ -17,48 +17,50 @@ A modern, interactive web-based resume — dynamic content loading, dark mode, l
 
 ### The Why?
 On the onset of 2026, I wanted to revamp my resume since I last updated it in 2020 after my post-graduation.
-My resume lived in an `Apple Pages` template I hand-crafted in 2017 — custom fonts, pixel-perfect spacing, the best I could do at the time. Five years of "just one more tweak" later, spending 20 mins fixing a single bullet point or adding a new project URL was taking more time than it should.
+My resume lived in an `Apple Pages` template I hand-crafted in 2017 - custom fonts, pixel-perfect spacing, the best I could do at the time. Five years of "just one more tweak" later, spending 20 mins fixing a single bullet point or adding a new project URL was taking more time than it should.
 **I wanted something local, easy to edit, maintain, and version control. 💭**
 `Google Docs`? Been there, done that, moving text-boxes is not fun. `LaTeX`? Great until you want `_italic-bold-link_` on the same line without selling your soul. `MS Word`? ...let's not.
 
 ### The When?
-Over the holidays of Christmas 2025, I got my hands on Google's Project Antigravity and vibe-coded a Solar System Android XR app from scratch for my all-new Galaxy XR headset — in a weekend.
+Over the holidays of Christmas 2025, I got my hands on Google's Project Antigravity and vibe-coded a Solar System Android XR app from scratch for my all-new Galaxy XR headset - in a weekend.
 As a backend engineer, I've been using AI pair-programming at work to build delightful websites. I thought: why can't I just make a `WebResume` to complement my limited front-end skills?
 
 ### The How?
-A resume I actually *enjoy* updating — write content in `Markdown`, watch it `render live`, toggle `dark mode` for ✨vibes✨, and hit `Ctrl+P` when a recruiter inevitably asks for a `PDF`.
+A resume I actually *enjoy* updating - write content in `Markdown`, watch it `render live`, toggle `dark mode` for ✨vibes✨, and hit `Ctrl+P` when a recruiter inevitably asks for a `PDF`.
 **No frameworks, no build step, just `HTML + CSS + JS` and a little bit of audacity.**
 
 ### Some Design Choices
-- **Markdown-first content** — I've been living in `.md` files thanks to LLMs; it's the easiest way to add highlights, links, and formatting without drowning in HTML tags. So I made it the data layer.
-- **Versioned deployments** — Because past-me and future-me deserve their own URLs. GitHub Pages + Actions auto-deploy `main`, `demo`, `PR previews`, and `tagged version snapshots` — so every iteration is a living, linkable artifact.
+- **Markdown-first content** - I've been living in `.md` files thanks to LLMs; it's the easiest way to add highlights, links, and formatting without drowning in HTML tags. So I made it the data layer.
+- **Versioned deployments** - Because past-me and future-me deserve their own URLs. GitHub Pages + Actions auto-deploy `main`, `demo`, `PR previews`, and `tagged version snapshots` - so every iteration is a living, linkable artifact.
 
 ### Closing Notes
 I hope this saves time for people who are looking for a simple, local, and easy-to-edit resume template. I hope you enjoy using this resume template as much as I enjoyed building it!
 
 ## ✨ Features
 
-- **CSS Inspector** — Hover to inspect font properties
+- **CSS Inspector** - Hover to inspect font properties
 
   <p>
     <img src="docs/assets/Feature_Highlight-CSS_Inspector1-Light_Mode-Demo.png" alt="CSS Inspector 1" width="400">
     <img src="docs/assets/Feature_Highlight-CSS_Inspector2-Light_Mode-Demo.png" alt="CSS Inspector 2" width="400">
   </p>
-- **Dark Mode** — Auto-detects device theme with manual toggle
+- **Dark Mode** - Auto-detects device theme with manual toggle
 
   <img src="docs/assets/Feature_Highlight-Dark_Mode-Demo.png" alt="Dark Mode" width="400">
-- **Dynamic Content Loading** — Resume data from easy-to-edit Markdown files  <!-- ![](docs/assets/feature-dynamic.png) -->
-- **Live Edit Mode** — All content editable in-browser  <!-- ![](docs/assets/feature-edit.png) -->
-- **Section Reordering** — Drag & drop section titles  <!-- ![](docs/assets/feature-reorder.png) -->
-- **Page Preview** — US Letter page constraints & guides  <!-- ![](docs/assets/feature-pagepreview.png) -->
-- **Print Ready** — Optimized for PDF export  <!-- ![](docs/assets/feature-print.png) -->
+- **Dynamic Content Loading** - Resume data from easy-to-edit Markdown files  <!-- ![](docs/assets/feature-dynamic.png) -->
+- **Dynamic LaTeX & PDF Export** - Instant 1-page classic LaTeX (Jake's Resume / Computer Modern) generation directly from markdown with one-click Overleaf launch and native `pdfTeX` compilation
+- **Live Edit Mode** - All content editable in-browser  <!-- ![](docs/assets/feature-edit.png) -->
+- **Section Reordering** - Drag & drop section titles  <!-- ![](docs/assets/feature-reorder.png) -->
+- **Page Preview** - US Letter page constraints & guides  <!-- ![](docs/assets/feature-pagepreview.png) -->
+- **Print Ready** - Optimized for PDF export  <!-- ![](docs/assets/feature-print.png) -->
 
 > See [Controls & Features](docs/controls.md) for detailed usage.
 
 ## 🚀 Quick Start
 
 ```bash
-npx serve .          # start local server → open http://127.0.0.1:3000
+npx serve .                         # start local server → open http://127.0.0.1:3000
+python3 scripts/generate_latex.py   # generate dynamic LaTeX & 1-page PDF
 ```
 
 Edit any `.md` file in `data/`, refresh to see changes. See [Data Format](docs/data-format.md) for schemas.
@@ -67,10 +69,12 @@ Edit any `.md` file in `data/`, refresh to see changes. See [Data Format](docs/d
 
 ```
 WebResume/
-├── index.html              # Main HTML structure
+├── index.html              # Main HTML structure with LaTeX export modal
 ├── styles.css              # Styling with dark mode support
-├── script.js               # Dynamic loading & interactive features
+├── script.js               # Dynamic loading, interactive features & TeX generator
 ├── DESIGN_SYSTEM.md        # Typography & spacing style guide
+├── scripts/
+│   └── generate_latex.py   # Dynamic LaTeX & 1-page PDF generator (Jake's Resume template)
 ├── data/                   # Resume content in Markdown
 │   ├── header.md
 │   ├── summary.md
@@ -152,4 +156,4 @@ Thanks to [![Google Antigravity](https://img.shields.io/badge/Google_Antigravity
 
 ## 📄 License
 
-MIT License — feel free to use this template for your own resume!
+MIT License - feel free to use this template for your own resume!

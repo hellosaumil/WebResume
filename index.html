@@ -6,7 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Saumil Shah - Senior Infrastructure Software Engineer Resume">
   <title>Saumil Shah - Resume</title>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <script>
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem('resume-settings'));
+        var isDark = s && typeof s.darkMode === 'boolean' ? s.darkMode : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css?v=23">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -15,6 +26,11 @@
 </head>
 
 <body>
+  <script>
+    if (document.documentElement.classList.contains('dark-mode')) {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
   <div class="controls no-print">
     <div class="controls-buttons">
       <button id="themeToggle" class="theme-toggle-btn" title="Toggle Light/Dark Mode">
@@ -161,8 +177,7 @@
     </div>
   </div>
 
-
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=23"></script>
 </body>
 
 </html>
