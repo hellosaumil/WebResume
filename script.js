@@ -31,10 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Helper to fetch markdown
+  const rawMarkdownCache = {};
+
   async function fetchMarkdown(filename) {
     const response = await fetch(`data/${filename}?cache=${new Date().getTime()}`);
     if (!response.ok) throw new Error(`Failed to load ${filename}`);
-    return await response.text();
+    const text = await response.text();
+    rawMarkdownCache[filename] = text;
+    return text;
   }
 
   // Helper: Parse Key-Value pairs (e.g., "Name: John")
@@ -165,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
           <div class="edu-right" style="text-align: right;">
             <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
-            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> — ${edu.gpa}</span>` : ''}
+            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> - ${edu.gpa}</span>` : ''}
             ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 8px;">${edu.date}</span>` : ''}
           </div>
         </div>
@@ -190,6 +194,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     items.forEach(item => {
+      // Check if line contains multiple skills (e.g. "**Data:** ... - **ML:** ...")
+      const parts = item.split(/\s+(?:[-—–]|--|---)\s+(?=\*\*[^*]+?:\*\*)/);
+      if (parts.length > 1) {
+        const subItems = parts.map(p => {
+          const m = p.match(/^\*\*(.*?):\*\*\s*(.*)$/);
+          return m ? { label: m[1], val: m[2] } : null;
+        }).filter(Boolean);
+
+        if (subItems.length > 1) {
+          const div = document.createElement('div');
+          div.className = 'skills-item';
+          div.innerHTML = subItems.map((sub, idx) =>
+            `<span class="skill-label title-1">${idx > 0 ? '&nbsp; ' : ''}${sub.label}: </span><span class="skill-value" contenteditable="true">${parseMarkdownLinks(sub.val)}</span>`
+          ).join('');
+          container.appendChild(div);
+          return;
+        }
+      }
+
       // Expecting format "**Label:** Value"
       const match = item.match(/^\*\*(.*?):\*\*\s*(.*)$/);
       if (match) {
@@ -229,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = await fetchMarkdown('experience.md');
     const sections = text.split('---').map(section => {
       const lines = section.trim().split('\n');
-      const data = { content: [], companies: [] };
+      const data = { content: [], items: [], companies: [] };
 
       lines.forEach(line => {
         const trimmed = line.trim();
@@ -240,8 +263,25 @@ document.addEventListener('DOMContentLoaded', function () {
           else data.companies.push(val);
         }
         else if (trimmed.startsWith('#### ')) data.date = trimmed.replace('#### ', '').trim();
-        else if (trimmed.startsWith('##### ')) data.tech = trimmed.replace('##### ', '').replace(/^\*(.*)\*$/, '$1').trim(); // Strip outer italics if present
-        else if (trimmed.startsWith('- ')) data.content.push(trimmed);
+        else if (trimmed.startsWith('##### ')) {
+          const val = trimmed.replace('##### ', '').trim();
+          if (val.startsWith('*') && val.endsWith('*')) {
+            data.tech = val.replace(/^\*(.*)\*$/, '$1').trim();
+          } else {
+            data.items.push({ type: 'subheading', text: val });
+          }
+        }
+        else if (trimmed.startsWith('- ')) {
+          data.content.push(trimmed);
+          data.items.push({ type: 'bullet', text: trimmed.replace(/^-\s*/, '') });
+        }
+        else if (trimmed.startsWith('###### ')) {
+          const subText = trimmed.replace(/^######\s*/, '').trim();
+          data.items.push({ type: 'subheading', text: subText });
+        }
+        else if (trimmed.startsWith('**') && (trimmed.endsWith('**') || trimmed.endsWith('**:'))) {
+          data.items.push({ type: 'subheading', text: trimmed });
+        }
       });
       return data;
     });
@@ -258,15 +298,42 @@ document.addEventListener('DOMContentLoaded', function () {
       const div = document.createElement('div');
       div.className = 'experience-item';
 
-      // Generate bullets with link parsing
-      const bullets = exp.content
-        .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
-        .join('');
-
       // Generate company rows
       const companyRows = exp.companies
         .map(co => `<div class="company title-2-accent" contenteditable="true">${parseMarkdownLinks(co)}</div>`)
         .join('');
+
+      // Generate items (subheadings and bullet lists)
+      let itemsHtml = '';
+      let inList = false;
+
+      exp.items.forEach(item => {
+        if (item.type === 'subheading') {
+          if (inList) {
+            itemsHtml += '</ul>';
+            inList = false;
+          }
+          itemsHtml += `<div class="exp-subheading title-2" contenteditable="true">${parseMarkdownLinks(item.text)}</div>`;
+        } else if (item.type === 'bullet') {
+          if (!inList) {
+            itemsHtml += '<ul class="bullet-list">';
+            inList = true;
+          }
+          itemsHtml += `<li contenteditable="true">${parseMarkdownLinks(item.text)}</li>`;
+        }
+      });
+
+      if (inList) {
+        itemsHtml += '</ul>';
+      }
+
+      // Fallback if only content was populated without items
+      if (!itemsHtml && exp.content.length > 0) {
+        const bullets = exp.content
+          .map(line => `<li contenteditable="true">${parseMarkdownLinks(line.replace(/^-\s*/, ''))}</li>`)
+          .join('');
+        itemsHtml = `<ul class="bullet-list">${bullets}</ul>`;
+      }
 
       div.innerHTML = `
         <div class="exp-header">
@@ -276,9 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ${companyRows}
         ${exp.thesis ? `<div class="thesis title-2" contenteditable="true">${parseMarkdownLinks(exp.thesis)}</div>` : ''}
         <div class="tech-stack title-3-italic" contenteditable="true">${exp.tech || ''}</div>
-        <ul class="bullet-list">
-          ${bullets}
-        </ul>
+        ${itemsHtml}
       `;
       container.appendChild(div);
     });
@@ -385,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const themeToggleBtn = document.getElementById('themeToggle');
 
   function updateThemeUI(isDark) {
+    document.documentElement.classList.toggle('dark-mode', isDark);
     document.body.classList.toggle('dark-mode', isDark);
     if (themeToggleBtn) {
       themeToggleBtn.classList.toggle('active', isDark);

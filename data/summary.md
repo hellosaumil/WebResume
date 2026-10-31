@@ -1,1 +1,3 @@
-Senior Software Engineer specializing in `distributed infrastructure` and `applied ML systems`, with `5+ years` building test `automation frameworks`, high-performance backends, and developer tooling. At Qualcomm, `architect and own` an end-to-end GPU validation platform orchestrating containerized execution of `500K+ jobs/week` across HPC clusters with real-time reporting handling `~2M rows/month`. Background in `ML research` (GANs, anomaly detection) and `agentic infrastructure` (`MCP servers`, `LLM`-queryable APIs).
+Built the large-scale infrastructure that validates Snapdragon Adreno GPU drivers before the silicon exists, cutting nightly cycles `1100x`.
+Previously, deep learning research in computer vision and speech processing.
+Interested in building tools for the next frontier of compute and agentic infrastructure.

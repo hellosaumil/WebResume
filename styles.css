@@ -4,6 +4,7 @@
    ======================================== */
 
 :root {
+  color-scheme: light;
   --primary-color: #1a1a1a;
   --accent-color: #0066cc;
   --text-color: #333333;
@@ -31,7 +32,9 @@
   --tooltip-text: #ffffff;
 }
 
+html.dark-mode,
 body.dark-mode {
+  color-scheme: dark;
   --primary-color: #ffffff;
   /* Pure white for headers in dark mode */
   --accent-color: #60a5fa;
@@ -66,6 +69,7 @@ body.dark-mode {
 }
 
 body {
+  font-optical-sizing: none;
   font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 8pt;
   font-weight: 300;
@@ -594,6 +598,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
   margin-bottom: 0;
 }
 
+
 .skill-label {
   color: var(--primary-color);
   font-weight: 500;
@@ -705,6 +710,23 @@ code {
 .tech-stack {
   color: var(--text-light);
   margin-bottom: 2px;
+}
+
+.exp-subheading {
+  font-weight: 500;
+  margin-top: 4px;
+  margin-bottom: 1px;
+  color: var(--text-color);
+  hyphens: none;
+  word-break: keep-all;
+}
+
+.exp-subheading strong {
+  font-weight: 500;
+}
+
+.exp-subheading:first-of-type {
+  margin-top: 3px;
 }
 
 .tech-stack-row {
@@ -1151,12 +1173,31 @@ body.dark-mode .attribution code {
     display: none !important;
   }
 
-  /* Fix thin font rendering in PDF export —
+  /* Fix thin font rendering in PDF export -
      print/PDF engines lack sub-pixel antialiasing,
-     causing light weights (100–300) to appear thinner than on screen. */
+     causing light weights (100–300) to appear thinner than on screen.
+     Use darker ink tokens and stepped-up print weights instead of
+     -webkit-text-stroke (which emits duplicate PDF text layers). */
+  :root {
+    --text-color: #111111;
+    --text-light: #2b2b2b;
+  }
+
   * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  #field-lastname {
+    font-weight: 200 !important;
+  }
+
+  .contact-link,
+  .contact-link:link,
+  .contact-link:visited,
+  .section-title-link a,
+  #field-website a {
+    font-weight: 400 !important;
   }
 
   /* Consistent margins in print whether preview mode was toggled or not */
@@ -1521,6 +1562,7 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     grid-template-columns: 1fr;
     gap: 4px;
   }
+
 
   /* Experience and Projects */
   .experience-item,
