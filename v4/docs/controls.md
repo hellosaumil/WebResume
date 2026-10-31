@@ -10,7 +10,7 @@ The floating control panel (bottom-right) includes:
 | ✏️ Edit Mode | Toggle in-browser editing of all resume content |
 | 📄 Page Preview | Toggle US Letter page constraints and guides (default: ON) |
 | ✖️ Reset | Reload all content from Markdown files and clear edits |
-| 🧊 CSS Inspector | Toggle CSS property inspection on hover (default: ON) — auto-disables when Edit Mode is active |
+| 🧊 CSS Inspector | Toggle CSS property inspection on hover (default: ON) - auto-disables when Edit Mode is active |
 
 ## CSS Inspector
 

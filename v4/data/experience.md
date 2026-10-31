@@ -1,22 +1,32 @@
 ## Senior Software Engineer, Graphics Software Infrastructure
-
-### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) — San Diego, CA
-
+### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) - San Diego, CA · (prev: Boulder, CO; Toronto, ON)
 #### 2021 - Present
 
-- `Architected and own` an in-house pre-silicon `GPU validation` `end-to-end automation framework` dispatching `500K+ jobs/week` on `LSF` on-prem, catching driver regressions on flagship `Snapdragon Adreno GPUs`.
-- Parallelized `Docker`/`Singularity` containerized workloads, cutting nightly driver validation cycles from `240 days to 1 day` to support higher throughput.
-- Delivered a `FastAPI` + `RedisJSON`/`RediSearch` backend with `TTL`-based expiry, providing `sub-second` access to live test metrics with `2M+ rows/month`.
-- Designed `web dashboards`, on-demand `Excel` reports, and automated regression `email alerts` to `meet each stakeholder group's reporting needs`.
-- Eliminated reporting bottlenecks via async `RabbitMQ` routing to `Postgres` and `Artifactory`, enabling independent scaling of each layer.
-- Standardized `Pydantic` canonical schemas across `10+` Khronos test suites; adopted by the benchmarking team, `saving months of engineering effort`.
-- Introduced `MCP servers` wrapping live `API` backends, making `LLM-queryable operational infra`; drove org-wide adoption of `agentic coding` (`Cline`).
+##### Distributed Pre-Silicon GPU Driver Validation Platform
+
+- `Designed and led` end-to-end `pre-silicon` GPU validation platform from concept to production, catching regressions and protecting pass rates on proprietary GPU driver code across `5 generations` of `Snapdragon 8 Elite Extreme` (mobile) and `X Elite Extreme` (PC) series chipsets.
+- Scaled validation to `300K+ containers/week` on Windows/Linux across an on-prem `HPC` farm through a fault-tolerant runner harness, covering `Vulkan`/`OpenCL`/`OpenGLES` - `CTS`, `VKPerf`, `GFXReconstruct`, and device-capture replay with `billions of tests` in sandboxed, reproducible runtimes.
+- Parallelized `1100+ days` of serial `CPU-based Adreno emulation` into a `24-hour` nightly cycle (`1100x`) with `Docker`/`Singularity` on `IBM Spectrum LSF`.
+- Built `FastAPI` observability backend on `RedisJSON`/`RediSearch`, powering custom `web dashboards` with `sub-second` live queries over `2M+` records.
+- Architected async `RabbitMQ` pipelines into `Postgres` and a `DuckDB` data lake, offloading raw driver logs to `Artifactory` to keep databases lean.
+- Standardized `Pydantic` result schemas across `10+` Khronos suites that the `on-device benchmark` team adopted directly and extended for KPIs.
+
+##### Automated Regression Triage System
+
+- `Engineered` a cron-scheduled `CI/CD` pipeline that diffs non-passing rows across consecutive nightly logs, builds `Gerrit` commit DAGs, and dispatches multi-stage `Jenkins` bisection workflows, eliminating operational toil from nightly builds with overlapping test failures.
+- Implemented stateful `multi-bisection engine` on a crash-recoverable `JSONL` state loop inspired by [`Karpathy's autoresearch`](https://github.com/karpathy/autoresearch), sharing midpoint builds across failing tests and partitioning commit ranges, isolating C culprits in `O(C log N)` runs instead of `O(K log N)`, cutting compute by `80%`.
+- `Left-shifted` driver validation by compressing the failure-to-fix loop, from detection and `root-cause commit` identification to author notification, enabling `rapid fix iteration` and a sustained `99%` pass rate `week over week`.
+
+##### Agentic Developer Infrastructure
+
+- `Shipped` `MCP` server with `OAuth2` over live infra APIs plus a `LangGraph`/`ChromaDB` RAG over internal docs, making operational data LLM-queryable.
+- Drove org-wide adoption of agentic coding with `Cline`, `Codex CLI`, delivering talks on MCP-based developer workflows and writing custom Skills.
 
 ---
 
 ## Data Science Developer, Applied ML
 
-### [KORE Wireless](https://www.korewireless.com/) — Blue Ash, OH
+### [KORE Wireless](https://www.korewireless.com/) - Blue Ash, OH
 
 #### 2020 - 2021
 
@@ -27,7 +37,7 @@
 
 ## Assistant Researcher, Deep Learning
 
-### [Marine Bio-acoustics Research Collaborative (MBARC)](https://acoustics.ucsd.edu), [SDSU](https://roch.sdsu.edu/index.php/research-overview) — San Diego, CA
+### [Marine Bio-acoustics Research Collaborative (MBARC)](https://acoustics.ucsd.edu), [SDSU](https://roch.sdsu.edu/index.php/research-overview) - San Diego, CA
 
 #### 2019 - 2020
 
