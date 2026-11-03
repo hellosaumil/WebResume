@@ -1,26 +1,38 @@
 ## Senior Software Engineer, Graphics Software Infrastructure
-### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) - San Diego, CA · (prev: Boulder, CO; Toronto, ON)
-#### 2021 - Present
 
-##### Distributed Pre-Silicon GPU Driver Validation Platform
+### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) - San Diego, CA
 
-- `Designed and led` end-to-end `pre-silicon` GPU validation platform from concept to production, catching regressions and protecting pass rates on proprietary GPU driver code across `5 generations` of `Snapdragon 8 Elite Extreme` (mobile) and `X Elite Extreme` (PC) series chipsets.
+#### 2024 - Present
+
+##### Platform Ownership, Scale-Out & Agentic Tooling
+
+- `Led` validation platform behind `5 generations` of `Snapdragon 8 Elite Extreme` (mobile) and `X Elite Extreme` (PC) chips for `1,000+` developers.
 - Scaled validation to `300K+ containers/week` on Windows/Linux across an on-prem `HPC` farm through a fault-tolerant runner harness, covering `Vulkan`/`OpenCL`/`OpenGLES` - `CTS`, `VKPerf`, `GFXReconstruct`, and device-capture replay with `billions of tests` in sandboxed, reproducible runtimes.
-- Parallelized `1100+ days` of serial `CPU-based Adreno emulation` into a `24-hour` nightly cycle (`1100x`) with `Docker`/`Singularity` on `IBM Spectrum LSF`.
-- Built `FastAPI` observability backend on `RedisJSON`/`RediSearch`, powering custom `web dashboards` with `sub-second` live queries over `2M+` records.
-- Architected async `RabbitMQ` pipelines into `Postgres` and a `DuckDB` data lake, offloading raw driver logs to `Artifactory` to keep databases lean.
 - Standardized `Pydantic` result schemas across `10+` Khronos suites that the `on-device benchmark` team adopted directly and extended for KPIs.
+- Shipped an `MCP server` secured with `OAuth2` over live infra APIs, making operational data queryable by LLMs and coding agents for local triage.
+- Drove org-wide adoption of agentic coding with `Cline`/`Codex`/`Claude Code`, delivering talks on `MCP` workflows and writing custom Skills.
 
 ##### Automated Regression Triage System
 
-- `Engineered` a cron-scheduled `CI/CD` pipeline that diffs non-passing rows across consecutive nightly logs, builds `Gerrit` commit DAGs, and dispatches multi-stage `Jenkins` bisection workflows, eliminating operational toil from nightly builds with overlapping test failures.
-- Implemented stateful `multi-bisection engine` on a crash-recoverable `JSONL` state loop inspired by [`Karpathy's autoresearch`](https://github.com/karpathy/autoresearch), sharing midpoint builds across failing tests and partitioning commit ranges, isolating C culprits in `O(C log N)` runs instead of `O(K log N)`, cutting compute by `80%`.
-- `Left-shifted` driver validation by compressing the failure-to-fix loop, from detection and `root-cause commit` identification to author notification, enabling `rapid fix iteration` and a sustained `99%` pass rate `week over week`.
+- Engineered a fully automated cron `CI/CD` dispatcher that diffs nightly failures and launches `Jenkins` bisections across `Gerrit` commits.
+- Implemented `multi-bisection engine` on Karpathy's [`autoresearch`](https://github.com/karpathy/autoresearch)-style `JSONL` loop, isolating C culprits in `O(C log N)` runs, cutting compute by `80%`.
+- `Left-shifted` driver validation, shrinking `root-cause` triage from `3 days` to under `12 hours` and sustaining a `99%` pass rate week over week.
 
-##### Agentic Developer Infrastructure
+---
 
-- `Shipped` `MCP` server with `OAuth2` over live infra APIs plus a `LangGraph`/`ChromaDB` RAG over internal docs, making operational data LLM-queryable.
-- Drove org-wide adoption of agentic coding with `Cline`, `Codex CLI`, delivering talks on MCP-based developer workflows and writing custom Skills.
+## Software Engineer, Graphics Software Infrastructure
+
+### [Qualcomm](https://www.qualcomm.com/snapdragon/overview) - San Diego, CA · (prev: Boulder, CO; Toronto, ON)
+
+#### 2021 - 2024
+
+##### Distributed Pre-Silicon GPU Driver Validation Platform
+
+- `Designed and built` end-to-end `pre-silicon` GPU validation platform from concept to production, catching regressions in proprietary driver code.
+- Automated `Jenkins` deploys on upstream driver changes, pinning each build to its SDK and suite versions for repeatable runs.
+- Parallelized `1100+ days` of serial `CPU-based Adreno emulation` into a `24-hour` nightly cycle (`1100x`) with `Docker`/`Singularity` on `IBM Spectrum LSF`.
+- Built `FastAPI` observability backend on `RedisJSON`/`RediSearch`, powering custom `web dashboards` with `sub-second` live queries over `2M+` records.
+- Architected async `RabbitMQ` pipelines into `Postgres` and a `DuckDB` data lake, offloading raw driver logs to `Artifactory` to keep databases lean.
 
 ---
 
@@ -30,8 +42,8 @@
 
 #### 2020 - 2021
 
-- `Engineered anomaly detection APIs` (`Auto-Thresholds`, `Auto-Device Grouping`) and `ETL pipelines` processing live `IoT` telemetry from `NetFlow`/`Radius` sources to power the `SecurityPro` network diagnostic product.
-- `Owned the full ML lifecycle (0-to-1)` from prototyping through deployment; built `PowerBI` dashboards with `3D clustering` visualizations; presented weekly to `C-suite` (`CTO` & `SVPs`), translating ML outcomes into business decisions.
+- Engineered `anomaly detection APIs` (Auto-Thresholds, Auto-Device Grouping) and `ETL pipelines` processing live `IoT telemetry` from NetFlow/Radius sources to power the `SecurityPro` network diagnostic product.
+- `Owned the full ML lifecycle` from prototype to deployment; built `PowerBI` dashboards with `3D clustering` views and translated ML outcomes into business decisions, presenting weekly to the `C-suite` (`CTO` and `SVPs`).
 
 ---
 
