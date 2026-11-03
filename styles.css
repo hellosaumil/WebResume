@@ -1,5 +1,5 @@
 /* ========================================
-   Resume Website - A4 PDF Export Ready
+   Resume Website - US Letter PDF Export Ready
    Single Column Layout - Matching Original
    ======================================== */
 
@@ -1160,8 +1160,9 @@ body.dark-mode .attribution code {
    Print / PDF Export Styles
    ======================================== */
 
+/* US Letter to match Page Preview (--page-width/--page-height) and LaTeX export */
 @page {
-  size: A4;
+  size: letter;
   margin: 0;
 }
 
@@ -1178,9 +1179,41 @@ body.dark-mode .attribution code {
      causing light weights (100–300) to appear thinner than on screen.
      Use darker ink tokens and stepped-up print weights instead of
      -webkit-text-stroke (which emits duplicate PDF text layers). */
-  :root {
+  /* Always print with light theme tokens, even when dark mode is active */
+  :root,
+  html.dark-mode,
+  body.dark-mode {
+    color-scheme: light;
+    --primary-color: #1a1a1a;
+    --accent-color: #0066cc;
     --text-color: #111111;
     --text-light: #2b2b2b;
+    --border-color: #cccccc;
+    --white: #ffffff;
+  }
+
+  /* Neutralize Page Preview chrome so print matches preview regardless of toggle */
+  body,
+  body.show-page-preview {
+    padding: 0 !important;
+    background: #ffffff !important;
+    min-height: auto !important;
+  }
+
+  .resume-page,
+  body.show-page-preview .resume-page,
+  body.dark-mode.show-page-preview .resume-page {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+  }
+
+  .resume-page::after,
+  body.show-page-preview .resume-page::after {
+    display: none !important;
   }
 
   * {
@@ -1203,6 +1236,11 @@ body.dark-mode .attribution code {
   /* Consistent margins in print whether preview mode was toggled or not */
   .resume-page {
     padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left) !important;
+  }
+
+  /* Page edge acts as bottom margin; trailing padding would spill a blank 2nd page */
+  .resume-page {
+    padding-bottom: 0 !important;
   }
 
   /* Ensure in-flow painting order for clean ATS stream */

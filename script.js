@@ -444,6 +444,21 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize Layout
   updateLayoutUI(settings.pagePreview);
 
+  // Disable Page Preview during print; restore afterwards if it was on
+  let previewHiddenForPrint = false;
+  window.addEventListener('beforeprint', () => {
+    if (document.body.classList.contains('show-page-preview')) {
+      previewHiddenForPrint = true;
+      document.body.classList.remove('show-page-preview');
+    }
+  });
+  window.addEventListener('afterprint', () => {
+    if (previewHiddenForPrint) {
+      previewHiddenForPrint = false;
+      document.body.classList.add('show-page-preview');
+    }
+  });
+
   // ========================================
   // Theme Toggle (Dark Mode)
   // ========================================
@@ -473,9 +488,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Sync with device theme changes
+  // Sync with device theme changes (ignored while printing: print engines can
+  // flip prefers-color-scheme and would overwrite the user's saved theme)
+  let printingNow = false;
+  let themeBeforePrint = null;
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (printingNow) return;
     updateThemeUI(e.matches);
+  });
+
+  window.addEventListener('beforeprint', () => {
+    printingNow = true;
+    themeBeforePrint = document.body.classList.contains('dark-mode');
+  });
+  window.addEventListener('afterprint', () => {
+    // Restore the pre-print theme, then let late media-query events settle
+    if (themeBeforePrint !== null) {
+      updateThemeUI(themeBeforePrint);
+      themeBeforePrint = null;
+    }
+    setTimeout(() => { printingNow = false; }, 500);
   });
 
   // Initialize Theme
