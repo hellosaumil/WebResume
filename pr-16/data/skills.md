@@ -1,2 +1,0 @@
-- **Infrastructure:** Python, Bash/Shell, Docker, Kubernetes (Rancher, GKE - Google Cloud), IBM LSF (HPC), Git/Gerrit, HTML/CSS/JS, Jenkins CI/CD
-- **Data:** FastAPI, RabbitMQ, Pydantic, Pandas, Redis, DuckDB, Parquet, PostgreSQL - **ML:** PyTorch, TensorFlow, PySpark, LangGraph, FastMCP
