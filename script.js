@@ -100,8 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // --- Specific Loaders ---
 
   async function loadSummary() {
-    const text = await fetchMarkdown('summary.md');
     const section = document.getElementById('summary-section');
+    if (!section) return;
+    const text = await fetchMarkdown('summary.md');
 
     // Clear existing summary text if it exists
     const existing = section.querySelector('.summary-text');
@@ -126,7 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
       'email': 'field-email',
       'location': 'field-location',
       'linkedin': 'field-linkedin',
-      'website': 'field-website'
+      'website': 'field-website',
+      'startdate': 'field-startdate'
     };
 
     for (const [key, id] of Object.entries(mapping)) {
@@ -157,20 +159,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const sections = parseSections(text);
     const container = document.getElementById('education-section');
 
-    // Clear existing except title
-    const existingItems = container.querySelectorAll('.education-item');
-    existingItems.forEach(el => el.remove());
-
     sections.forEach(edu => {
       const div = document.createElement('div');
       div.className = 'education-item';
       div.innerHTML = `
         <div class="edu-header">
-          <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
+          <div class="edu-left">
+            <span class="degree title-1" contenteditable="true">${edu.degree || ''}</span>
+          </div>
           <div class="edu-right" style="text-align: right;">
             <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
-            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true"> - ${edu.gpa}</span>` : ''}
-            ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 8px;">${edu.date}</span>` : ''}
+            ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true">${edu.gpa}</span>` : ''}
+            ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 4px;">${edu.date}</span>` : ''}
           </div>
         </div>
       `;

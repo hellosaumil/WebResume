@@ -462,6 +462,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 .contact-grid {
   display: grid;
+  column-gap: 12px;
   row-gap: 4px;
   width: 100%;
   max-width: 100%;
@@ -475,32 +476,45 @@ body.dark-mode.show-page-preview .resume-page:hover {
   text-overflow: ellipsis;
 }
 
-.contact-item:nth-child(1) {
-  /* Phone - top left */
+#field-phone,
+#field-location {
   grid-column: 1;
-  grid-row: 1;
   justify-self: start;
 }
 
-.contact-item:nth-child(2) {
-  /* Email - top right */
+#field-website,
+#field-email,
+#field-linkedin {
   grid-column: 2;
+  justify-self: end;
+}
+
+#field-website:empty {
+  display: none;
+}
+
+#field-website {
   grid-row: 1;
-  justify-self: end;
 }
 
-.contact-item:nth-child(3) {
-  /* Location - bottom left */
-  grid-column: 1;
+#field-phone,
+#field-email {
   grid-row: 2;
-  justify-self: start;
 }
 
-.contact-item:nth-child(4) {
-  /* LinkedIn - bottom right */
-  grid-column: 2;
+#field-location,
+#field-linkedin {
+  grid-row: 3;
+}
+
+.contact-grid:not(:has(#field-website:not(:empty))) #field-phone,
+.contact-grid:not(:has(#field-website:not(:empty))) #field-email {
+  grid-row: 1;
+}
+
+.contact-grid:not(:has(#field-website:not(:empty))) #field-location,
+.contact-grid:not(:has(#field-website:not(:empty))) #field-linkedin {
   grid-row: 2;
-  justify-self: end;
 }
 
 
@@ -568,6 +582,18 @@ body.dark-mode.show-page-preview .resume-page:hover {
   color: var(--text-color);
 }
 
+.edu-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.edu-right .edu-date {
+  display: inline-block;
+  width: 2.6em;
+  text-align: right;
+}
+
 .edu-date {
   color: var(--text-light);
   text-align: right;
@@ -576,11 +602,19 @@ body.dark-mode.show-page-preview .resume-page:hover {
 .school {
   color: var(--text-color);
   font-size: 8.5pt;
+  margin-left: 6px;
+}
+
+.edu-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .gpa {
   color: var(--accent-color);
   margin-left: 6px;
+  text-align: right;
 }
 
 /* Skills */
@@ -1428,6 +1462,12 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     min-width: 0;
   }
 
+  .start-date {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-top: 4px;
+}
+
   /* Contact grid - make items wrap */
   .contact-grid {
     row-gap: 2px;
@@ -1440,14 +1480,15 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     text-overflow: ellipsis;
   }
 
-  .contact-item:nth-child(1),
-  .contact-item:nth-child(3) {
+  #field-phone,
+  #field-location {
     justify-self: stretch;
     text-align: left;
   }
 
-  .contact-item:nth-child(2),
-  .contact-item:nth-child(4) {
+  #field-website,
+  #field-email,
+  #field-linkedin {
     justify-self: stretch;
     text-align: right;
   }
@@ -1550,14 +1591,15 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     width: 100%;
   }
 
-  .contact-item:nth-child(1),
-  .contact-item:nth-child(3) {
+  #field-phone,
+  #field-location {
     justify-self: stretch;
     text-align: left;
   }
 
-  .contact-item:nth-child(2),
-  .contact-item:nth-child(4) {
+  #field-website,
+  #field-email,
+  #field-linkedin {
     justify-self: stretch;
     text-align: right;
   }
@@ -1684,10 +1726,12 @@ body.dark-mode .dev-inspector-tooltip .tooltip-row {
     text-overflow: unset;
   }
 
-  .zoomed .contact-item:nth-child(1),
-  .zoomed .contact-item:nth-child(2),
-  .zoomed .contact-item:nth-child(3),
-  .zoomed .contact-item:nth-child(4) {
+  .zoomed .contact-item,
+  .zoomed #field-phone,
+  .zoomed #field-location,
+  .zoomed #field-website,
+  .zoomed #field-email,
+  .zoomed #field-linkedin {
     grid-column: 1;
     grid-row: auto;
     justify-self: start;

@@ -7,10 +7,9 @@
 ##### Large-Scale Validation Platform and Agentic Tooling
 
 - `Primary architect` of pre-silicon validation platform behind `5 generations` of `Snapdragon 8 Elite Extreme` (mobile) and `X Elite Extreme` (PC) chips.
-- Scaled validation to `300K+ containers/week` on Windows/Linux across an on-prem `HPC` farm through a `fault-tolerant runner harness`, covering `Vulkan`/`OpenCL`/`OpenGLES` - CTS, VKPerf, GFXReconstruct, and Device-capture Replays with `billions of tests` in sandboxed, reproducible runtimes.
+- Scaled validation to `300K+ containers/week` on Windows/Linux across an on-prem `HPC` farm through a `fault-tolerant runner harness`, covering `Vulkan`/`OpenCL`/`OpenGLES` - CTS, VKPerf, GFXReconstruct, and Device-capture Replays with 1B+ tests in sandboxed, reproducible runtimes.
 - Standardized `Pydantic` result schemas across `10+` Khronos suites that the `on-device benchmark` team adopted directly and extended for KPIs.
-- Shipped an `MCP server` secured with `OAuth2`, making infra queryable so engineers triage and fix regressions `without leaving the editor`.
-- Delivered org-wide `technical talks` introducing AI coding assistants and MCP, then onboarded teams to `Claude Code`, `Codex`, and custom `Skills`.
+- Shipped an `MCP server` with `OAuth2` for in-editor regression triage, then led org-wide talks onboarding teams to `Claude Code`, `Codex`, and `AI Skills`.
 
 ##### Automated Regression Triage System
 
@@ -42,8 +41,9 @@
 
 #### 2020 - 2021
 
-- Developed `anomaly detection APIs` (Auto-Thresholds, Auto-Device Grouping) and `ETL pipelines` processing live `IoT telemetry` from NetFlow/Radius sources to power the `SecurityPro` network diagnostic product.
-- `Owned the full ML lifecycle` from prototype to deployment; built `PowerBI` dashboards with `3D clustering` views and translated ML outcomes into business decisions, presenting weekly to the `C-suite` (`CTO` and `SVPs`).
+- Built `anomaly detection APIs` from scratch (Auto-Thresholds, Auto-Device Grouping) for `SecurityPro` on `ETL pipelines` of live `IoT telemetry`.
+- `Owned the full ML lifecycle` for both services from concept through production deployment, after converting from a winter internship.
+- Visualized ML outcomes in `PowerBI` dashboards with `3D clustering`, presenting weekly to the `C-suite` (`CTO` and `SVPs`) to guide decisions.
 
 ---
 
