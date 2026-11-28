@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <div class="edu-right" style="text-align: right;">
             <span class="school title-2" contenteditable="true">${edu.school || ''}</span>
             ${edu.gpa ? `<span class="gpa title-2-accent" contenteditable="true">${edu.gpa}</span>` : ''}
-            ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 8px;">${edu.date}</span>` : ''}
+            ${edu.date ? `<span class="edu-date body-text" contenteditable="true" style="margin-left: 4px;">${edu.date}</span>` : ''}
           </div>
         </div>
       `;

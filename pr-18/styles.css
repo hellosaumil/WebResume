@@ -590,7 +590,7 @@ body.dark-mode.show-page-preview .resume-page:hover {
 
 .edu-right .edu-date {
   display: inline-block;
-  min-width: 3.2em;
+  width: 2.6em;
   text-align: right;
 }
 
